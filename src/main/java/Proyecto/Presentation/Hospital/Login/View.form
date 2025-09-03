@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="Proyecto.Presentation.Hospital.View">
-  <grid id="27dc6" binding="panel1" default-binding="true" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="Proyecto.Presentation.Hospital.Login.View">
+  <grid id="27dc6" binding="logPanel" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="25" left="25" bottom="25" right="25"/>
     <constraints>
       <xy x="20" y="20" width="835" height="739"/>
@@ -50,31 +50,31 @@
             </constraints>
             <properties/>
           </component>
-          <component id="6153b" class="javax.swing.JButton" binding="cancelarButton">
+          <component id="6153b" class="javax.swing.JButton" binding="closeButton">
             <constraints>
               <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <icon value="Imagenes/clear_icon.png"/>
+              <icon value="Imagenes/close_icon.png"/>
               <text value=""/>
             </properties>
           </component>
-          <component id="6ccd5" class="javax.swing.JButton" binding="salirButton">
+          <component id="6ccd5" class="javax.swing.JButton" binding="enterButton">
             <constraints>
               <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <icon value="Imagenes/out_icon.png"/>
+              <icon value="Imagenes/open_icon.png"/>
               <iconTextGap value="4"/>
               <text value=""/>
             </properties>
           </component>
-          <component id="391d0" class="javax.swing.JButton" binding="entrarButton">
+          <component id="391d0" class="javax.swing.JButton" binding="changePaswButton">
             <constraints>
               <grid row="3" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <icon value="Imagenes/in_icon.png"/>
+              <icon value="Imagenes/changePasword_icon.png"/>
               <text value=""/>
             </properties>
           </component>
