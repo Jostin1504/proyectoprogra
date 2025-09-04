@@ -110,7 +110,6 @@ public class Controller {
     private void navegarSegunTipoUsuario(String tipoUsuario, Usuario usuario) {
         switch (tipoUsuario) {
             case "MEDICO":
-                // TODO: Navegar a la interfaz del médico
                 JOptionPane.showMessageDialog(
                         view.getLogPanel(),
                         "aqui va la interfaz de medico",
