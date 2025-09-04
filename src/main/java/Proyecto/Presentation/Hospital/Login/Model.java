@@ -8,7 +8,6 @@ import java.util.List;
 
 public class Model extends AbstractModel {
     private Usuario current;
-    private data datos;
     private String mensaje;
     private Service service;
     public static final String CURRENT = "current";
@@ -16,8 +15,9 @@ public class Model extends AbstractModel {
 
     public Model() {
         current = new Usuario();
-        datos = new data(); // Instancia de la capa de datos
+        data datos = new data(); // Instancia de la capa de datos
         mensaje = "";
+        service = new Service();
     }
 
     @Override
