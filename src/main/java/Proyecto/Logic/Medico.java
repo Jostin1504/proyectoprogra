@@ -3,11 +3,11 @@ package Proyecto.Logic;
 import Proyecto.Logic.Usuario;
 
 public class Medico extends Usuario {
-    //incluir la clase especialidad/departamento
+    String especialidad;
 
-    public Medico(String nombre, String cedula) {
+
+    public Medico(String nombre, String cedula, String especialidad) {
         super(nombre, cedula);
-        //maybe departamento
     }
 
 
