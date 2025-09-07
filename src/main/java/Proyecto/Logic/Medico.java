@@ -10,6 +10,11 @@ public class Medico extends Usuario {
         super(nombre, cedula);
     }
 
+    public Medico() {
+        super();
+        especialidad = "";
+    }
+
     public String getEspecialidad() {
         return especialidad;
     }
