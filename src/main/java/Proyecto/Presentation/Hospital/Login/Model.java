@@ -9,7 +9,6 @@ import java.util.List;
 public class Model extends AbstractModel {
     private Usuario current;
     private String mensaje;
-    private Service service;
     public static final String CURRENT = "current";
     public static final String MENSAJE = "mensaje";
 
@@ -17,7 +16,6 @@ public class Model extends AbstractModel {
         current = new Usuario();
         data datos = new data(); // Instancia de la capa de datos
         mensaje = "";
-        service = new Service();
     }
 
     @Override
@@ -43,21 +41,5 @@ public class Model extends AbstractModel {
     public void setMensaje(String mensaje) {
         this.mensaje = mensaje;
         firePropertyChange(MENSAJE);
-    }
-
-    public Usuario validarCredenciales(String id, String clave) {
-        return service.validarCredenciales(id, clave);
-    }
-
-    public String getTipoUsuario(Usuario usuario) {
-        return service.getTipoUsuario(usuario);
-    }
-
-    public boolean cambiarClave(String id, String claveActual, String claveNueva) {
-        return service.cambiarClave(id, claveActual, claveNueva);
-    }
-
-    public Service getService() {
-        return service;
     }
 }

@@ -1,5 +1,6 @@
 package Proyecto.Presentation.Hospital.Login;
 
+import Proyecto.Logic.Service;
 import Proyecto.Logic.Usuario;
 import javax.swing.JOptionPane;
 
@@ -29,11 +30,11 @@ public class Controller {
                 return;
             }
 
-            Usuario usuario = model.validarCredenciales(id, clave);
+            Usuario usuario = validarCredenciales(id, clave);
 
             if (usuario != null) {
                 model.setCurrent(usuario);
-                String tipoUsuario = model.getTipoUsuario(usuario);
+                String tipoUsuario = getTipoUsuario(usuario);
                 model.setMensaje("Login exitoso. Bienvenido " + usuario.getNombre());
                 navegarSegunTipoUsuario(tipoUsuario, usuario);
 
@@ -93,7 +94,7 @@ public class Controller {
                 return;
             }
 
-            boolean cambioExitoso = model.cambiarClave(id, claveActual, claveNueva);
+            boolean cambioExitoso = cambiarClave(id, claveActual, claveNueva);
 
             if (cambioExitoso) {
                 model.setMensaje("Clave cambiada exitosamente");
@@ -154,5 +155,16 @@ public class Controller {
         if (opcion == JOptionPane.YES_OPTION) {
             System.exit(0);
         }
+    }
+    public Usuario validarCredenciales(String id, String clave) {
+        return Service.instance().validarCredenciales(id, clave);
+    }
+
+    public String getTipoUsuario(Usuario usuario) {
+        return Service.instance().getTipoUsuario(usuario);
+    }
+
+    public boolean cambiarClave(String id, String claveActual, String claveNueva) {
+        return Service.instance().cambiarClave(id, claveActual, claveNueva);
     }
 }

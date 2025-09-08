@@ -7,5 +7,7 @@ public class Farmaceuta extends Usuario {
         super(nombre, cedula);
     }
 
-
+    public Farmaceuta() {
+       super();
+    }
 }

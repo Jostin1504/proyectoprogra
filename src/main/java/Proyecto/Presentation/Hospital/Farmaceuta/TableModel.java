@@ -1,18 +1,17 @@
-package Proyecto.Presentation.Hospital.Medico;
+package Proyecto.Presentation.Hospital.Farmaceuta;
 
+import Proyecto.Logic.Farmaceuta;
 import Proyecto.Presentation.Hospital.AbstractTableModel;
-import Proyecto.Logic.Medico;
 
 import java.util.List;
 
-public class TableModel extends AbstractTableModel<Medico> implements javax.swing.table.TableModel {
-    public TableModel(int[] cols, List<Medico> rows) {
+public class TableModel extends AbstractTableModel<Farmaceuta> implements javax.swing.table.TableModel {
+    public TableModel(int[] cols, List<Farmaceuta> rows) {
         super(cols, rows);
     }
 
     public static final int ID = 0;
     public static final int NOMBRE = 1;
-    public static final int ESPECIALIDAD = 2;
 
     @Override
     protected void initColNames() {
@@ -21,14 +20,12 @@ public class TableModel extends AbstractTableModel<Medico> implements javax.swin
         colNames[NOMBRE] = "Nombre";
     }
     @Override
-    protected Object getPropetyAt(Medico e, int col) {
+    protected Object getPropetyAt(Farmaceuta e, int col) {
         switch (cols[col]) {
             case ID:
                 return e.getCedula();
             case NOMBRE:
                 return e.getNombre();
-            case ESPECIALIDAD:
-                return e.getEspecialidad();
             default:
                 return "";
         }
