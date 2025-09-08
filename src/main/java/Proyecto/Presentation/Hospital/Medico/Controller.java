@@ -1,9 +1,9 @@
 package Proyecto.Presentation.Hospital.Medico;
 
 import Proyecto.Logic.Medico;
-import Proyecto.Presentation.Hospital.Medico.Model;
-import Proyecto.Presentation.Hospital.Medico.View;
 import Proyecto.Logic.Service;
+
+import java.util.List;
 
 public class Controller {
     private Proyecto.Presentation.Hospital.Medico.View view;
@@ -20,9 +20,25 @@ public class Controller {
         model.setCurrent(new Medico());
     }
 
-    //obtener lista de doctores
-    //guardar doctores en data
-    //encontrar doctores en data
-    //borrar doctores de la lista
+    //obtener lista de medicos
+    public List<Medico> getMedicos(){
+        return Service.instance().getMedicos();
+    }
 
+    //guardar medicos en data
+    public void guardarMedico(Medico medico){
+        Service.instance().anadirMedico(medico);
+        model.setCurrent(new Medico());
+    }
+
+    //encontrar medicos en data con nombre
+    public Medico encontrarMedico(String nom){
+        return Service.instance().buscarMedico(nom);
+    }
+
+    //borrar medicos de la lista
+    public void borrarMedico(Medico medico){
+        Service.instance().eliminarMedico(medico);
+        model.setCurrent(new Medico());
+    }
 }

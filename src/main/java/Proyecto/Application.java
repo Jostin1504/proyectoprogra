@@ -20,7 +20,7 @@ public class Application {
         JFrame window = new JFrame();
         window.setSize(600,400);
         window.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        window.setTitle("Personas");
+        window.setTitle("Sistema de prescripciones");
         window.setContentPane(view.getLogPanel());
         window.setLocationRelativeTo(null);
         window.setVisible(true);

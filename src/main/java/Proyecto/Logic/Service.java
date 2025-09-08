@@ -5,10 +5,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Service {
+    private static Service theInstance;
+
+    public static Service instance() {
+        if (theInstance == null) theInstance = new Service();
+        return theInstance;
+    }
+
     private data datos;
 
     public Service() {
         datos = new data();
+    }
+
+    public data getDatos() {
+        return datos;
     }
 
     // --- MÉTODOS PARA LOGIN ---
@@ -52,6 +63,19 @@ public class Service {
         return todosUsuarios;
     }
 
+    public void anadirFarmaceuta(Farmaceuta farmaceuta){
+        datos.getFarmaceutas().add(farmaceuta);
+    }
+    public void anadirAdministrador(Administrador administrador){
+        datos.getAdministradores().add(administrador);
+    }
+    public void anadirPaciente(Paciente paciente){
+        datos.getPacientes().add(paciente);
+    }
+    public void anadirMedicamento(Medicamento medicamento){
+        datos.getMedicamentos().add(medicamento);
+    }
+
     // --- GETTERS PARA ACCESO A DATOS ---
     public List<Medico> getMedicos() {
         return datos.getMedicos();
@@ -72,4 +96,23 @@ public class Service {
     public List<Medicamento> getMedicamentos() {
         return datos.getMedicamentos();
     }
+
+    // --- METODOS MEDICOS ---
+
+    //encontrar medicos en data
+    public Medico buscarMedico(String nom){
+        for(int i = 0; i < getMedicos().size(); i++){
+            if (getMedicos().get(i).getNombre().equals(nom)){
+                return getMedicos().get(i);
+            }
+        }
+        return null;
+    }
+    public void anadirMedico(Medico medico){
+        datos.getMedicos().add(medico);
+    }
+    public void eliminarMedico(Medico medico){
+        datos.getMedicos().remove(medico);
+    }
+
 }
