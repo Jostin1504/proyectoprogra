@@ -12,6 +12,12 @@ public class Paciente {
         this.fechanac = fechanac;
         this.numTelefono = numTelefono;
     }
+    public Paciente() {
+        nombre = "";
+        id = "";
+        fechanac = "";
+        numTelefono = "";
+    }
 
     public String getNombre() {
         return nombre;

@@ -7,6 +7,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import Proyecto.Application;
 import Proyecto.Logic.Medico;
+import com.github.lgooddatepicker.components.DatePicker;
 
 public class View implements PropertyChangeListener {
     private Controller controller;
@@ -15,7 +16,7 @@ public class View implements PropertyChangeListener {
     private JPanel JpanelMedico;
     private JPanel JpanelBusqueda;
     private JTextField idFld;
-    private JTextField specialFld;
+    private JTextField numFld;
     private JTextField name1Fld;
     private JButton guardarButton;
     private JButton limpiarButton;
@@ -25,6 +26,7 @@ public class View implements PropertyChangeListener {
     private JButton reporteButton;
     private JTable medicos;
     private JPanel JpanelTable;
+    private DatePicker dateFld;
 
     public View() {
         guardarButton.addActionListener(new ActionListener() {
@@ -80,7 +82,7 @@ public class View implements PropertyChangeListener {
             case Model.CURRENT:
                 idFld.setText(model.getCurrent().getCedula());
                 name1Fld.setText(model.getCurrent().getNombre());
-                specialFld.setText(model.getCurrent().getEspecialidad());
+                numFld.setText(model.getCurrent().getEspecialidad());
                 break;
         }
     }
@@ -106,11 +108,11 @@ public class View implements PropertyChangeListener {
 
         if (model.getCurrent().getEspecialidad()==null) {
             valid = false;
-            specialFld.setBackground(Application.BACKGROUND_ERROR);
-            specialFld.setToolTipText("Especialidad requerida");
+            numFld.setBackground(Application.BACKGROUND_ERROR);
+            numFld.setToolTipText("Especialidad requerida");
         } else {
-            specialFld.setBackground(null);
-            specialFld.setToolTipText(null);
+            numFld.setBackground(null);
+            numFld.setToolTipText(null);
         }
         return valid;
     }
@@ -118,7 +120,7 @@ public class View implements PropertyChangeListener {
         Medico aux = new Medico();
         aux.setCedula(idFld.getText());
         aux.setNombre(name1Fld.getText());
-        aux.setEspecialidad(specialFld.getText());
+        aux.setEspecialidad(numFld.getText());
         return aux;
     }
 

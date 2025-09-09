@@ -13,10 +13,9 @@ public class View implements PropertyChangeListener {
     private Controller controller;
     private Model model;
     private JPanel mainPanelFarmaceuta;
-    private JPanel JpanelMedico;
+    private JPanel JpanelFarmaceuta;
     private JPanel JpanelBusqueda;
     private JTextField idFld;
-    private JTextField specialFld;
     private JTextField name1Fld;
     private JButton guardarButton;
     private JButton limpiarButton;

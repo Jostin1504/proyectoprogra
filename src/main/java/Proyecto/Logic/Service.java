@@ -118,14 +118,28 @@ public class Service {
         datos.getFarmaceutas().remove(farmaceuta);
     }
 
-
-    public void anadirAdministrador(Administrador administrador){
-        datos.getAdministradores().add(administrador);
+    // --- METODOS PACIENTES ---
+    public Paciente buscarPaciente(String nom){
+        for(int i = 0; i < getPacientes().size(); i++){
+            if (getPacientes().get(i).getNombre().equals(nom)){
+                return getPacientes().get(i);
+            }
+        }
+        return null;
     }
     public void anadirPaciente(Paciente paciente){
         datos.getPacientes().add(paciente);
     }
+    public void eliminarPaciente(Paciente paciente){
+        datos.getPacientes().remove(paciente);
+    }
+
+    // --- METODOS MEDICAMENTO ---
     public void anadirMedicamento(Medicamento medicamento){
         datos.getMedicamentos().add(medicamento);
+    }
+
+    public void anadirAdministrador(Administrador administrador){
+        datos.getAdministradores().add(administrador);
     }
 }
