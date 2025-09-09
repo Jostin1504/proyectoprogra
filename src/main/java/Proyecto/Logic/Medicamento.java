@@ -11,6 +11,12 @@ public class Medicamento {
         this.presentacion = presentacion;
     }
 
+    public Medicamento() {
+        codigo = "";
+        nombre = "";
+        presentacion = 0;
+    }
+
     public String getCodigo() {
         return codigo;
     }

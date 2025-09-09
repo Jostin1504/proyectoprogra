@@ -2,7 +2,8 @@ package Proyecto.Presentation.Hospital.Login;
 
 import Proyecto.Logic.Service;
 import Proyecto.Logic.Usuario;
-import javax.swing.JOptionPane;
+
+import javax.swing.*;
 
 public class Controller {
     private View view;
@@ -20,7 +21,27 @@ public class Controller {
         model.setMensaje("");
     }
 
-    public void login() {
+    public void entrar() {
+        try {
+            String id = view.getId();
+            String clave = view.getClave();
+
+            Usuario usuario = encontrarUsuario(id, clave);
+
+            if (usuario != null) {
+                String tipoUsuario = getTipoUsuario(usuario);
+                model.setMensaje("Login exitoso. Bienvenido " + usuario.getNombre());
+                navegarSegunTipoUsuario(tipoUsuario);
+            } else {
+                model.setMensaje("Credenciales incorrectas");
+                model.setCurrent(new Usuario());
+            }
+        } catch (Exception e) {
+            model.setMensaje("Error durante el login: " + e.getMessage());
+        }
+    }
+
+    /*public void login() {
         try {
             String id = view.getId();
             String clave = view.getClave();
@@ -30,7 +51,7 @@ public class Controller {
                 return;
             }
 
-            Usuario usuario = validarCredenciales(id, clave);
+            Usuario usuario = encontrarUsuario(id, clave);
 
             if (usuario != null) {
                 model.setCurrent(usuario);
@@ -45,7 +66,7 @@ public class Controller {
         } catch (Exception e) {
             model.setMensaje("Error durante el login: " + e.getMessage());
         }
-    }
+    }*/
 
     public void cambiarClave() {
         try {
@@ -108,7 +129,7 @@ public class Controller {
         }
     }
 
-    private void navegarSegunTipoUsuario(String tipoUsuario, Usuario usuario) {
+    private void navegarSegunTipoUsuario(String tipoUsuario) {
         switch (tipoUsuario) {
             case "MEDICO":
                 JOptionPane.showMessageDialog(
@@ -156,8 +177,8 @@ public class Controller {
             System.exit(0);
         }
     }
-    public Usuario validarCredenciales(String id, String clave) {
-        return Service.instance().validarCredenciales(id, clave);
+    public Usuario encontrarUsuario(String id, String clave) {
+        return Service.instance().encontrarUsuario(id, clave);
     }
 
     public String getTipoUsuario(Usuario usuario) {

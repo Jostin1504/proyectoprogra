@@ -23,9 +23,8 @@ public class Service {
     }
 
     // --- MÉTODOS PARA LOGIN ---
-    public Usuario validarCredenciales(String id, String clave) {
+    public Usuario encontrarUsuario(String id, String clave) {
         List<Usuario> todosUsuarios = obtenerTodosLosUsuarios();
-
         for (Usuario usuario : todosUsuarios) {
             if (usuario.getCedula().equals(id) && usuario.getClave().equals(clave)) {
                 return usuario;
@@ -46,7 +45,7 @@ public class Service {
     }
 
     public boolean cambiarClave(String id, String claveActual, String claveNueva) {
-        Usuario usuario = validarCredenciales(id, claveActual);
+        Usuario usuario = encontrarUsuario(id, claveActual);
         if (usuario != null) {
             usuario.setClave(claveNueva);
             return true;
@@ -137,6 +136,18 @@ public class Service {
     // --- METODOS MEDICAMENTO ---
     public void anadirMedicamento(Medicamento medicamento){
         datos.getMedicamentos().add(medicamento);
+    }
+
+    public void eliminarMedicamento(Medicamento medicamento){
+        datos.getMedicamentos().remove(medicamento);
+    }
+    public Medicamento buscarMedicamento(String nom){
+        for(int i = 0; i < getMedicamentos().size(); i++){
+            if (getMedicamentos().get(i).getNombre().equals(nom)){
+                return getMedicamentos().get(i);
+            }
+        }
+        return null;
     }
 
     public void anadirAdministrador(Administrador administrador){

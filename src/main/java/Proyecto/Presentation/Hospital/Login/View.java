@@ -27,7 +27,7 @@ public class View implements PropertyChangeListener {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (validate()) {
-                    controller.login();
+                    controller.entrar();
                 }
             }
         });
@@ -43,15 +43,6 @@ public class View implements PropertyChangeListener {
             @Override
             public void actionPerformed(ActionEvent e) {
                 controller.cambiarClave();
-            }
-        });
-
-        claveFld.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (validate()) {
-                    controller.login();
-                }
             }
         });
     }
@@ -143,5 +134,9 @@ public class View implements PropertyChangeListener {
         idFld.setToolTipText(null);
         claveFld.setBackground(null);
         claveFld.setToolTipText(null);
+    }
+
+    public JButton getEnterButton() {
+        return enterButton;
     }
 }
