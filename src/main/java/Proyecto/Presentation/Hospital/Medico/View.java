@@ -10,13 +10,13 @@ import Proyecto.Logic.Medico;
 import com.github.lgooddatepicker.components.DatePicker;
 
 public class View implements PropertyChangeListener {
-    private Controller controller;
-    private Model model;
+    Controller controller;
+    Model model;
     private JPanel mainPanelMedico;
     private JPanel JpanelMedico;
     private JPanel JpanelBusqueda;
     private JTextField idFld;
-    private JTextField numFld;
+    private JTextField specialFld;
     private JTextField name1Fld;
     private JButton guardarButton;
     private JButton limpiarButton;
@@ -34,7 +34,12 @@ public class View implements PropertyChangeListener {
             public void actionPerformed(ActionEvent e) {
                 if (validate()){
                     Medico m = obtenerM();
-                    controller.guardarMedico(m);
+                    try {
+                        controller.guardarMedico(m);
+                        JOptionPane.showMessageDialog(mainPanelMedico, "REGISTRO APLICADO", "", JOptionPane.INFORMATION_MESSAGE);
+                    }catch (Exception ex){
+                        JOptionPane.showMessageDialog(mainPanelMedico, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                    }
                 }
             }
         });
@@ -47,13 +52,25 @@ public class View implements PropertyChangeListener {
         borrarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                controller.borrarMedico(model.getCurrent());
+                if (validate()){
+                    try {
+                        controller.borrarMedico(model.getCurrent());
+                        JOptionPane.showMessageDialog(mainPanelMedico, "MEDICO BORRADO", "", JOptionPane.INFORMATION_MESSAGE);
+                    }catch (Exception ex){
+                        JOptionPane.showMessageDialog(mainPanelMedico, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
             }
         });
         buscarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                controller.encontrarMedico(name2Fld.getText());
+                try {
+                    controller.encontrarMedico(name2Fld.getText());
+                    //JOptionPane.showMessageDialog(mainPanelMedico, "MEDICO ENCONTRADO", "", JOptionPane.INFORMATION_MESSAGE);
+                }catch (Exception ex){
+                    JOptionPane.showMessageDialog(mainPanelMedico, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                }
             }
         });
         reporteButton.addActionListener(new ActionListener() {
@@ -82,9 +99,16 @@ public class View implements PropertyChangeListener {
             case Model.CURRENT:
                 idFld.setText(model.getCurrent().getCedula());
                 name1Fld.setText(model.getCurrent().getNombre());
-                numFld.setText(model.getCurrent().getEspecialidad());
+                specialFld.setText(model.getCurrent().getEspecialidad());
+                idFld.setBackground(null);
+                idFld.setToolTipText(null);
+                name1Fld.setBackground(null);
+                name1Fld.setToolTipText(null);
+                specialFld.setBackground(null);
+                specialFld.setToolTipText(null);
                 break;
         }
+        this.mainPanelMedico.revalidate();
     }
     private boolean validate() {
         boolean valid = true;
@@ -106,13 +130,13 @@ public class View implements PropertyChangeListener {
             name1Fld.setToolTipText(null);
         }
 
-        if (model.getCurrent().getEspecialidad()==null) {
+        if (specialFld.getText().isEmpty()) {
             valid = false;
-            numFld.setBackground(Application.BACKGROUND_ERROR);
-            numFld.setToolTipText("Especialidad requerida");
+            specialFld.setBackground(Application.BACKGROUND_ERROR);
+            specialFld.setToolTipText("Especialidad requerida");
         } else {
-            numFld.setBackground(null);
-            numFld.setToolTipText(null);
+            specialFld.setBackground(null);
+            specialFld.setToolTipText(null);
         }
         return valid;
     }
@@ -120,11 +144,16 @@ public class View implements PropertyChangeListener {
         Medico aux = new Medico();
         aux.setCedula(idFld.getText());
         aux.setNombre(name1Fld.getText());
-        aux.setEspecialidad(numFld.getText());
+        aux.setEspecialidad(specialFld.getText());
         return aux;
     }
 
      public JPanel getMainPanelMedico() {
         return mainPanelMedico;
     }
+    /*public void clear(){
+        idFld.setText("");
+        name1Fld.setText("");
+        specialFld.setText("");
+    }*/
 }

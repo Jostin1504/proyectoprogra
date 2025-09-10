@@ -13,6 +13,7 @@ import java.awt.*;
 public class Application {
 
     public static void main(String[] args) {
+        String sig = null;
         try {
             UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");}
         catch (Exception ex) {};
@@ -41,22 +42,28 @@ public class Application {
 
         pantalla.add("Medico", medicoView.getMainPanelMedico());
         pantalla.add("Paciente", pacienteView.getMainPanelPaciente());
+        pantalla.add("Prescripcion", prescripcionView.getMainPanelPrescripcion());
 
-        JFrame window = new JFrame();
-        window.setSize(600,400);
-        window.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        window.setTitle("Sistema de prescripciones");
-        window.setLocationRelativeTo(null);
-        window.setVisible(true);
 
-        window.setContentPane(loginView.getLogPanel());
+
+        if (sig == null){
+            JFrame window = new JFrame();
+            window.setSize(600,400);
+            window.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+            window.setTitle("Sistema de prescripciones");
+            window.setLocationRelativeTo(null);
+            window.setVisible(true);
+
+            window.setContentPane(loginView.getLogPanel());
+            Service.instance().ent();
+        }
 
         JFrame window2 = new JFrame();
         window2.setSize(600,400);
         window2.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         window2.setTitle("Sistema de prescripciones");
         window2.setLocationRelativeTo(null);
-        window2.setVisible(false);
+        window2.setVisible(true);
 
         window2.setContentPane(pantalla);
     }

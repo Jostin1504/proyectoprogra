@@ -94,8 +94,18 @@ public class Service {
         }
         return null;
     }
-    public void anadirMedico(Medico medico){
-        datos.getMedicos().add(medico);
+    public void anadirMedico(Medico medico) throws Exception{
+        Medico result = null;
+        for(int i = 0; i  < getMedicos().size(); i++){
+            if(medico.getCedula().equals(getMedicos().get(i).getCedula())){
+                result = getMedicos().get(i);
+            }
+        }
+        if (result == null) {
+            datos.getMedicos().add(medico);
+        } else {
+            throw new Exception("Persona ya existe");
+        }
     }
     public void eliminarMedico(Medico medico){
         datos.getMedicos().remove(medico);
@@ -152,5 +162,9 @@ public class Service {
 
     public void anadirAdministrador(Administrador administrador){
         datos.getAdministradores().add(administrador);
+    }
+
+    public String ent(){
+        return "entrar";
     }
 }

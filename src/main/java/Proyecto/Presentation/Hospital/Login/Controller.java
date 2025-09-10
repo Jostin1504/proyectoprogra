@@ -31,6 +31,7 @@ public class Controller {
             if (usuario != null) {
                 String tipoUsuario = getTipoUsuario(usuario);
                 model.setMensaje("Login exitoso. Bienvenido " + usuario.getNombre());
+                Service.instance().ent();
                 navegarSegunTipoUsuario(tipoUsuario);
             } else {
                 model.setMensaje("Credenciales incorrectas");

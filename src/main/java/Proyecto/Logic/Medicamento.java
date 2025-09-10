@@ -3,18 +3,27 @@ package Proyecto.Logic;
 public class Medicamento {
     protected String codigo;
     protected String nombre;
-    protected int presentacion; //cantidad
+    protected String presentacion;
+    protected int cantidad;
+    protected int duracion;
+    protected String indicaciones;
 
-    public Medicamento(String codigo, String nombre, int presentacion) {
-        this.codigo = codigo;
+    public Medicamento(String nombre, String presentacion,  int cantidad, int duracion,  String indicaciones) {
         this.nombre = nombre;
         this.presentacion = presentacion;
+        this.cantidad = cantidad;
+        this.duracion = duracion;
+        this.indicaciones = indicaciones;
+        codigo = nombre.substring(0, 2).toUpperCase() + Integer.toString(cantidad);
     }
 
     public Medicamento() {
         codigo = "";
         nombre = "";
-        presentacion = 0;
+        presentacion = "";
+        cantidad = 0;
+        duracion = 0;
+        indicaciones = "";
     }
 
     public String getCodigo() {
@@ -25,7 +34,15 @@ public class Medicamento {
         return nombre;
     }
 
-    public int getPresentacion() {
+    public String getIndicaciones() {
+        return indicaciones;
+    }
+
+    public void setIndicaciones(String indicaciones) {
+        this.indicaciones = indicaciones;
+    }
+
+    public String getPresentacion() {
         return presentacion;
     }
 
@@ -37,7 +54,23 @@ public class Medicamento {
         this.nombre = nombre;
     }
 
-    public void setPresentacion(int presentacion) {
+    public void setPresentacion(String presentacion) {
         this.presentacion = presentacion;
+    }
+
+    public int getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
+    }
+
+    public int getDuracion() {
+        return duracion;
+    }
+
+    public void setDuracion(int duracion) {
+        this.duracion = duracion;
     }
 }

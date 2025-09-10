@@ -1,16 +1,20 @@
 package Proyecto.Presentation.Hospital.Prescripcion;
 
-import Proyecto.Presentation.Hospital.Prescripcion.Controller;
-import Proyecto.Presentation.Hospital.Prescripcion.Model;
-import Proyecto.Presentation.Hospital.Prescripcion.TableModel;
-
+import javax.swing.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
 public class View implements PropertyChangeListener {
     private Controller controller;
     private Model model;
-
+    private JPanel mainPanelPrescripcion;
+    private JButton agregarMedicamentoButton;
+    private JButton buscarPacienteButton;
+    private JTable table1;
+    private JButton detallesButton;
+    private JButton descartarMedicamentoButton;
+    private JButton limpiarButton;
+    private JButton guardarButton;
 
 
     public void setModel(Model model) {
@@ -25,5 +29,8 @@ public class View implements PropertyChangeListener {
         switch (evt.getPropertyName()) {
 
         }
+    }
+    public JPanel getMainPanelPrescripcion(){
+        return mainPanelPrescripcion;
     }
 }

@@ -22,7 +22,7 @@ public class data {
 
     private void cargarDatos() {
         // Médicos
-        medicos.add(new Medico("Dr. Juan Pérez", "111", "Cardiología"));
+        medicos.add(new Medico("Juan Pérez", "111", "Cardiología"));
         medicos.add(new Medico("Dra. María González", "112", "Pediatría"));
         medicos.add(new Medico("Dr. Santiago Rodríguez", "113", "Medicina General"));
 
@@ -40,10 +40,10 @@ public class data {
         pacientes.add(new Paciente("Roberto Mora", "103", "1975-08-20", "8888-3333"));
 
         // Medicamentos
-        medicamentos.add(new Medicamento("ACE001", "Acetaminofén", 500));
-        medicamentos.add(new Medicamento("ACE002", "Acetaminofén", 100));
-        medicamentos.add(new Medicamento("IBU001", "Ibuprofeno", 400));
-        medicamentos.add(new Medicamento("AMX001", "Amoxicilina", 250));
+        medicamentos.add(new Medicamento("Acetaminofén", "500 mg", 70, 15, "Una cada 6 horas"));
+        medicamentos.add(new Medicamento("Acetaminofén", "100 mg", 80, 15, "Una cada 6 horas"));
+        medicamentos.add(new Medicamento("Ibuprofeno", "400 mg", 40, 15, "Una cada 6 horas"));
+        medicamentos.add(new Medicamento("Amoxicilina", "250 mg", 30, 15, "Una cada 6 horas"));
     }
 
     public List<Medico> getMedicos() {

@@ -6,8 +6,8 @@ import Proyecto.Logic.Service;
 import java.util.List;
 
 public class Controller {
-    private Proyecto.Presentation.Hospital.Medico.View view;
-    private Proyecto.Presentation.Hospital.Medico.Model model;
+    Proyecto.Presentation.Hospital.Medico.View view;
+    Proyecto.Presentation.Hospital.Medico.Model model;
 
     public Controller(View view, Model model) {
         this.view = view;
@@ -16,7 +16,7 @@ public class Controller {
         view.setModel(model);
     }
 
-    void clear(){
+    public void clear(){
         model.setCurrent(new Medico());
     }
 
@@ -26,19 +26,25 @@ public class Controller {
     }
 
     //guardar medicos en data
-    public void guardarMedico(Medico medico){
+    public void guardarMedico(Medico medico) throws Exception{
         Service.instance().anadirMedico(medico);
         model.setCurrent(new Medico());
+        model.setMedicos(Service.instance().getMedicos());
     }
 
     //encontrar medicos en data con nombre
-    public Medico encontrarMedico(String nom){
-        return Service.instance().buscarMedico(nom);
+    public void encontrarMedico(String nom){
+        model.setCurrent(Service.instance().buscarMedico(nom));
     }
 
     //borrar medicos de la lista
     public void borrarMedico(Medico medico){
         Service.instance().eliminarMedico(medico);
+
         model.setCurrent(new Medico());
+    }
+
+    public void setMedicos(){
+        model.setMedicos(Service.instance().getMedicos());
     }
 }
