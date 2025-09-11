@@ -25,12 +25,19 @@ public class Service {
 
 
     public boolean cambiarClave(String id, String claveActual, String claveNueva) throws Exception {
-        Usuario us = new Usuario(id," ", "");
-        if (read(us) != null) {
-            read(us).setClave(claveNueva);
+        try {
+            Usuario us = new Usuario("", id, "");
+            Usuario usuarioEncontrado = read(us);
+            if (!usuarioEncontrado.getClave().equals(claveActual)) {
+                throw new Exception("La clave actual es incorrecta");
+            }
+            usuarioEncontrado.setClave(claveNueva);
+            Usuario verificacion = read(us);
             return true;
+
+        } catch (Exception e) {
+            throw e;
         }
-        return false;
     }
 
     public Usuario read(Usuario e) throws Exception {
@@ -85,17 +92,15 @@ public class Service {
         }
         return null;
     }
-    public void anadirMedico(Medico medico) throws Exception{
-        Medico result = null;
-        for(int i = 0; i  < getMedicos().size(); i++){
-            if(medico.getCedula().equals(getMedicos().get(i).getCedula())){
-                result = getMedicos().get(i);
-            }
-        }
+    public void anadirMedico(Medico e) throws Exception{
+        Medico result = datos.getMedicos().stream()
+                .filter(i -> i.getCedula().equals(e.getCedula()))
+                .findFirst()
+                .orElse(null);
         if (result == null) {
-            datos.getMedicos().add(medico);
+            datos.getMedicos().add(e);
         } else {
-            throw new Exception("Persona ya existe");
+            throw new Exception("Medico ya existe");
         }
     }
     public boolean eliminarMedico(Medico medico){

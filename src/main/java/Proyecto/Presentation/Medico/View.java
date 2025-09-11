@@ -67,7 +67,7 @@ public class View implements PropertyChangeListener {
             public void actionPerformed(ActionEvent e) {
                 try {
                     controller.encontrarMedico(name2Fld.getText());
-                    //JOptionPane.showMessageDialog(mainPanelMedico, "MEDICO ENCONTRADO", "", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(mainPanelMedico, "MEDICO ENCONTRADO", "", JOptionPane.INFORMATION_MESSAGE);
                 }catch (Exception ex){
                     JOptionPane.showMessageDialog(mainPanelMedico, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 }

@@ -18,7 +18,6 @@ public class Application {
         };
         doLogin();
         if(Sesion.isLoggedIn()){
-            System.out.println("hola");
             doRun();
         }
     }

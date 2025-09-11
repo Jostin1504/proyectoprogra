@@ -32,12 +32,9 @@ public class View extends JDialog implements PropertyChangeListener {
                 if (validar()) {
                     String idNow = idFld.getText();
                     String claveNow = claveFld.getText();
-                        Usuario usuario = new Usuario(idNow, claveNow, "");
-                    try {
-                        controller.login(usuario);
-                    } catch (Exception ex) {
-                        throw new RuntimeException(ex);
-                    }
+                    Usuario usuario = new Usuario("", idNow, "");
+                    usuario.setClave(claveNow);
+                    controller.login(usuario);
                 }
             }
         });
@@ -79,26 +76,56 @@ public class View extends JDialog implements PropertyChangeListener {
                     }
                 }
                 break;
-
             case Model.MENSAJE:
                 String mensaje = (String) evt.getNewValue();
                 if (mensaje != null && !mensaje.isEmpty()) {
-                    if (mensaje.contains("exitoso") || mensaje.contains("Bienvenido")) {
+                    if (mensaje.toLowerCase().contains("exitoso") ||
+                            mensaje.toLowerCase().contains("bienvenido") ||
+                            mensaje.toLowerCase().contains("cambiada exitosamente")) {
+
                         JOptionPane.showMessageDialog(
-                                logPanel,
+                                this,
                                 mensaje,
                                 "Éxito",
                                 JOptionPane.INFORMATION_MESSAGE
                         );
-                    } else {
+
+                    } else if (mensaje.toLowerCase().contains("error") ||
+                            mensaje.toLowerCase().contains("incorrectos") ||
+                            mensaje.toLowerCase().contains("no existe") ||
+                            mensaje.toLowerCase().contains("no se pudo")) {
+
                         JOptionPane.showMessageDialog(
-                                logPanel,
+                                this,
                                 mensaje,
-                                "Información",
+                                "Error",
+                                JOptionPane.ERROR_MESSAGE
+                        );
+
+                    } else if (mensaje.toLowerCase().contains("cancelada") ||
+                            mensaje.toLowerCase().contains("no coinciden")) {
+
+                        JOptionPane.showMessageDialog(
+                                this,
+                                mensaje,
+                                "Advertencia",
                                 JOptionPane.WARNING_MESSAGE
                         );
+
+                    } else {
+                        JOptionPane.showMessageDialog(
+                                this,
+                                mensaje,
+                                "Información",
+                                JOptionPane.INFORMATION_MESSAGE
+                        );
                     }
+
+                    model.setMensaje("");
                 }
+                break;
+
+            default:
                 break;
         }
     }

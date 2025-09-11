@@ -19,8 +19,7 @@ public class Model extends AbstractModel {
     @Override
     public void addPropertyChangeListener(PropertyChangeListener listener) {
         super.addPropertyChangeListener(listener);
-        firePropertyChange(CURRENT);
-        firePropertyChange(MENSAJE);
+        propertyChangeSupport.firePropertyChange(CURRENT, null, current);
     }
 
     public Usuario getCurrent() {
@@ -32,12 +31,14 @@ public class Model extends AbstractModel {
     }
 
     public void setCurrent(Usuario current) {
+        Usuario oldCurrent = this.current;
         this.current = current;
-        firePropertyChange(CURRENT);
+        propertyChangeSupport.firePropertyChange(CURRENT, oldCurrent, current);
     }
 
     public void setMensaje(String mensaje) {
+        String oldMensaje = this.mensaje;
         this.mensaje = mensaje;
-        firePropertyChange(MENSAJE);
+        propertyChangeSupport.firePropertyChange(MENSAJE, oldMensaje, mensaje);
     }
 }
