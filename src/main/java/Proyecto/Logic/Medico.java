@@ -6,8 +6,8 @@ public class Medico extends Usuario {
     String especialidad;
 
 
-    public Medico(String nombre, String cedula, String especialidad) {
-        super(nombre, cedula);
+    public Medico(String nombre, String cedula, String rol, String especialidad) {
+        super(nombre, cedula, rol);
     }
 
     public Medico() {

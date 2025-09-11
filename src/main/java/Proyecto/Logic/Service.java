@@ -22,38 +22,29 @@ public class Service {
         return datos;
     }
 
-    // --- MÉTODOS PARA LOGIN ---
-    public Usuario encontrarUsuario(String id, String clave) {
-        List<Usuario> todosUsuarios = obtenerTodosLosUsuarios();
-        for (Usuario usuario : todosUsuarios) {
-            if (usuario.getCedula().equals(id) && usuario.getClave().equals(clave)) {
-                return usuario;
-            }
-        }
-        return null; // No encontrado
-    }
 
-    public String getTipoUsuario(Usuario usuario) {
-        if (usuario instanceof Medico) {
-            return "MEDICO";
-        } else if (usuario instanceof Farmaceuta) {
-            return "FARMACEUTA";
-        } else if (usuario instanceof Administrador) {
-            return "ADMINISTRADOR";
-        }
-        return "DESCONOCIDO";
-    }
 
-    public boolean cambiarClave(String id, String claveActual, String claveNueva) {
-        Usuario usuario = encontrarUsuario(id, claveActual);
-        if (usuario != null) {
-            usuario.setClave(claveNueva);
+    public boolean cambiarClave(String id, String claveActual, String claveNueva) throws Exception {
+        Usuario us = new Usuario(id," ", "");
+        if (read(us) != null) {
+            read(us).setClave(claveNueva);
             return true;
         }
         return false;
     }
 
-    // --- MÉTODOS AUXILIARES ---
+    public Usuario read(Usuario e) throws Exception {
+        Usuario result = datos.getUsuarios().stream()
+                .filter(i -> i.getCedula().equals(e.getCedula()))
+                .findFirst()
+                .orElse(null);
+        if (result != null) {
+            return result;
+        } else {
+            throw new Exception("Usuario no existe");
+        }
+    }
+
     private List<Usuario> obtenerTodosLosUsuarios() {
         List<Usuario> todosUsuarios = new ArrayList<>();
         todosUsuarios.addAll(datos.getMedicos());
