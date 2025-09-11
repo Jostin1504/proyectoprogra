@@ -2,9 +2,6 @@ package Proyecto;
 
 import Proyecto.Logic.Service;
 import Proyecto.Logic.Usuario;
-import Proyecto.Presentation.Paciente.Controller;
-import Proyecto.Presentation.Prescripcion.Model;
-import Proyecto.Presentation.Prescripcion.View;
 import Proyecto.Presentation.Sesion;
 
 import javax.swing.*;
@@ -42,42 +39,51 @@ public class Application {
         JTabbedPane tabbedPane = new JTabbedPane();
         window.setContentPane(tabbedPane);
         window.setTitle("Recetas - " + Sesion.getUsuario().getCedula() + " (" + Sesion.getUsuario().getRol() + ")");
+
+        Proyecto.Presentation.Medico.Model medicoModel = new Proyecto.Presentation.Medico.Model();
+        Proyecto.Presentation.Medico.View medicoView = new Proyecto.Presentation.Medico.View();
+        Proyecto.Presentation.Medico.Controller medicoController = new Proyecto.Presentation.Medico.Controller(medicoView, medicoModel);
+
+        Proyecto.Presentation.Farmaceuta.Model farmaceutaModel = new Proyecto.Presentation.Farmaceuta.Model();
+        Proyecto.Presentation.Farmaceuta.View farmaceutaView = new Proyecto.Presentation.Farmaceuta.View();
+        Proyecto.Presentation.Farmaceuta.Controller farmaceutaController = new Proyecto.Presentation.Farmaceuta.Controller(farmaceutaView, farmaceutaModel);
+
+        Proyecto.Presentation.Paciente.Model pacienteModel = new Proyecto.Presentation.Paciente.Model();
+        Proyecto.Presentation.Paciente.View pacienteView = new Proyecto.Presentation.Paciente.View();
+        Proyecto.Presentation.Paciente.Controller pacienteController = new Proyecto.Presentation.Paciente.Controller(pacienteView, pacienteModel);
+
+        Proyecto.Presentation.Prescripcion.Model prescripcionModel = new Proyecto.Presentation.Prescripcion.Model();
+        Proyecto.Presentation.Prescripcion.View prescripcionView = new Proyecto.Presentation.Prescripcion.View();
+        Proyecto.Presentation.Prescripcion.Controller prescripcionController = new Proyecto.Presentation.Prescripcion.Controller(prescripcionView, prescripcionModel);
+
+        Proyecto.Presentation.AcercaDe.View acercaDeView = new Proyecto.Presentation.AcercaDe.View();
+
         switch (Sesion.getUsuario().getRol()){
             case "ADM":
-                Proyecto.Presentation.Medico.View medicoView = new Proyecto.Presentation.Medico.View();
-                Proyecto.Presentation.Medico.Model medicoModel = new Proyecto.Presentation.Medico.Model();
-                Proyecto.Presentation.Medico.Controller medicoController = new Proyecto.Presentation.Medico.Controller(medicoView, medicoModel);
                 tabbedPane.addTab("Medicos", medicoView.getMainPanelMedico());
-
-                Proyecto.Presentation.Farmaceuta.Model farmaceutaModel = new Proyecto.Presentation.Farmaceuta.Model();
-                Proyecto.Presentation.Farmaceuta.View farmaceutaView = new Proyecto.Presentation.Farmaceuta.View();
-                Proyecto.Presentation.Farmaceuta.Controller farmaceutaController = new Proyecto.Presentation.Farmaceuta.Controller(farmaceutaView, farmaceutaModel);
                 tabbedPane.addTab("Farmaceutas",  farmaceutaView.getMainPanelFarmaceuta());
-
-                Proyecto.Presentation.Paciente.Model pacienteModel = new Proyecto.Presentation.Paciente.Model();
-                Proyecto.Presentation.Paciente.View pacienteView = new Proyecto.Presentation.Paciente.View();
-                Controller pacienteController = new Controller(pacienteView, pacienteModel);
                 tabbedPane.addTab("Pacientes", pacienteView.getMainPanelPaciente());
-
                 //PARA TODAS ESTAS FALTA CREAR LOS TRES MVC IGUAL Q EN LOS DE ARRIBA
                 //tabbedPane.addTab("Medicamentos");
                 //tabbedPane.addTab("Dashboard");
                 //tabbedPane.addTab("Historico");
-                //tabbedPane.addTab("Acerca de...");
+                tabbedPane.addTab("Acerca de...", acercaDeView.getMainPanelAcercaDe());
                 break;
             case "MED":
                 //IGUAL AQUÍ
-                Model prescripcionModel = new Model();
-                View prescripcionView = new View();
-                Proyecto.Presentation.Prescripcion.Controller prescripcionController = new Proyecto.Presentation.Prescripcion.Controller(prescripcionView, prescripcionModel);
                 tabbedPane.addTab("Prescribir",  prescripcionView.getMainPanelPrescripcion());
+
+                tabbedPane.addTab("Acerca de...", acercaDeView.getMainPanelAcercaDe());
 
                 //tabbedPane.addTab("Dashboard");
                 //tabbedPane.addTab("Historico");
-                //tabbedPane.addTab("Acerca de...");
                 break;
             case "FAR":
-                //todavia no se cuales van aquí
+
+
+                tabbedPane.addTab("Acerca de...", acercaDeView.getMainPanelAcercaDe());
+                //tabbedPane.addTab("Dashboard");
+                //tabbedPane.addTab("Historico");
                 break;
         }
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
