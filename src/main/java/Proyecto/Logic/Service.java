@@ -98,8 +98,12 @@ public class Service {
             throw new Exception("Persona ya existe");
         }
     }
-    public void eliminarMedico(Medico medico){
-        datos.getMedicos().remove(medico);
+    public boolean eliminarMedico(Medico medico){
+        boolean aux = false;
+        if(datos.getMedicos().remove(medico)){
+            aux = true;
+        }
+        return aux;
     }
 
     // --- METODOS FARMACEUTAS ---
