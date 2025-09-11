@@ -17,13 +17,27 @@ public class Controller {
         view.setModel(model);
     }
 
-    public void login(Usuario usuario)throws Exception{
-        Usuario logged = Service.instance().read(usuario);
-        if (!logged.getClave().equals(usuario.getClave()) || !logged.getCedula().equals(usuario.getCedula())) {
-            throw new Exception("Usuario o clave incorrectos");
+
+    public void login(Usuario usuario) {
+        try {
+            Usuario logged = Service.instance().read(usuario);
+
+            if (!logged.getClave().equals(usuario.getClave())) {
+                model.setMensaje("Usuario o clave incorrectos");
+                return;
+            }
+
+            Sesion.setUsuario(logged);
+            model.setMensaje("Login exitoso. Bienvenido " + logged.getNombre());
+            view.dispose();
+
+        } catch (Exception ex) {
+            if (ex.getMessage().contains("Usuario no existe")) {
+                model.setMensaje("Usuario o clave incorrectos");
+            } else {
+                model.setMensaje("Error durante el login: " + ex.getMessage());
+            }
         }
-        Sesion.setUsuario(logged);
-        view.dispose();
     }
 
     public void read(String id) throws Exception {
@@ -39,26 +53,6 @@ public class Controller {
         }
     }
 
-   /* public void entrar() {
-        try {
-            String id = view.getId();
-            String clave = view.getClave();
-
-            Usuario usuario = encontrarUsuario(id, clave);
-
-            if (usuario != null) {
-                String tipoUsuario = getRol(usuario);
-                model.setMensaje("Login exitoso. Bienvenido " + usuario.getNombre());
-                Service.instance().ent();
-                navegarSegunTipoUsuario(tipoUsuario);
-            } else {
-                model.setMensaje("Credenciales incorrectas");
-                model.setCurrent(new Usuario());
-            }
-        } catch (Exception e) {
-            model.setMensaje("Error durante el login: " + e.getMessage());
-        }
-    }*/
 
     public void cambiarClave() {
         try {
@@ -118,41 +112,6 @@ public class Controller {
 
         } catch (Exception e) {
             model.setMensaje("Error al cambiar la clave: " + e.getMessage());
-        }
-    }
-
-    private void navegarSegunTipoUsuario(String tipoUsuario) {
-        switch (tipoUsuario) {
-            case "MEDICO":
-                JOptionPane.showMessageDialog(
-                        view.getLogPanel(),
-                        "aqui va la interfaz de medico",
-                        "Login Exitoso",
-                        JOptionPane.INFORMATION_MESSAGE
-                );
-                break;
-
-            case "FARMACEUTA":
-                JOptionPane.showMessageDialog(
-                        view.getLogPanel(),
-                        "aqui va la interfaz de farmaceuta",
-                        "Login Exitoso",
-                        JOptionPane.INFORMATION_MESSAGE
-                );
-                break;
-
-            case "ADMINISTRADOR":
-                JOptionPane.showMessageDialog(
-                        view.getLogPanel(),
-                        "aqui va la interfaz de administrador",
-                        "Login Exitoso",
-                        JOptionPane.INFORMATION_MESSAGE
-                );
-                break;
-
-            default:
-                model.setMensaje("Tipo de usuario no reconocido");
-                break;
         }
     }
 
