@@ -40,7 +40,7 @@ public class Model extends AbstractModel {
         return pacientes;
     }
 
-    public void setMedicos(List<Paciente> pacientes) {
+    public void setPacientes(List<Paciente> pacientes) {
         this.pacientes = pacientes;
         firePropertyChange(PACIENTES);
     }

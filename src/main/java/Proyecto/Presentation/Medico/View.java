@@ -67,7 +67,7 @@ public class View implements PropertyChangeListener {
             public void actionPerformed(ActionEvent e) {
                 try {
                     controller.encontrarMedico(name2Fld.getText());
-                    JOptionPane.showMessageDialog(mainPanelMedico, "MEDICO ENCONTRADO", "", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(mainPanelMedico, "Medico " + model.getCurrent().getNombre() + " encontrado", "", JOptionPane.INFORMATION_MESSAGE);
                 }catch (Exception ex){
                     JOptionPane.showMessageDialog(mainPanelMedico, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 }
@@ -93,7 +93,7 @@ public class View implements PropertyChangeListener {
     public void propertyChange(PropertyChangeEvent evt) {
         switch (evt.getPropertyName()) {
             case Model.MEDICOS:
-                int[] cols = {TableModel.ID,TableModel.NOMBRE};
+                int[] cols = {TableModel.ID,TableModel.NOMBRE,TableModel.ESPECIALIDAD};
                 medicos.setModel(new TableModel(cols,model.getMedicos()));
                 break;
             case Model.CURRENT:

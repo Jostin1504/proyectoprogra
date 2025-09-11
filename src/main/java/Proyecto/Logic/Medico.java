@@ -8,6 +8,7 @@ public class Medico extends Usuario {
 
     public Medico(String nombre, String cedula, String rol, String especialidad) {
         super(nombre, cedula, rol);
+        this.especialidad = especialidad;
     }
 
     public Medico() {

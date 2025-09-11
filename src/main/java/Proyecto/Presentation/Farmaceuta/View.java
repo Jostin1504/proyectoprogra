@@ -45,13 +45,25 @@ public class View implements PropertyChangeListener {
         borrarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                controller.borrarFarmaceuta(model.getCurrent());
+                if(validate() ){
+                    try {
+                        controller.borrarFarmaceuta(model.getCurrent());
+                        JOptionPane.showMessageDialog(mainPanelFarmaceuta, "FARMACEUTA BORRADO", "", JOptionPane.INFORMATION_MESSAGE);
+                    }catch (Exception ex){
+                        JOptionPane.showMessageDialog(mainPanelFarmaceuta, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
             }
         });
         buscarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                controller.encontrarFarmaceuta(name2Fld.getText());
+                try {
+                    controller.encontrarFarmaceuta(name2Fld.getText());
+                    JOptionPane.showMessageDialog(mainPanelFarmaceuta, "FARMACEUTA " + model.getCurrent().getNombre() + " ENCONTRADO", "", JOptionPane.INFORMATION_MESSAGE);
+                }catch (Exception ex){
+                    JOptionPane.showMessageDialog(mainPanelFarmaceuta, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                }
             }
         });
         reporteButton.addActionListener(new ActionListener() {

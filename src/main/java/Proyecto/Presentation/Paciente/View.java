@@ -36,6 +36,7 @@ public class View implements PropertyChangeListener {
                 if (validate()){
                     Paciente p = obtenerP();
                     controller.guardarPaciente(p);
+                    JOptionPane.showMessageDialog(mainPanelPaciente, "Paciente guardado exitosamente");
                 }
             }
         });
@@ -49,12 +50,19 @@ public class View implements PropertyChangeListener {
             @Override
             public void actionPerformed(ActionEvent e) {
                 controller.borrarPaciente(model.getCurrent());
+                JOptionPane.showMessageDialog(mainPanelPaciente, "Paciente borrado");
             }
         });
         buscarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                controller.encontrarPaciente(name2Fld.getText());
+                try {
+                    controller.encontrarPaciente(name2Fld.getText());
+                    JOptionPane.showMessageDialog(mainPanelPaciente, "Paciente " + model.getCurrent().getNombre() + " encontrado");
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(mainPanelPaciente, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                }
+
             }
         });
         reporteButton.addActionListener(new ActionListener() {
@@ -77,13 +85,14 @@ public class View implements PropertyChangeListener {
     public void propertyChange(PropertyChangeEvent evt) {
         switch (evt.getPropertyName()) {
             case Model.PACIENTES:
-                int[] cols = {TableModel.ID, TableModel.NOMBRE};
+                int[] cols = {TableModel.ID, TableModel.NOMBRE, TableModel.NACIMIENTO, TableModel.TELEFONO};
                 pacientes.setModel(new TableModel(cols,model.getPaciente()));
                 break;
             case Model.CURRENT:
                 idFld.setText(model.getCurrent().getId());
                 name1Fld.setText(model.getCurrent().getNombre());
-
+                numFld.setText(model.getCurrent().getNumTelefono());
+                dateFld.setText(model.getCurrent().getFechanac());
                 break;
         }
     }

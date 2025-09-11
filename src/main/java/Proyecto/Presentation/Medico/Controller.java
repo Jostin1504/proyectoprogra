@@ -14,6 +14,8 @@ public class Controller {
         this.model = model;
         view.setController(this);
         view.setModel(model);
+        model.addPropertyChangeListener(view);
+        model.setMedicos(Service.instance().getMedicos());
     }
 
     public void clear(){
@@ -33,14 +35,13 @@ public class Controller {
     }
 
     //encontrar medicos en data con nombre
-    public void encontrarMedico(String nom){
+    public void encontrarMedico(String nom) throws Exception{
         model.setCurrent(Service.instance().buscarMedico(nom));
     }
 
     //borrar medicos de la lista
     public void borrarMedico(Medico medico){
         Service.instance().eliminarMedico(medico);
-
         model.setCurrent(new Medico());
     }
 

@@ -3,6 +3,7 @@ package Proyecto.Presentation.Paciente;
 import Proyecto.Logic.Paciente;
 import Proyecto.Logic.Service;
 
+import java.beans.PropertyChangeListener;
 import java.util.List;
 
 public class Controller {
@@ -14,6 +15,8 @@ public class Controller {
         this.model = model;
         view.setController(this);
         view.setModel(model);
+        model.addPropertyChangeListener(view);
+        model.setPacientes(Service.instance().getPacientes());
     }
 
     void clear(){
@@ -29,11 +32,13 @@ public class Controller {
     public void guardarPaciente(Paciente paciente){
         Service.instance().anadirPaciente(paciente);
         model.setCurrent(new Paciente());
+        model.setPacientes(Service.instance().getPacientes());
     }
 
     //encontrar medicos en data con nombre
-    public Paciente encontrarPaciente(String nom){
-        return Service.instance().buscarPaciente(nom);
+    public void encontrarPaciente(String nom)throws  Exception{
+        model.setCurrent(Service.instance().buscarPaciente(nom));
+
     }
 
     //borrar medicos de la lista

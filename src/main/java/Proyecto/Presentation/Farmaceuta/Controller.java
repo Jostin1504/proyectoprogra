@@ -6,14 +6,16 @@ import Proyecto.Logic.Service;
 import java.util.List;
 
 public class Controller {
-    private View view;
-    private Model model;
+      View view;
+      Model model;
 
     public Controller(View view, Model model) {
         this.view = view;
         this.model = model;
         view.setController(this);
         view.setModel(model);
+        model.addPropertyChangeListener(view);
+        model.setFarmaceutas(Service.instance().getFarmaceutas());
     }
 
     void clear(){
@@ -29,11 +31,12 @@ public class Controller {
     public void guardarFarmaceuta(Farmaceuta farmaceuta){
         Service.instance().anadirFarmaceuta(farmaceuta);
         model.setCurrent(new Farmaceuta());
+        model.setFarmaceutas(Service.instance().getFarmaceutas());
     }
 
     //encontrar medicos en data con nombre
-    public Farmaceuta encontrarFarmaceuta(String nom){
-        return Service.instance().buscarFarmaceuta(nom);
+    public void encontrarFarmaceuta(String nom)throws Exception{
+         model.setCurrent(Service.instance().buscarFarmaceuta(nom));
     }
 
     //borrar medicos de la lista

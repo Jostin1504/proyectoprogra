@@ -19,6 +19,7 @@ public class TableModel extends AbstractTableModel<Medico> implements javax.swin
         colNames = new String[5];
         colNames[ID] = "Cédula";
         colNames[NOMBRE] = "Nombre";
+        colNames[ESPECIALIDAD] = "Especialidad";
     }
     @Override
     protected Object getPropetyAt(Medico e, int col) {

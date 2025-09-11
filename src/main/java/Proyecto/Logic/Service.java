@@ -84,13 +84,16 @@ public class Service {
     // --- METODOS MEDICOS ---
 
     //encontrar medicos en data
-    public Medico buscarMedico(String nom){
-        for(int i = 0; i < getMedicos().size(); i++){
-            if (getMedicos().get(i).getNombre().equals(nom)){
-                return getMedicos().get(i);
-            }
+    public Medico buscarMedico(String e) throws  Exception {
+        Medico result = datos.getMedicos().stream()
+                .filter(i -> i.getCedula().equals(e))
+                .findFirst()
+                .orElse(null);
+        if (result != null) {
+            return result;
+        } else {
+            throw new Exception("Usuario no existe");
         }
-        return null;
     }
     public void anadirMedico(Medico e) throws Exception{
         Medico result = datos.getMedicos().stream()
@@ -108,13 +111,16 @@ public class Service {
     }
 
     // --- METODOS FARMACEUTAS ---
-    public Farmaceuta buscarFarmaceuta(String nom){
-        for(int i = 0; i < getFarmaceutas().size(); i++){
-            if (getFarmaceutas().get(i).getNombre().equals(nom)){
-                return getFarmaceutas().get(i);
-            }
+    public Farmaceuta buscarFarmaceuta(String e)throws Exception {
+        Farmaceuta result = datos.getFarmaceutas().stream()
+                .filter(i -> i.getCedula().equals(e))
+                .findFirst()
+                .orElse(null);
+        if (result != null) {
+            return result;
+        } else {
+            throw new Exception("Usuario no existe");
         }
-        return null;
     }
     public void anadirFarmaceuta(Farmaceuta farmaceuta){
         datos.getFarmaceutas().add(farmaceuta);
@@ -124,13 +130,16 @@ public class Service {
     }
 
     // --- METODOS PACIENTES ---
-    public Paciente buscarPaciente(String nom){
-        for(int i = 0; i < getPacientes().size(); i++){
-            if (getPacientes().get(i).getNombre().equals(nom)){
-                return getPacientes().get(i);
-            }
+    public Paciente buscarPaciente(String e) throws Exception {
+        Paciente result = datos.getPacientes().stream()
+                .filter(i -> i.getId().equals(e))
+                .findFirst()
+                .orElse(null);
+        if (result != null) {
+            return result;
+        } else {
+            throw new Exception("Usuario no existe");
         }
-        return null;
     }
     public void anadirPaciente(Paciente paciente){
         datos.getPacientes().add(paciente);
