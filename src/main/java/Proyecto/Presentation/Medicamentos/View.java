@@ -14,10 +14,10 @@ public class View implements PropertyChangeListener {
     Controller controller;
     Model model;
     private JPanel mainPanelMedicamento;
-    private JPanel JpanelMedico;
+    private JPanel JpanelMedicamentos;
     private JPanel JpanelBusqueda;
     private JTextField idFld;
-    private JTextField specialFld;
+    private JTextField PresentacionFld;
     private JTextField name1Fld;
     private JButton guardarButton;
     private JButton limpiarButton;
@@ -25,7 +25,7 @@ public class View implements PropertyChangeListener {
     private JTextField name2Fld;
     private JButton buscarButton;
     private JButton reporteButton;
-    private JTable medicos;
+    private JTable medicamentos;
     private JPanel JpanelTable;
     private DatePicker dateFld;
 
@@ -95,18 +95,18 @@ public class View implements PropertyChangeListener {
         switch (evt.getPropertyName()) {
             case Model.MEDICAMENTOS:
                 int[] cols = {TableModel.CODIGO, TableModel.NOMBRE, TableModel.PRESENTACION};
-                medicos.setModel(new TableModel(cols,model.getMedicamentos()));
+                medicamentos.setModel(new TableModel(cols,model.getMedicamentos()));
                 break;
             case Model.CURRENT:
                 idFld.setText(model.getCurrent().getCodigo());
                 name1Fld.setText(model.getCurrent().getNombre());
-                specialFld.setText(model.getCurrent().getPresentacion());
+                PresentacionFld.setText(model.getCurrent().getPresentacion());
                 idFld.setBackground(null);
                 idFld.setToolTipText(null);
                 name1Fld.setBackground(null);
                 name1Fld.setToolTipText(null);
-                specialFld.setBackground(null);
-                specialFld.setToolTipText(null);
+                PresentacionFld.setBackground(null);
+                PresentacionFld.setToolTipText(null);
                 break;
         }
         this.mainPanelMedicamento.revalidate();
@@ -131,13 +131,13 @@ public class View implements PropertyChangeListener {
             name1Fld.setToolTipText(null);
         }
 
-        if (specialFld.getText().isEmpty()) {
+        if (PresentacionFld.getText().isEmpty()) {
             valid = false;
-            specialFld.setBackground(Application.BACKGROUND_ERROR);
-            specialFld.setToolTipText("Especialidad requerida");
+            PresentacionFld.setBackground(Application.BACKGROUND_ERROR);
+            PresentacionFld.setToolTipText("Especialidad requerida");
         } else {
-            specialFld.setBackground(null);
-            specialFld.setToolTipText(null);
+            PresentacionFld.setBackground(null);
+            PresentacionFld.setToolTipText(null);
         }
         return valid;
     }
@@ -145,13 +145,17 @@ public class View implements PropertyChangeListener {
         Medicamento aux = new Medicamento();
         aux.setCodigo(idFld.getText());
         aux.setNombre(name1Fld.getText());
-        aux.setPresentacion(specialFld.getText());
+        aux.setPresentacion(PresentacionFld.getText());
         return aux;
     }
 
      public JPanel getMainPanelMedicamento() {
         return mainPanelMedicamento;
     }
+
+
+
+
     /*public void clear(){
         idFld.setText("");
         name1Fld.setText("");

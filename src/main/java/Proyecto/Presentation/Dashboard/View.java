@@ -56,7 +56,7 @@ public class View implements PropertyChangeListener {
                 int[] cols = {TableModel.NOMBRE};
                 medicamentos.setModel(new TableModel(cols,model.getMedicamentos()));
                 break;
-            case Model.CHART1:
+            /*case Model.CHART1:
                 JFreeChart chart = ChartFactory.createLineChart("Medicamentos","Mes", "Cantidad", controller.createDataset(model.getMedicamentos()), PlotOrientation.VERTICAL, true, true, false);
                 CategoryPlot plot = (CategoryPlot) chart.getPlot();
                 XYLineAndShapeRenderer renderer = (XYLineAndShapeRenderer) plot.getRenderer();
@@ -66,7 +66,7 @@ public class View implements PropertyChangeListener {
                 panelMedicamentos.removeAll();
                 panelMedicamentos.add(chartPanel);
 
-                break;
+                break;*/
             case Model.CHART2:
 
                 break;

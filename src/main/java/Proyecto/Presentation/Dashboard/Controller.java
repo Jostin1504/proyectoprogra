@@ -21,16 +21,16 @@ public class Controller {
         model.addPropertyChangeListener(view);
     }
 
-    public CategoryDataset createDataset(List<Medicamento> medicamentos) {
+    /*public CategoryDataset createDataset(List<Medicamento> medicamentos) {
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
         for  (Medicamento medicamento : medicamentos) {
             dataset.addValue(Service.instance().getCantidadTotalMedicamento(medicamento),medicamento.getNombre(), medicamento.getDuracion());
         }
         //dataset.addValue(); //eje Y, categoria en la que entra, eje X
         return dataset;
-    }
+    }*/
 
-    public void grafico1(){
+   /* public void grafico1(){
         model.setChart1(ChartFactory.createLineChart("Medicamentos","Mes", "Cantidad",createDataset(model.medicamentos)));
-    }
+    }*/
 }
