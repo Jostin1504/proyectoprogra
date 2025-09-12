@@ -173,6 +173,16 @@ public class Service {
         }
     }
 
+    public Number getCantidadTotalMedicamento(Medicamento medicamento){
+        int cont = 0;
+        for (int i = 0; i < getMedicamentos().size(); i++){
+            if (getMedicamentos().get(i).getNombre().equals(medicamento.getNombre())){
+                cont = cont + getMedicamentos().get(i).getCantidad();
+            }
+        }
+        return cont;
+    }
+
     public void anadirAdministrador(Administrador administrador){
         datos.getAdministradores().add(administrador);
     }
