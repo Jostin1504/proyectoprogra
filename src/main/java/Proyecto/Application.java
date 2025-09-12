@@ -58,6 +58,12 @@ public class Application {
 
         Proyecto.Presentation.AcercaDe.View acercaDeView = new Proyecto.Presentation.AcercaDe.View();
 
+        /*
+        Proyecto.Presentation.Dashboard.Model dashboardModel = new Proyecto.Presentation.Dashboard.Model();
+        Proyecto.Presentation.Dashboard.View dashboardView = new Proyecto.Presentation.Dashboard.View();
+        Proyecto.Presentation.Dashboard.Controller dashboardController = new Proyecto.Presentation.Dashboard.Controller(dashboardView, dashboardModel);
+        */
+
         switch (Sesion.getUsuario().getRol()){
             case "ADM":
                 tabbedPane.addTab("Medicos", medicoView.getMainPanelMedico());
@@ -65,13 +71,15 @@ public class Application {
                 tabbedPane.addTab("Pacientes", pacienteView.getMainPanelPaciente());
                 //PARA TODAS ESTAS FALTA CREAR LOS TRES MVC IGUAL Q EN LOS DE ARRIBA
                 //tabbedPane.addTab("Medicamentos");
-                //tabbedPane.addTab("Dashboard");
                 //tabbedPane.addTab("Historico");
+                //tabbedPane.addTab("Dashboard", dashboardView.getMainPanelDashboard());
                 tabbedPane.addTab("Acerca de...", acercaDeView.getMainPanelAcercaDe());
+
                 break;
             case "MED":
                 //IGUAL AQUÍ
                 tabbedPane.addTab("Prescribir",  prescripcionView.getMainPanelPrescripcion());
+                //tabbedPane.addTab("Dashboard", dashboardView.getMainPanelDashboard());
 
                 tabbedPane.addTab("Acerca de...", acercaDeView.getMainPanelAcercaDe());
 
@@ -79,10 +87,9 @@ public class Application {
                 //tabbedPane.addTab("Historico");
                 break;
             case "FAR":
-
-
+                //tabbedPane.addTab("Dashboard", dashboardView.getMainPanelDashboard());
+                //tabbedPane.addTab("Despacho", )
                 tabbedPane.addTab("Acerca de...", acercaDeView.getMainPanelAcercaDe());
-                //tabbedPane.addTab("Dashboard");
                 //tabbedPane.addTab("Historico");
                 break;
         }
