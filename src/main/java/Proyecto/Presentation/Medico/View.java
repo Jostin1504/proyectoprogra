@@ -67,7 +67,7 @@ public class View implements PropertyChangeListener {
             public void actionPerformed(ActionEvent e) {
                 try {
                     controller.encontrarMedico(name2Fld.getText());
-                    JOptionPane.showMessageDialog(mainPanelMedicamento, "Medico " + model.getCurrent().getNombre() + " encontrado", "", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(mainPanelMedicamento, "Medico(a) " + model.getCurrent().getNombre() + " encontrado", "", JOptionPane.INFORMATION_MESSAGE);
                 }catch (Exception ex){
                     JOptionPane.showMessageDialog(mainPanelMedicamento, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 }
@@ -112,10 +112,13 @@ public class View implements PropertyChangeListener {
     }
     private boolean validate() {
         boolean valid = true;
+        if (idFld.getText().isEmpty() || name1Fld.getText().isEmpty() || specialFld.getText().isEmpty()){
+            valid = false;
+            JOptionPane.showMessageDialog(mainPanelMedicamento, "Asegurese de llenar los espacios vacíos");
+        }
         if (idFld.getText().isEmpty()) {
             valid = false;
             idFld.setBackground(Application.BACKGROUND_ERROR);
-            idFld.setToolTipText("id requerido");
         } else {
             idFld.setBackground(null);
             idFld.setToolTipText(null);
@@ -124,7 +127,6 @@ public class View implements PropertyChangeListener {
         if (name1Fld.getText().isEmpty()) {
             valid = false;
             name1Fld.setBackground(Application.BACKGROUND_ERROR);
-            name1Fld.setToolTipText("Nombre requerido");
         } else {
             name1Fld.setBackground(null);
             name1Fld.setToolTipText(null);
@@ -133,7 +135,6 @@ public class View implements PropertyChangeListener {
         if (specialFld.getText().isEmpty()) {
             valid = false;
             specialFld.setBackground(Application.BACKGROUND_ERROR);
-            specialFld.setToolTipText("Especialidad requerida");
         } else {
             specialFld.setBackground(null);
             specialFld.setToolTipText(null);

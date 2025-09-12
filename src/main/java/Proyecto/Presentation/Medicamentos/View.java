@@ -56,7 +56,7 @@ public class View implements PropertyChangeListener {
                 if (validate()){
                     try {
                         controller.borrarMedicamento(model.getCurrent());
-                        JOptionPane.showMessageDialog(mainPanelMedicamento, "MEDICO BORRADO", "", JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(mainPanelMedicamento, "MEDICAMENTO BORRADO", "", JOptionPane.INFORMATION_MESSAGE);
                     }catch (Exception ex){
                         JOptionPane.showMessageDialog(mainPanelMedicamento, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                     }
@@ -68,7 +68,7 @@ public class View implements PropertyChangeListener {
             public void actionPerformed(ActionEvent e) {
                 try {
                     controller.encontrarMedicamento(name2Fld.getText());
-                    JOptionPane.showMessageDialog(mainPanelMedicamento, "Medico " + model.getCurrent().getNombre() + " encontrado", "", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(mainPanelMedicamento, "Medicamento " + model.getCurrent().getNombre() + " encontrado", "", JOptionPane.INFORMATION_MESSAGE);
                 }catch (Exception ex){
                     JOptionPane.showMessageDialog(mainPanelMedicamento, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 }
@@ -113,28 +113,29 @@ public class View implements PropertyChangeListener {
     }
     private boolean validate() {
         boolean valid = true;
-        if (idFld.getText().isEmpty()) {
+        if (idFld.getText().isEmpty() || name1Fld.getText().isEmpty() || PresentacionFld.getText().isEmpty()){
+            valid = false;
+            JOptionPane.showMessageDialog(mainPanelMedicamento, "Asegurese de llenar los espacios vacíos");
+        }
+         if (idFld.getText().isEmpty()) {
             valid = false;
             idFld.setBackground(Application.BACKGROUND_ERROR);
-            idFld.setToolTipText("id requerido");
         } else {
             idFld.setBackground(null);
             idFld.setToolTipText(null);
         }
 
-        if (name1Fld.getText().isEmpty()) {
+         if (name1Fld.getText().isEmpty()) {
             valid = false;
             name1Fld.setBackground(Application.BACKGROUND_ERROR);
-            name1Fld.setToolTipText("Nombre requerido");
         } else {
             name1Fld.setBackground(null);
             name1Fld.setToolTipText(null);
         }
 
-        if (PresentacionFld.getText().isEmpty()) {
+         if (PresentacionFld.getText().isEmpty()) {
             valid = false;
             PresentacionFld.setBackground(Application.BACKGROUND_ERROR);
-            PresentacionFld.setToolTipText("Especialidad requerida");
         } else {
             PresentacionFld.setBackground(null);
             PresentacionFld.setToolTipText(null);

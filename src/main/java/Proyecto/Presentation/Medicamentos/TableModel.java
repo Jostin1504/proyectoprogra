@@ -17,10 +17,10 @@ public class TableModel extends AbstractTableModel<Medicamento> implements javax
 
     @Override
     protected void initColNames() {
-        colNames = new String[5];
-        colNames[CODIGO] = "Cédula";
+        colNames = new String[3];
+        colNames[CODIGO] = "Código";
         colNames[NOMBRE] = "Nombre";
-        colNames[PRESENTACION] = "Especialidad";
+        colNames[PRESENTACION] = "Presentación";
     }
     @Override
     protected Object getPropetyAt(Medicamento e, int col) {

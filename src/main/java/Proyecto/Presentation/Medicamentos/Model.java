@@ -1,7 +1,6 @@
 package Proyecto.Presentation.Medicamentos;
 
 import Proyecto.Logic.Medicamento;
-import Proyecto.Logic.Medico;
 import Proyecto.Presentation.AbstractModel;
 
 import java.beans.PropertyChangeListener;
@@ -41,7 +40,7 @@ public class Model extends AbstractModel {
         return medicamentos;
     }
 
-    public void setMedicamentos(List<Medicamento> medicos) {
+    public void setMedicamentos(List<Medicamento> medicamentos) {
         this.medicamentos = medicamentos;
         firePropertyChange(MEDICAMENTOS);
     }
