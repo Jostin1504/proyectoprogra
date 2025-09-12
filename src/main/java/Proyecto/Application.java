@@ -56,6 +56,11 @@ public class Application {
         Proyecto.Presentation.Prescripcion.View prescripcionView = new Proyecto.Presentation.Prescripcion.View();
         Proyecto.Presentation.Prescripcion.Controller prescripcionController = new Proyecto.Presentation.Prescripcion.Controller(prescripcionView, prescripcionModel);
 
+        Proyecto.Presentation.Medicamentos.Model medicamentosModel = new Proyecto.Presentation.Medicamentos.Model();
+        Proyecto.Presentation.Medicamentos.View medicamentosView = new Proyecto.Presentation.Medicamentos.View();
+        Proyecto.Presentation.Medicamentos.Controller medicamentosController = new Proyecto.Presentation.Medicamentos.Controller(medicamentosView, medicamentosModel);
+
+
         Proyecto.Presentation.AcercaDe.View acercaDeView = new Proyecto.Presentation.AcercaDe.View();
 
         switch (Sesion.getUsuario().getRol()){
@@ -63,8 +68,7 @@ public class Application {
                 tabbedPane.addTab("Medicos", medicoView.getMainPanelMedico());
                 tabbedPane.addTab("Farmaceutas",  farmaceutaView.getMainPanelFarmaceuta());
                 tabbedPane.addTab("Pacientes", pacienteView.getMainPanelPaciente());
-                //PARA TODAS ESTAS FALTA CREAR LOS TRES MVC IGUAL Q EN LOS DE ARRIBA
-                //tabbedPane.addTab("Medicamentos");
+                tabbedPane.addTab("Medicamentos", medicamentosView.getMainPanelMedicamento());
                 //tabbedPane.addTab("Dashboard");
                 //tabbedPane.addTab("Historico");
                 tabbedPane.addTab("Acerca de...", acercaDeView.getMainPanelAcercaDe());

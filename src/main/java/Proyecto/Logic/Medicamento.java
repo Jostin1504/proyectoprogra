@@ -4,16 +4,10 @@ public class Medicamento {
     protected String codigo;
     protected String nombre;
     protected String presentacion;
-    protected int cantidad;
-    protected int duracion;
-    protected String indicaciones;
 
     public Medicamento(String nombre, String presentacion,  int cantidad, int duracion,  String indicaciones) {
         this.nombre = nombre;
         this.presentacion = presentacion;
-        this.cantidad = cantidad;
-        this.duracion = duracion;
-        this.indicaciones = indicaciones;
         codigo = nombre.substring(0, 2).toUpperCase() + Integer.toString(cantidad);
     }
 
@@ -21,9 +15,6 @@ public class Medicamento {
         codigo = "";
         nombre = "";
         presentacion = "";
-        cantidad = 0;
-        duracion = 0;
-        indicaciones = "";
     }
 
     public String getCodigo() {
@@ -34,13 +25,6 @@ public class Medicamento {
         return nombre;
     }
 
-    public String getIndicaciones() {
-        return indicaciones;
-    }
-
-    public void setIndicaciones(String indicaciones) {
-        this.indicaciones = indicaciones;
-    }
 
     public String getPresentacion() {
         return presentacion;
@@ -58,19 +42,4 @@ public class Medicamento {
         this.presentacion = presentacion;
     }
 
-    public int getCantidad() {
-        return cantidad;
-    }
-
-    public void setCantidad(int cantidad) {
-        this.cantidad = cantidad;
-    }
-
-    public int getDuracion() {
-        return duracion;
-    }
-
-    public void setDuracion(int duracion) {
-        this.duracion = duracion;
-    }
 }

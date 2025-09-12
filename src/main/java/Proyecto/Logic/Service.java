@@ -160,13 +160,17 @@ public class Service {
     public void eliminarMedicamento(Medicamento medicamento){
         datos.getMedicamentos().remove(medicamento);
     }
-    public Medicamento buscarMedicamento(String nom){
-        for(int i = 0; i < getMedicamentos().size(); i++){
-            if (getMedicamentos().get(i).getNombre().equals(nom)){
-                return getMedicamentos().get(i);
-            }
+
+    public Medicamento buscarMedicamento(String e) throws Exception{
+        Medicamento result = datos.getMedicamentos().stream()
+                .filter(i -> i.getCodigo().equals(e))
+                .findFirst()
+                .orElse(null);
+        if (result != null) {
+            return result;
+        } else {
+            throw new Exception("Usuario no existe");
         }
-        return null;
     }
 
     public void anadirAdministrador(Administrador administrador){

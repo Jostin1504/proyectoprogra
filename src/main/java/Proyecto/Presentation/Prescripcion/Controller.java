@@ -32,8 +32,8 @@ public class Controller {
     }
 
     //encontrar medicos en data con nombre
-    public Medicamento encontrarMedicamento(String nom){
-        return Service.instance().buscarMedicamento(nom);
+    public Medicamento encontrarMedicamento(String nom) throws Exception {
+            return Service.instance().buscarMedicamento(nom);
     }
 
     //borrar medicos de la lista
