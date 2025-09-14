@@ -18,18 +18,19 @@ public class View extends JDialog implements PropertyChangeListener {
     private JTable list;
     private JComboBox cedulaNombre;
 
+
     public View() {
         setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
         setLocationRelativeTo(null);
-        setTitle("Pacientes");
+        setTitle("Medicamentos"); // Cambiar de "Pacientes" a "Medicamentos"
         setSize(400, 250);
 
         buscar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(cedulaNombre.getSelectedItem() == "Nombre"){
+                if(cedulaNombre.getSelectedItem().equals("Nombre")){
                     try {
                         controller.searchMedNombre(nombre.getText());
                     }catch (Exception ex){
@@ -49,7 +50,8 @@ public class View extends JDialog implements PropertyChangeListener {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(list.getSelectedRow()>=0){
-                    controller.setPaciente(list.getSelectedRow());
+                    controller.setMed(list.getSelectedRow()); // Esto ya debería funcionar con las correcciones del Controller
+                    View.this.setVisible(false); // Cerrar la ventana después de seleccionar
                 }
             }
         });
@@ -62,8 +64,8 @@ public class View extends JDialog implements PropertyChangeListener {
         });
     }
 
-    Controller controller;
     Model model;
+    Controller controller;
 
     public void setController(Controller controller) {
         this.controller = controller;
@@ -79,7 +81,9 @@ public class View extends JDialog implements PropertyChangeListener {
         switch (evt.getPropertyName()) {
             case Model.MEDICAMENTOS:
                 int[] cols = {MedicamentoTableModel.CODIGO, MedicamentoTableModel.NOMBRE, MedicamentoTableModel.PRESENTACION};
-                list.setModel(new MedicamentoTableModel(cols,controller.getMedicamentos()));
+                list.setModel(new MedicamentoTableModel(cols, model.getMedicamentos())); // Usar model en lugar de controller
+                list.revalidate();
+                list.repaint();
                 break;
         }
         this.contentPane.revalidate();

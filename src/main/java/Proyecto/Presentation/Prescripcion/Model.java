@@ -70,19 +70,33 @@ public class Model extends AbstractModel {
         firePropertyChange(PACIENTES);
     }
 
-    public void setMedicamentos(List<Medicamento> medicamentos) {
-        this.medicamentos = medicamentos;
-        firePropertyChange(MEDICAMENTOS);
-    }
 
     public void setPaciente(Paciente departamento) {
         this.current.setPaciente(departamento);
         firePropertyChange(PACIENTES);
     }
 
-    public void setMedicamentos(Medicamento medicamento) {
-        this.medicamentos.add(medicamento);
+    public void setMedicamentos(List<Medicamento> medicamentos) {
+        this.medicamentos = medicamentos;
         firePropertyChange(MEDICAMENTOS);
+    }
+
+    // Este método agrega un medicamento específico a la receta actual
+    public void addMedicamentoToReceta(Medicamento medicamento) {
+        this.current.getMedicamentos().add(medicamento);
+        firePropertyChange(MEDICAMENTO);
+    }
+
+    // Método para seleccionar un medicamento específico
+    public void setSelectedMedicamento(Medicamento medicamento) {
+        // Aquí puedes manejar la selección de un medicamento específico
+        // según las necesidades de tu aplicación
+        firePropertyChange(MEDICAMENTO);
+    }
+
+    // Método público para notificar cambios desde el controller si es necesario
+    public void notifyMedicamentoChange() {
+        firePropertyChange(MEDICAMENTO);
     }
 
 }

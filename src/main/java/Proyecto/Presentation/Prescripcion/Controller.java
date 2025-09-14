@@ -62,8 +62,19 @@ public class Controller {
     public void setPaciente(int row){
         model.setPaciente(model.getPacientes().get(row));
     }
+    public void setMedicamento(int row){
+        // Este método debería seleccionar un medicamento específico
+        // según lo que necesites hacer con él
+        Medicamento selected = model.getMedicamentos().get(row);
+        // Aquí puedes agregar la lógica específica para manejar el medicamento seleccionado
+        // Por ejemplo, agregarlo a la receta actual:
+        model.addMedicamentoToReceta(selected); // Usar el método público del modelo
+    }
+
     public void setMed(int row){
-        model.setMedicamentos(model.getMedicamentos().get(row));
+        if (row >= 0 && row < model.getMedicamentos().size()) {
+            setMedicamento(row);
+        }
     }
 
 }
