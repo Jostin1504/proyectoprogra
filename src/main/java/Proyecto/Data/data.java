@@ -11,23 +11,24 @@ import java.util.List;
 public class data {
     @XmlElementWrapper(name = "medicos")
     @XmlElement(name = "medico")
-    private final List<Medico> medicos;
+    private List<Medico> medicos;
 
     @XmlElementWrapper(name = "farmaceutas")
     @XmlElement(name = "farmaceuta")
-    private final List<Farmaceuta> farmaceutas;
+    private List<Farmaceuta> farmaceutas;
 
-    private final List<Administrador> administradores;
+    private List<Administrador> administradores;
 
     @XmlElementWrapper(name = "pacientes")
     @XmlElement(name = "paciente")
-    private final List<Paciente> pacientes;
+    private List<Paciente> pacientes;
 
     @XmlElementWrapper(name = "medicamentos")
     @XmlElement(name = "medicamento")
-    private final List<Medicamento> medicamentos;
+    private List<Medicamento> medicamentos;
 
-    private final List<Usuario> usuarios;
+    @XmlTransient
+    private List<Usuario> usuarios;
 
     public data() {
         medicos = new ArrayList<>();

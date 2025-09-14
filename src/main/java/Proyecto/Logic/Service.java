@@ -17,7 +17,7 @@ public class Service {
     private data datos;
 
     public Service() {
-        datos = new data();
+        cargarDatos();
     }
 
     public data getDatos() {
@@ -129,15 +129,17 @@ public class Service {
                 .orElse(null);
         if (result == null) {
             datos.getMedicos().add(e);
+            guardarDatos();
         } else {
             throw new Exception("Medico ya existe");
         }
-        guardarDatos();
+
     }
     public boolean eliminarMedico(Medico medico){
         boolean aux = false;
         if(datos.getMedicos().remove(medico)){
             aux = true;
+            guardarDatos();
         }
         return aux;
 
@@ -161,6 +163,7 @@ public class Service {
     }
     public void eliminarFarmaceuta(Farmaceuta farmaceuta){
         datos.getFarmaceutas().remove(farmaceuta);
+        guardarDatos();
     }
 
     // --- METODOS PACIENTES ---
@@ -181,6 +184,7 @@ public class Service {
     }
     public void eliminarPaciente(Paciente paciente){
         datos.getPacientes().remove(paciente);
+        guardarDatos();
     }
 
     // --- METODOS MEDICAMENTO ---
@@ -191,6 +195,7 @@ public class Service {
 
     public void eliminarMedicamento(Medicamento medicamento){
         datos.getMedicamentos().remove(medicamento);
+        guardarDatos();
     }
 
     public Medicamento buscarMedicamento(String e) throws Exception{

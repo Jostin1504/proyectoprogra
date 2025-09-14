@@ -1,9 +1,7 @@
 package Proyecto.Logic;
 
 import Proyecto.Logic.Usuario;
-import jakarta.xml.bind.annotation.XmlAccessType;
-import jakarta.xml.bind.annotation.XmlAccessorType;
-import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.*;
 
 @XmlRootElement(name = "farmaceuta")
 @XmlAccessorType(XmlAccessType.FIELD)

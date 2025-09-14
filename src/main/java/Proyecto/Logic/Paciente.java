@@ -8,7 +8,7 @@ import jakarta.xml.bind.annotation.*;
 public class Paciente {
     @XmlElement
     protected String nombre;
-    @XmlIDREF
+
     @XmlElement
     protected String id;
     @XmlElement

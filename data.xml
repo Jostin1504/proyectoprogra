@@ -1,4 +1,101 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <data>
-
+    <medicos>
+        <medico>
+            <nombre>Juan Pérez</nombre>
+            <cedula>111</cedula>
+            <clave>111</clave>
+            <rol>MED</rol>
+            <especialidad>Cardiología</especialidad>
+        </medico>
+        <medico>
+            <nombre>Dra. María González</nombre>
+            <cedula>112</cedula>
+            <clave>112</clave>
+            <rol>MED</rol>
+            <especialidad>Pediatría</especialidad>
+        </medico>
+        <medico>
+            <nombre>Dr. Santiago Rodríguez</nombre>
+            <cedula>113</cedula>
+            <clave>113</clave>
+            <rol>MED</rol>
+            <especialidad>Medicina General</especialidad>
+        </medico>
+        <medico>
+            <nombre>Fatima Rivera</nombre>
+            <cedula>114</cedula>
+            <clave></clave>
+            <rol></rol>
+            <especialidad>Cirujana</especialidad>
+        </medico>
+    </medicos>
+    <farmaceutas>
+        <farmaceuta>
+            <nombre>Ana García</nombre>
+            <cedula>222</cedula>
+            <clave>222</clave>
+            <rol>FAR</rol>
+        </farmaceuta>
+        <farmaceuta>
+            <nombre>Luis Martínez</nombre>
+            <cedula>223</cedula>
+            <clave>223</clave>
+            <rol>FAR</rol>
+        </farmaceuta>
+    </farmaceutas>
+    <administradores>
+        <nombre>Carlos López</nombre>
+        <cedula>333</cedula>
+        <clave>333</clave>
+        <rol>ADM</rol>
+    </administradores>
+    <administradores>
+        <nombre>Patricia Jiménez</nombre>
+        <cedula>334</cedula>
+        <clave>334</clave>
+        <rol>ADM</rol>
+    </administradores>
+    <pacientes>
+        <paciente>
+            <nombre>José Vargas</nombre>
+            <id>101</id>
+            <fechanac>1980-05-15</fechanac>
+            <numTelefono>8888-1111</numTelefono>
+        </paciente>
+        <paciente>
+            <nombre>Carmen Solís</nombre>
+            <id>102</id>
+            <fechanac>1990-12-03</fechanac>
+            <numTelefono>8888-2222</numTelefono>
+        </paciente>
+        <paciente>
+            <nombre>Roberto Mora</nombre>
+            <id>103</id>
+            <fechanac>1975-08-20</fechanac>
+            <numTelefono>8888-3333</numTelefono>
+        </paciente>
+    </pacientes>
+    <medicamentos>
+        <medicamento>
+            <codigo>AC70</codigo>
+            <nombre>Acetaminofén</nombre>
+            <presentacion>500 mg</presentacion>
+        </medicamento>
+        <medicamento>
+            <codigo>AC80</codigo>
+            <nombre>Acetaminofén</nombre>
+            <presentacion>100 mg</presentacion>
+        </medicamento>
+        <medicamento>
+            <codigo>IB40</codigo>
+            <nombre>Ibuprofeno</nombre>
+            <presentacion>400 mg</presentacion>
+        </medicamento>
+        <medicamento>
+            <codigo>AM30</codigo>
+            <nombre>Amoxicilina</nombre>
+            <presentacion>250 mg</presentacion>
+        </medicamento>
+    </medicamentos>
 </data>
