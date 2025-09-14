@@ -18,17 +18,29 @@ public class View implements PropertyChangeListener {
     private JButton limpiarButton;
     private JButton guardarButton;
     private Proyecto.Presentation.Prescripcion.BuscarPaciente.View pacienteView;
+    private Proyecto.Presentation.Prescripcion.AgregarMedicamento.View medView;
+
 
     public View() {
-        pacienteView = new Proyecto.Presentation.Prescripcion.BuscarPaciente.View();
-
         buscarPacienteButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                pacienteView = new Proyecto.Presentation.Prescripcion.BuscarPaciente.View();
+                pacienteView.setController(controller);
+                pacienteView.setModel(model);
                 pacienteView.setVisible(true);
             }
         });
 
+        agregarMedicamentoButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                medView = new Proyecto.Presentation.Prescripcion.AgregarMedicamento.View();
+                medView.setController(controller);
+                medView.setModel(model);
+                medView.setVisible(true);
+            }
+        });
     }
 
     public void setModel(Model model) {

@@ -188,10 +188,24 @@ public class Service {
                 .collect(Collectors.toList());
     }
 
+    public List<Medicamento> buscarMedNombre(Medicamento e) throws Exception {
+        return datos.getMedicamentos().stream()
+                .filter(i -> i.getNombre().toLowerCase().contains(e.getNombre().toLowerCase()))
+                .sorted(Comparator.comparing(Medicamento::getNombre))
+                .collect(Collectors.toList());
+    }
+
     public List<Paciente> buscarPacienteCedula(Paciente e) throws Exception {
         return datos.getPacientes().stream()
                 .filter(i -> i.getId().toLowerCase().contains(e.getId().toLowerCase()))
                 .sorted(Comparator.comparing(Paciente::getId))
+                .collect(Collectors.toList());
+    }
+
+    public List<Medicamento> buscarMedCodigo(Medicamento e) throws Exception {
+        return datos.getMedicamentos().stream()
+                .filter(i -> i.getCodigo().toLowerCase().contains(e.getCodigo().toLowerCase()))
+                .sorted(Comparator.comparing(Medicamento::getCodigo))
                 .collect(Collectors.toList());
     }
 

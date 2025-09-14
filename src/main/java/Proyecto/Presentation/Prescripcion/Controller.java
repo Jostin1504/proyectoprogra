@@ -41,14 +41,29 @@ public class Controller {
         model.setPacientes(Service.instance().buscarPacienteNombre(d));
     }
 
+    public void searchMedNombre(String nombre) throws Exception {
+        Medicamento d = new Medicamento();
+        d.setNombre(nombre);
+        model.setMedicamentos(Service.instance().buscarMedNombre(d));
+    }
+
     public void searchPacienteCedula(String id) throws Exception {
         Paciente d = new Paciente();
         d.setId(id);
         model.setPacientes(Service.instance().buscarPacienteCedula(d));
     }
 
+    public void searchMedCodigo(String id) throws Exception {
+        Medicamento d = new Medicamento();
+        d.setCodigo(id);
+        model.setMedicamentos(Service.instance().buscarMedCodigo(d));
+    }
+
     public void setPaciente(int row){
         model.setPaciente(model.getPacientes().get(row));
+    }
+    public void setMed(int row){
+        model.setMedicamentos(model.getMedicamentos().get(row));
     }
 
 }
