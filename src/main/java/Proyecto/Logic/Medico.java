@@ -1,7 +1,12 @@
 package Proyecto.Logic;
 
 import Proyecto.Logic.Usuario;
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlRootElement;
 
+@XmlRootElement(name = "medico")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Medico extends Usuario {
     String especialidad;
 

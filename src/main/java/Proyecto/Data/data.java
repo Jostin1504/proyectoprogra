@@ -1,15 +1,32 @@
 package Proyecto.Data;
 
 import Proyecto.Logic.*;
+import jakarta.xml.bind.annotation.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
+@XmlRootElement(name = "data")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class data {
+    @XmlElementWrapper(name = "medicos")
+    @XmlElement(name = "medico")
     private final List<Medico> medicos;
+
+    @XmlElementWrapper(name = "farmaceutas")
+    @XmlElement(name = "farmaceuta")
     private final List<Farmaceuta> farmaceutas;
+
     private final List<Administrador> administradores;
+
+    @XmlElementWrapper(name = "pacientes")
+    @XmlElement(name = "paciente")
     private final List<Paciente> pacientes;
+
+    @XmlElementWrapper(name = "medicamentos")
+    @XmlElement(name = "medicamento")
     private final List<Medicamento> medicamentos;
+
     private final List<Usuario> usuarios;
 
     public data() {

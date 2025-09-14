@@ -1,6 +1,8 @@
 package Proyecto.Logic;
 
 import Proyecto.Data.data;
+import jakarta.xml.bind.*;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +24,22 @@ public class Service {
         return datos;
     }
 
+    private void cargarDatos() {
+        try {
+            File file = new File("data.xml");
+            if (file.exists()) {
+                JAXBContext context = JAXBContext.newInstance(data.class);
+                Unmarshaller unmarshaller = context.createUnmarshaller();
+                datos = (data) unmarshaller.unmarshal(file);
+            } else {
+                datos = new data();
+            }
 
+        } catch (Exception e) {
+            e.printStackTrace();
+            datos = new data();
+        }
+    }
 
     public boolean cambiarClave(String id, String claveActual, String claveNueva) throws Exception {
         try {

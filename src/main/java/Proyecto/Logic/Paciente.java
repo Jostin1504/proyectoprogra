@@ -1,5 +1,12 @@
 package Proyecto.Logic;
 
+
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement(name = "paciente")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Paciente {
     protected String nombre;
     protected String id;

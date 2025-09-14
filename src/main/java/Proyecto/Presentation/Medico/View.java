@@ -12,7 +12,7 @@ import com.github.lgooddatepicker.components.DatePicker;
 public class View implements PropertyChangeListener {
     Controller controller;
     Model model;
-    private JPanel mainPanelMedicamento;
+    private JPanel mainPanelMedico;
     private JPanel JpanelMedico;
     private JPanel JpanelBusqueda;
     private JTextField idFld;
@@ -36,9 +36,9 @@ public class View implements PropertyChangeListener {
                     Medico m = obtenerM();
                     try {
                         controller.guardarMedico(m);
-                        JOptionPane.showMessageDialog(mainPanelMedicamento, "REGISTRO APLICADO", "", JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(mainPanelMedico, "REGISTRO APLICADO", "", JOptionPane.INFORMATION_MESSAGE);
                     }catch (Exception ex){
-                        JOptionPane.showMessageDialog(mainPanelMedicamento, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(mainPanelMedico, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                     }
                 }
             }
@@ -55,9 +55,9 @@ public class View implements PropertyChangeListener {
                 if (validate()){
                     try {
                         controller.borrarMedico(model.getCurrent());
-                        JOptionPane.showMessageDialog(mainPanelMedicamento, "MEDICO BORRADO", "", JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(mainPanelMedico, "MEDICO BORRADO", "", JOptionPane.INFORMATION_MESSAGE);
                     }catch (Exception ex){
-                        JOptionPane.showMessageDialog(mainPanelMedicamento, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(mainPanelMedico, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                     }
                 }
             }
@@ -67,9 +67,9 @@ public class View implements PropertyChangeListener {
             public void actionPerformed(ActionEvent e) {
                 try {
                     controller.encontrarMedico(name2Fld.getText());
-                    JOptionPane.showMessageDialog(mainPanelMedicamento, "Medico(a) " + model.getCurrent().getNombre() + " encontrado", "", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(mainPanelMedico, "Medico(a) " + model.getCurrent().getNombre() + " encontrado", "", JOptionPane.INFORMATION_MESSAGE);
                 }catch (Exception ex){
-                    JOptionPane.showMessageDialog(mainPanelMedicamento, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(mainPanelMedico, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
         });
@@ -108,13 +108,13 @@ public class View implements PropertyChangeListener {
                 specialFld.setToolTipText(null);
                 break;
         }
-        this.mainPanelMedicamento.revalidate();
+        this.mainPanelMedico.revalidate();
     }
     private boolean validate() {
         boolean valid = true;
         if (idFld.getText().isEmpty() || name1Fld.getText().isEmpty() || specialFld.getText().isEmpty()){
             valid = false;
-            JOptionPane.showMessageDialog(mainPanelMedicamento, "Asegurese de llenar los espacios vacíos");
+            JOptionPane.showMessageDialog(mainPanelMedico, "Asegurese de llenar los espacios vacíos");
         }
         if (idFld.getText().isEmpty()) {
             valid = false;
@@ -150,7 +150,7 @@ public class View implements PropertyChangeListener {
     }
 
      public JPanel getMainPanelMedico() {
-        return mainPanelMedicamento;
+        return mainPanelMedico;
     }
     /*public void clear(){
         idFld.setText("");
