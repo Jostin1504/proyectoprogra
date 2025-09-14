@@ -26,6 +26,8 @@ public class View extends JDialog implements PropertyChangeListener {
         setTitle("Pacientes");
         setSize(400, 250);
 
+
+
         buscar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
