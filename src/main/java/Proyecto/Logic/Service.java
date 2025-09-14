@@ -4,7 +4,9 @@ import Proyecto.Data.data;
 import jakarta.xml.bind.*;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Service {
     private static Service theInstance;
@@ -178,6 +180,22 @@ public class Service {
             throw new Exception("Usuario no existe");
         }
     }
+
+    public List<Paciente> buscarPacienteNombre(Paciente e) throws Exception {
+       return datos.getPacientes().stream()
+                .filter(i -> i.getNombre().toLowerCase().contains(e.getNombre().toLowerCase()))
+                .sorted(Comparator.comparing(Paciente::getNombre))
+                .collect(Collectors.toList());
+    }
+
+    public List<Paciente> buscarPacienteCedula(Paciente e) throws Exception {
+        return datos.getPacientes().stream()
+                .filter(i -> i.getId().toLowerCase().contains(e.getId().toLowerCase()))
+                .sorted(Comparator.comparing(Paciente::getId))
+                .collect(Collectors.toList());
+    }
+
+
     public void anadirPaciente(Paciente paciente){
         datos.getPacientes().add(paciente);
         guardarDatos();

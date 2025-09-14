@@ -18,7 +18,12 @@ public class Application {
         };
         doLogin();
         if(Sesion.isLoggedIn()){
-            doRun();
+            try {
+                doRun();
+            }catch (Exception ex){
+                JOptionPane.showMessageDialog(null,ex.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
+            }
+
         }
     }
 
@@ -34,7 +39,7 @@ public class Application {
         loginView.setVisible(true);
     }
 
-    private static void doRun(){
+    private static void doRun() throws Exception {
         JFrame window = new JFrame("Recetas");
         JTabbedPane tabbedPane = new JTabbedPane();
         window.setContentPane(tabbedPane);
