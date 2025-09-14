@@ -1,16 +1,19 @@
 package Proyecto.Logic;
 
 
-import jakarta.xml.bind.annotation.XmlAccessType;
-import jakarta.xml.bind.annotation.XmlAccessorType;
-import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.*;
 
 @XmlRootElement(name = "paciente")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Paciente {
+    @XmlElement
     protected String nombre;
+    @XmlIDREF
+    @XmlElement
     protected String id;
+    @XmlElement
     protected String fechanac;
+    @XmlElement
     protected String numTelefono;
 
     public Paciente(String nombre, String id, String  fechanac, String numTelefono) {

@@ -1,9 +1,20 @@
 package Proyecto.Logic;
+import jakarta.xml.bind.annotation.*;
 
+@XmlRootElement(name = "usuario")
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlSeeAlso({Medico.class, Farmaceuta.class, Administrador.class})
 public class Usuario {
+    @XmlElement
     protected String nombre;
+
+    @XmlElement
     protected String cedula;
+
+    @XmlElement
     protected String clave;
+
+    @XmlElement
     protected String rol;
 
     public Usuario(String nombre, String cedula, String rol) {

@@ -41,6 +41,16 @@ public class Service {
         }
     }
 
+    public void guardarDatos() {
+        try {
+            jakarta.xml.bind.JAXBContext context = jakarta.xml.bind.JAXBContext.newInstance(data.class);
+            jakarta.xml.bind.Marshaller marshaller = context.createMarshaller();
+            marshaller.setProperty(jakarta.xml.bind.Marshaller.JAXB_FORMATTED_OUTPUT, true);
+            marshaller.marshal(datos, new File("data.xml"));
+        } catch (Exception e) {
+        }
+    }
+
     public boolean cambiarClave(String id, String claveActual, String claveNueva) throws Exception {
         try {
             Usuario us = new Usuario("", id, "");
@@ -122,6 +132,7 @@ public class Service {
         } else {
             throw new Exception("Medico ya existe");
         }
+        guardarDatos();
     }
     public boolean eliminarMedico(Medico medico){
         boolean aux = false;
@@ -129,6 +140,7 @@ public class Service {
             aux = true;
         }
         return aux;
+
     }
 
     // --- METODOS FARMACEUTAS ---
@@ -145,6 +157,7 @@ public class Service {
     }
     public void anadirFarmaceuta(Farmaceuta farmaceuta){
         datos.getFarmaceutas().add(farmaceuta);
+        guardarDatos();
     }
     public void eliminarFarmaceuta(Farmaceuta farmaceuta){
         datos.getFarmaceutas().remove(farmaceuta);
@@ -164,6 +177,7 @@ public class Service {
     }
     public void anadirPaciente(Paciente paciente){
         datos.getPacientes().add(paciente);
+        guardarDatos();
     }
     public void eliminarPaciente(Paciente paciente){
         datos.getPacientes().remove(paciente);
@@ -172,6 +186,7 @@ public class Service {
     // --- METODOS MEDICAMENTO ---
     public void anadirMedicamento(Medicamento medicamento){
         datos.getMedicamentos().add(medicamento);
+        guardarDatos();
     }
 
     public void eliminarMedicamento(Medicamento medicamento){
