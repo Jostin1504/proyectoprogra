@@ -81,7 +81,7 @@ public class View extends JDialog implements PropertyChangeListener {
         switch (evt.getPropertyName()) {
             case Model.MEDICAMENTOS:
                 int[] cols = {MedicamentoTableModel.CODIGO, MedicamentoTableModel.NOMBRE, MedicamentoTableModel.PRESENTACION};
-                list.setModel(new MedicamentoTableModel(cols, model.getMedicamentos())); // Usar model en lugar de controller
+                list.setModel(new MedicamentoTableModel(cols, controller.getMedicamentos())); // Usar model en lugar de controller
                 list.revalidate();
                 list.repaint();
                 break;
