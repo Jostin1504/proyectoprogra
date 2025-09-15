@@ -4,34 +4,72 @@ import jakarta.xml.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
-
 @XmlRootElement(name = "receta")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Recetas {
     @XmlElement
     public String fechaRetiro;
+
     @XmlElement
-    public Paciente paciente;
+    public String fechaCreacion;
+
     @XmlElement
+    public String idPaciente;
+
+    @XmlElementWrapper(name = "medicamentos")
+    @XmlElement(name = "medicamento")
     public List<Medicamento> medicamentos;
 
-    public Recetas(String fecha_final, Paciente p, String fecha_inicio) {
-        this.fechaRetiro = fecha_final;
-        this.paciente = p;
+    public Recetas(String fechaRetiro, String idPaciente, String fechaCreacion) {
+        this.fechaRetiro = fechaRetiro;
+        this.idPaciente = idPaciente;
+        this.fechaCreacion = fechaCreacion;
         this.medicamentos = new ArrayList<>();
     }
 
     public Recetas() {
         fechaRetiro = "";
-        paciente = new Paciente();
+        fechaCreacion = "";
+        idPaciente = "";
         medicamentos = new ArrayList<>();
     }
 
-    public Paciente getPaciente() {return paciente;}
-    public void setPaciente(Paciente paciente) {this.paciente = paciente;}
-    public List<Medicamento> getMedicamentos() {return medicamentos;}
-    public void setMedicamentos(List<Medicamento> medicamentos) {this.medicamentos = medicamentos;}
-    public void añadirMed(Medicamento med){medicamentos.add(med);}
-    public String getFechaRetiro() {return fechaRetiro;}
-    public void setFechaRetiro(String fechaRetiro) {this.fechaRetiro = fechaRetiro;}
+    public String getIdPaciente() {
+        return idPaciente;
+    }
+
+    public void setIdPaciente(String idPaciente) {
+        this.idPaciente = idPaciente;
+    }
+
+    public List<Medicamento> getMedicamentos() {
+        return medicamentos;
+    }
+
+    public void setMedicamentos(List<Medicamento> medicamentos) {
+        this.medicamentos = medicamentos;
+    }
+
+    public void añadirMed(Medicamento med) {
+        if (this.medicamentos == null) {
+            this.medicamentos = new ArrayList<>();
+        }
+        this.medicamentos.add(med);
+    }
+
+    public String getFechaRetiro() {
+        return fechaRetiro;
+    }
+
+    public void setFechaRetiro(String fechaRetiro) {
+        this.fechaRetiro = fechaRetiro;
+    }
+
+    public String getFechaCreacion() {
+        return fechaCreacion;
+    }
+
+    public void setFechaCreacion(String fechaCreacion) {
+        this.fechaCreacion = fechaCreacion;
+    }
 }

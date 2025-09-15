@@ -3,7 +3,7 @@ package Proyecto.Presentation.Prescripcion.AgregarMedicamento;
 import Proyecto.Presentation.Prescripcion.Controller;
 import Proyecto.Presentation.Prescripcion.Model;
 import Proyecto.Presentation.Prescripcion.View;
-
+import Proyecto.Logic.*;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -22,10 +22,7 @@ public class DetalleView extends JDialog implements PropertyChangeListener {
     Proyecto.Presentation.Prescripcion.View view;
 
     public DetalleView() throws Exception {
-        view = new View();
         model = new Model();
-        controller = new Controller(view, model);
-
         setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(guardarButton);
@@ -37,10 +34,31 @@ public class DetalleView extends JDialog implements PropertyChangeListener {
         guardarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                controller.editarDetalle(cantidadSpinner.getValue().toString(), duracionSpinner.getValue().toString(), indicacionesFld.getText());
-                model.getCurrent().añadirMed(model.getCurrentMedicamento());
+                if (model.getCurrentMedicamento() != null) {
+                    Medicamento medicamentoEditado = new Medicamento(
+                            model.getCurrentMedicamento().getNombre(),
+                            model.getCurrentMedicamento().getPresentacion(),
+                            (Integer) cantidadSpinner.getValue(),
+                            (Integer) duracionSpinner.getValue(),
+                            indicacionesFld.getText()
+                    );
+
+                    model.addMedicamentoToReceta(medicamentoEditado);
+
+                    model.clearCurrentMedicamento();
+
+                    setVisible(false);
+                }
             }
         });
+    }
+
+    public void setModel(Model model) {
+        this.model = model;
+    }
+
+    public void setController(Controller controller) {
+        this.controller = controller;
     }
 
     @Override

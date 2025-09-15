@@ -23,15 +23,13 @@ public class View extends JDialog implements PropertyChangeListener {
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
         setLocationRelativeTo(null);
-        setTitle("Pacientes");
-        setSize(400, 250);
-
-
+        setTitle("Seleccionar Paciente");
+        setSize(500, 350);
 
         buscar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(cedulaNombre.getSelectedItem() == "Nombre"){
+                if(cedulaNombre.getSelectedItem().equals("Nombre")){
                     try {
                         controller.searchPacienteNombre(nombre.getText());
                     }catch (Exception ex){
@@ -50,8 +48,16 @@ public class View extends JDialog implements PropertyChangeListener {
         buttonOK.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(list.getSelectedRow()>=0){
+                if(list.getSelectedRow() >= 0){
                     controller.setPaciente(list.getSelectedRow());
+                    JOptionPane.showMessageDialog(contentPane,
+                            "Paciente seleccionado: " + model.getCurrentPaciente().getNombre(),
+                            "Paciente Seleccionado",
+                            JOptionPane.INFORMATION_MESSAGE);
+                    View.this.setVisible(false);
+                }else{
+                    JOptionPane.showMessageDialog(contentPane,
+                            JOptionPane.WARNING_MESSAGE);
                 }
             }
         });
@@ -73,7 +79,9 @@ public class View extends JDialog implements PropertyChangeListener {
 
     public void setModel(Model model) {
         this.model = model;
-        model.addPropertyChangeListener(this);
+        if (model != null) {
+            model.addPropertyChangeListener(this);
+        }
     }
 
     @Override
@@ -81,10 +89,11 @@ public class View extends JDialog implements PropertyChangeListener {
         switch (evt.getPropertyName()) {
             case Model.PACIENTES:
                 int[] cols = {TableModel.ID, TableModel.NOMBRE, TableModel.NACIMIENTO, TableModel.TELEFONO};
-                list.setModel(new TableModel(cols,model.getPacientes()));
+                list.setModel(new TableModel(cols, model.getPacientes()));
+                list.revalidate();
+                list.repaint();
                 break;
         }
         this.contentPane.revalidate();
     }
-
 }

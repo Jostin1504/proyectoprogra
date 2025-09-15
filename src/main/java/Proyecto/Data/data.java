@@ -58,12 +58,20 @@ public class data {
         pacientes.add(new Paciente("José Vargas", "101", "1980-05-15", "8888-1111"));
         pacientes.add(new Paciente("Carmen Solís", "102", "1990-12-03", "8888-2222"));
         pacientes.add(new Paciente("Roberto Mora", "103", "1975-08-20", "8888-3333"));
+        Paciente paciente1 = new Paciente("José Vargas", "101", "1980-05-15", "8888-1111");
+        Paciente paciente2 = new Paciente("Carmen Solís", "102", "1990-12-03", "8888-2222");
+        Paciente paciente3 = new Paciente("Roberto Mora", "103", "1975-08-20", "8888-3333");
 
         // Medicamentos
         medicamentos.add(new Medicamento("Acetaminofén", "500 mg", 70, 15, "Una cada 6 horas"));
         medicamentos.add(new Medicamento("Acetaminofén", "100 mg", 80, 15, "Una cada 6 horas"));
         medicamentos.add(new Medicamento("Ibuprofeno", "400 mg", 40, 15, "Una cada 6 horas"));
         medicamentos.add(new Medicamento("Amoxicilina", "250 mg", 30, 15, "Una cada 6 horas"));
+
+        Recetas receta1 = new Recetas("2024-01-15", "101", "2024-01-10");
+        receta1.añadirMed(new Medicamento("Acetaminofén", "500 mg", 30, 7, "Una cada 8 horas"));
+        receta1.añadirMed(new Medicamento("Ibuprofeno", "400 mg", 20, 5, "Una cada 12 horas si hay dolor"));
+        paciente1.agregarReceta(receta1);
 
         usuarios.addAll(medicos);
         usuarios.addAll(farmaceutas);

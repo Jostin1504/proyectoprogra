@@ -25,8 +25,6 @@ public class View extends JDialog implements PropertyChangeListener {
         setLocationRelativeTo(null);
         setTitle("Medicamentos");
         setSize(400, 250);
-
-        detalleView = new DetalleView();
         buttonOK.setEnabled(false);
 
         buscar.addActionListener(new ActionListener() {
@@ -57,9 +55,9 @@ public class View extends JDialog implements PropertyChangeListener {
         buttonOK.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(list.getSelectedRow()>=0){
+                if(list.getSelectedRow() >= 0){
                     controller.setMed(list.getSelectedRow());
-                    detalleView.setVisible(true);
+                    View.this.setVisible(false); // Solo cerrar esta ventana
                 }
             }
         });

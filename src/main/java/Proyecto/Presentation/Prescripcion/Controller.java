@@ -1,7 +1,8 @@
 package Proyecto.Presentation.Prescripcion;
 
 import Proyecto.Logic.*;
-
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class Controller {
@@ -19,9 +20,9 @@ public class Controller {
 
     void clear(){
         model.setCurrent(new Recetas());
+        model.setCurrentPaciente(null);
     }
 
-    //obtener lista de medicos
     public List<Medicamento> getMedicamentos(){
         return Service.instance().getMedicamentos();
     }
@@ -33,13 +34,12 @@ public class Controller {
         }
     }
 
-    //encontrar medicos en data con nombre
-    public Medicamento encontrarMedicamento(String nom) throws Exception {
-            return Service.instance().buscarMedicamento(nom);
+    public Medicamento encontrarMedicamento(String codigo) throws Exception {
+        return Service.instance().buscarMedicamento(codigo);
     }
 
-    public Paciente buscarPaciente(String nom) throws Exception {
-        return Service.instance().buscarPaciente(nom);
+    public Paciente buscarPaciente(String id) throws Exception {
+        return Service.instance().buscarPaciente(id);
     }
 
     public void searchPacienteNombre(String nombre) throws Exception {
@@ -49,9 +49,11 @@ public class Controller {
     }
 
     public void editarDetalle(String cantidad, String duracion, String detalles){
+        if (model.getCurrentMedicamento() != null) {
             model.getCurrentMedicamento().setDuracion(Integer.parseInt(duracion));
             model.getCurrentMedicamento().setCantidad(Integer.parseInt(cantidad));
             model.getCurrentMedicamento().setIndicaciones(detalles);
+        }
     }
 
     public void searchMedNombre(String nombre) throws Exception {
@@ -71,23 +73,43 @@ public class Controller {
         d.setCodigo(id);
         model.setMedicamentos(Service.instance().buscarMedCodigo(d));
     }
-
     public void setPaciente(int row){
-        model.setPaciente(model.getPacientes().get(row));
+        if (row >= 0 && row < model.getPacientes().size()) {
+            Paciente selectedPaciente = model.getPacientes().get(row);
+            model.setCurrentPaciente(selectedPaciente);
+        }
     }
+
     public void setMedicamento(int row){
-        // Este método debería seleccionar un medicamento específico
-        // según lo que necesites hacer con él
-        Medicamento selected = model.getMedicamentos().get(row);
-        // Aquí puedes agregar la lógica específica para manejar el medicamento seleccionado
-        // Por ejemplo, agregarlo a la receta actual:
-        model.addMedicamentoToReceta(selected); // Usar el método público del modelo
+        if (row >= 0 && row < model.getMedicamentos().size()) {
+            Medicamento selected = model.getMedicamentos().get(row);
+            model.setCurrentMedicamento(selected);
+        }
     }
 
     public void setMed(int row){
         if (row >= 0 && row < model.getMedicamentos().size()) {
-            setMedicamento(row);
+            Medicamento selected = model.getMedicamentos().get(row);
+            model.setCurrentMedicamento(selected);
         }
     }
 
+    public void guardarReceta(String fechaRetiro) throws Exception {
+        if (model.getCurrentPaciente() == null) {
+            throw new Exception("Debe seleccionar un paciente");
+        }
+        if (model.getCurrent().getMedicamentos().isEmpty()) {
+            throw new Exception("La receta debe tener al menos un medicamento");
+        }
+        model.getCurrent().setFechaRetiro(fechaRetiro);
+        model.getCurrent().setFechaCreacion(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+        model.guardarRecetaAPaciente();
+        Service.instance().actualizarPaciente(model.getCurrentPaciente());
+        clear();
+    }
+
+    public List<Recetas> getRecetasPaciente(String idPaciente) throws Exception {
+        Paciente paciente = Service.instance().buscarPaciente(idPaciente);
+        return paciente.getRecetas();
+    }
 }

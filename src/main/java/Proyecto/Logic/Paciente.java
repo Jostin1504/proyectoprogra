@@ -1,7 +1,8 @@
 package Proyecto.Logic;
 
-
 import jakarta.xml.bind.annotation.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @XmlRootElement(name = "paciente")
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -16,17 +17,24 @@ public class Paciente {
     @XmlElement
     protected String numTelefono;
 
-    public Paciente(String nombre, String id, String  fechanac, String numTelefono) {
+    @XmlElementWrapper(name = "recetas")
+    @XmlElement(name = "receta")
+    protected List<Recetas> recetas;
+
+    public Paciente(String nombre, String id, String fechanac, String numTelefono) {
         this.nombre = nombre;
         this.id = id;
         this.fechanac = fechanac;
         this.numTelefono = numTelefono;
+        this.recetas = new ArrayList<>();
     }
+
     public Paciente() {
         nombre = "";
         id = "";
         fechanac = "";
         numTelefono = "";
+        recetas = new ArrayList<>();
     }
 
     public String getNombre() {
@@ -45,6 +53,10 @@ public class Paciente {
         return numTelefono;
     }
 
+    public List<Recetas> getRecetas() {
+        return recetas;
+    }
+
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
@@ -59,5 +71,22 @@ public class Paciente {
 
     public void setNumTelefono(String numTelefono) {
         this.numTelefono = numTelefono;
+    }
+
+    public void setRecetas(List<Recetas> recetas) {
+        this.recetas = recetas;
+    }
+
+    public void agregarReceta(Recetas receta) {
+        if (this.recetas == null) {
+            this.recetas = new ArrayList<>();
+        }
+        this.recetas.add(receta);
+    }
+
+    public void eliminarReceta(Recetas receta) {
+        if (this.recetas != null) {
+            this.recetas.remove(receta);
+        }
     }
 }

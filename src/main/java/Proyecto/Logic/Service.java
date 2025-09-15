@@ -50,6 +50,7 @@ public class Service {
             marshaller.setProperty(jakarta.xml.bind.Marshaller.JAXB_FORMATTED_OUTPUT, true);
             marshaller.marshal(datos, new File("data.xml"));
         } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -111,9 +112,7 @@ public class Service {
     }
 
     // --- METODOS MEDICOS ---
-
-    //encontrar medicos en data
-    public Medico buscarMedico(String e) throws  Exception {
+    public Medico buscarMedico(String e) throws Exception {
         Medico result = datos.getMedicos().stream()
                 .filter(i -> i.getCedula().equals(e))
                 .findFirst()
@@ -124,6 +123,7 @@ public class Service {
             throw new Exception("Usuario no existe");
         }
     }
+
     public void anadirMedico(Medico e) throws Exception{
         Medico result = datos.getMedicos().stream()
                 .filter(i -> i.getCedula().equals(e.getCedula()))
@@ -135,8 +135,8 @@ public class Service {
         } else {
             throw new Exception("Medico ya existe");
         }
-
     }
+
     public boolean eliminarMedico(Medico medico){
         boolean aux = false;
         if(datos.getMedicos().remove(medico)){
@@ -144,7 +144,6 @@ public class Service {
             guardarDatos();
         }
         return aux;
-
     }
 
     // --- METODOS FARMACEUTAS ---
@@ -159,10 +158,12 @@ public class Service {
             throw new Exception("Usuario no existe");
         }
     }
+
     public void anadirFarmaceuta(Farmaceuta farmaceuta){
         datos.getFarmaceutas().add(farmaceuta);
         guardarDatos();
     }
+
     public void eliminarFarmaceuta(Farmaceuta farmaceuta){
         datos.getFarmaceutas().remove(farmaceuta);
         guardarDatos();
@@ -177,12 +178,12 @@ public class Service {
         if (result != null) {
             return result;
         } else {
-            throw new Exception("Usuario no existe");
+            throw new Exception("Paciente no existe");
         }
     }
 
     public List<Paciente> buscarPacienteNombre(Paciente e) throws Exception {
-       return datos.getPacientes().stream()
+        return datos.getPacientes().stream()
                 .filter(i -> i.getNombre().toLowerCase().contains(e.getNombre().toLowerCase()))
                 .sorted(Comparator.comparing(Paciente::getNombre))
                 .collect(Collectors.toList());
@@ -209,14 +210,27 @@ public class Service {
                 .collect(Collectors.toList());
     }
 
-
     public void anadirPaciente(Paciente paciente){
         datos.getPacientes().add(paciente);
         guardarDatos();
     }
+
     public void eliminarPaciente(Paciente paciente){
         datos.getPacientes().remove(paciente);
         guardarDatos();
+    }
+
+    public void actualizarPaciente(Paciente paciente) throws Exception {
+        Paciente e = buscarPaciente(paciente.getId());
+        if (e != null) {
+            e.setNombre(paciente.getNombre());
+            e.setFechanac(paciente.getFechanac());
+            e.setNumTelefono(paciente.getNumTelefono());
+            e.setRecetas(paciente.getRecetas());
+            guardarDatos();
+        } else {
+            throw new Exception("Paciente no existe");
+        }
     }
 
     // --- METODOS MEDICAMENTO ---
@@ -238,14 +252,27 @@ public class Service {
         if (result != null) {
             return result;
         } else {
-            throw new Exception("Usuario no existe");
+            throw new Exception("Medicamento no existe");
         }
     }
 
-
-
     public void anadirAdministrador(Administrador administrador){
         datos.getAdministradores().add(administrador);
+        guardarDatos();
+    }
+
+    // --- METODOS PARA RECETAS ---
+    public List<Recetas> getRecetasPaciente(String idPaciente) throws Exception {
+        Paciente paciente = buscarPaciente(idPaciente);
+        return paciente.getRecetas();
+    }
+
+    public List<Recetas> getAllRecetas() {
+        List<Recetas> todasLasRecetas = new ArrayList<>();
+        for (Paciente paciente : datos.getPacientes()) {
+            todasLasRecetas.addAll(paciente.getRecetas());
+        }
+        return todasLasRecetas;
     }
 
     public String ent(){
