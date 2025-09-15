@@ -14,6 +14,7 @@ public class Controller {
         view.setController(this);
         view.setModel(model);
         model.setPacientes(Service.instance().buscarPacienteCedula(new Paciente()));
+        model.setMedicamentos(Service.instance().getMedicamentos());
     }
 
     void clear(){
@@ -25,6 +26,12 @@ public class Controller {
         return Service.instance().getMedicamentos();
     }
 
+    public void seleccionarMedicamento(int row) {
+        if (row >= 0 && row < model.getMedicamentos().size()) {
+            Medicamento selected = model.getMedicamentos().get(row);
+            model.setCurrentMedicamento(selected);
+        }
+    }
 
     //encontrar medicos en data con nombre
     public Medicamento encontrarMedicamento(String nom) throws Exception {
@@ -39,6 +46,12 @@ public class Controller {
         Paciente d = new Paciente();
         d.setNombre(nombre);
         model.setPacientes(Service.instance().buscarPacienteNombre(d));
+    }
+
+    public void editarDetalle(String cantidad, String duracion, String detalles){
+            model.getCurrentMedicamento().setDuracion(Integer.parseInt(duracion));
+            model.getCurrentMedicamento().setCantidad(Integer.parseInt(cantidad));
+            model.getCurrentMedicamento().setIndicaciones(detalles);
     }
 
     public void searchMedNombre(String nombre) throws Exception {

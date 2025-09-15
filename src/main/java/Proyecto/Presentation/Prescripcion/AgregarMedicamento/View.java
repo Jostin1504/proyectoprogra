@@ -2,7 +2,6 @@ package Proyecto.Presentation.Prescripcion.AgregarMedicamento;
 
 import Proyecto.Presentation.Prescripcion.Controller;
 import Proyecto.Presentation.Prescripcion.Model;
-
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -17,15 +16,18 @@ public class View extends JDialog implements PropertyChangeListener {
     private JButton buscar;
     private JTable list;
     private JComboBox cedulaNombre;
+    DetalleView detalleView;
 
-
-    public View() {
+    public View() throws Exception {
         setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
         setLocationRelativeTo(null);
-        setTitle("Medicamentos"); // Cambiar de "Pacientes" a "Medicamentos"
+        setTitle("Medicamentos");
         setSize(400, 250);
+
+        detalleView = new DetalleView();
+        buttonOK.setEnabled(false);
 
         buscar.addActionListener(new ActionListener() {
             @Override
@@ -46,12 +48,18 @@ public class View extends JDialog implements PropertyChangeListener {
             }
         });
 
+        list.getSelectionModel().addListSelectionListener(e -> {
+            if (!e.getValueIsAdjusting()) {
+                buttonOK.setEnabled(list.getSelectedRow() >= 0);
+            }
+        });
+
         buttonOK.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(list.getSelectedRow()>=0){
-                    controller.setMed(list.getSelectedRow()); // Esto ya debería funcionar con las correcciones del Controller
-                    View.this.setVisible(false); // Cerrar la ventana después de seleccionar
+                    controller.setMed(list.getSelectedRow());
+                    detalleView.setVisible(true);
                 }
             }
         });
@@ -81,10 +89,13 @@ public class View extends JDialog implements PropertyChangeListener {
         switch (evt.getPropertyName()) {
             case Model.MEDICAMENTOS:
                 int[] cols = {MedicamentoTableModel.CODIGO, MedicamentoTableModel.NOMBRE, MedicamentoTableModel.PRESENTACION};
-                list.setModel(new MedicamentoTableModel(cols, controller.getMedicamentos())); // Usar model en lugar de controller
+                list.setModel(new MedicamentoTableModel(cols, model.getMedicamentos())); // Usar model en lugar de controller
                 list.revalidate();
                 list.repaint();
                 break;
+            case Model.CURRENTMED:
+                if(model.getCurrentMedicamento() != null && !model.getCurrentMedicamento().getCodigo().trim().isEmpty()){
+                    buttonOK.setEnabled(true);}
         }
         this.contentPane.revalidate();
     }

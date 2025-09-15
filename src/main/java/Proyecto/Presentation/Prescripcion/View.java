@@ -22,6 +22,9 @@ public class View implements PropertyChangeListener {
 
 
     public View() {
+        descartarMedicamentoButton.setEnabled(false);
+        detallesButton.setEnabled(false);
+
         buscarPacienteButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -35,7 +38,11 @@ public class View implements PropertyChangeListener {
         agregarMedicamentoButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                medView = new Proyecto.Presentation.Prescripcion.AgregarMedicamento.View();
+                try {
+                    medView = new Proyecto.Presentation.Prescripcion.AgregarMedicamento.View();
+                } catch (Exception ex) {
+                    throw new RuntimeException(ex);
+                }
                 medView.setController(controller);
                 medView.setModel(model);
                 medView.setVisible(true);

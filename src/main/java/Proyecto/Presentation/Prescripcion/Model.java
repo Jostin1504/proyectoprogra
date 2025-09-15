@@ -11,6 +11,7 @@ public class Model extends AbstractModel {
     List<Recetas> list;
     List<Paciente> pacientes;
     List<Medicamento> medicamentos;
+    Medicamento currentMed;
 
     public static final String CURRENT = "current";
     public static final String LIST = "list";
@@ -18,12 +19,15 @@ public class Model extends AbstractModel {
     public static final String PACIENTE = "paciente";
     public static final String MEDICAMENTOS = "medicamentos";
     public static final String MEDICAMENTO = "medicamento";
+    public static final String CURRENTMED =  "currentmed";
+
 
     public Model() {
         current = new Recetas();
         list = new ArrayList<Recetas>();
         pacientes = new ArrayList<Paciente>();
         medicamentos = new ArrayList<Medicamento>();
+        currentMed = new Medicamento();
     }
 
     @Override
@@ -35,6 +39,7 @@ public class Model extends AbstractModel {
         firePropertyChange(PACIENTE);
         firePropertyChange(MEDICAMENTOS);
         firePropertyChange(MEDICAMENTO);
+        firePropertyChange(CURRENTMED);
     }
 
     public Recetas getCurrent() {
@@ -45,7 +50,7 @@ public class Model extends AbstractModel {
         this.current = current;
         firePropertyChange(CURRENT);
         firePropertyChange(PACIENTE);
-        firePropertyChange(MEDICAMENTO);
+        firePropertyChange(MEDICAMENTOS);
     }
 
     public List<Recetas> getList() {
@@ -81,22 +86,23 @@ public class Model extends AbstractModel {
         firePropertyChange(MEDICAMENTOS);
     }
 
-    // Este método agrega un medicamento específico a la receta actual
     public void addMedicamentoToReceta(Medicamento medicamento) {
-        this.current.getMedicamentos().add(medicamento);
-        firePropertyChange(MEDICAMENTO);
+        this.current.getMedicamentos().add(currentMed);
+        firePropertyChange(CURRENTMED);
     }
 
-    // Método para seleccionar un medicamento específico
-    public void setSelectedMedicamento(Medicamento medicamento) {
-        // Aquí puedes manejar la selección de un medicamento específico
-        // según las necesidades de tu aplicación
-        firePropertyChange(MEDICAMENTO);
+    public Medicamento getCurrentMedicamento() {
+        return currentMed;
     }
 
-    // Método público para notificar cambios desde el controller si es necesario
-    public void notifyMedicamentoChange() {
-        firePropertyChange(MEDICAMENTO);
+    public void setCurrentMedicamento(Medicamento medicamento) {
+        this.currentMed = medicamento;
+        firePropertyChange(CURRENTMED);
+    }
+
+    public void clearCurrentMedicamento() {
+        this.currentMed = null;
+        firePropertyChange(CURRENTMED);
     }
 
 }
