@@ -5,7 +5,7 @@ import jakarta.xml.bind.annotation.*;
 @XmlRootElement(name = "medicamento")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Medicamento {
-    @XmlElement
+    @XmlID
     protected String codigo;
     @XmlElement
     protected String nombre;

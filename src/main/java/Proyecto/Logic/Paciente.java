@@ -15,18 +15,22 @@ public class Paciente {
     protected String fechanac;
     @XmlElement
     protected String numTelefono;
+    @XmlIDREF
+    protected Recetas receta;
 
     public Paciente(String nombre, String id, String  fechanac, String numTelefono) {
         this.nombre = nombre;
         this.id = id;
         this.fechanac = fechanac;
         this.numTelefono = numTelefono;
+        this.receta = new Recetas();
     }
     public Paciente() {
         nombre = "";
         id = "";
         fechanac = "";
         numTelefono = "";
+        receta = new Recetas();
     }
 
     public String getNombre() {
@@ -59,5 +63,13 @@ public class Paciente {
 
     public void setNumTelefono(String numTelefono) {
         this.numTelefono = numTelefono;
+    }
+
+    public Recetas getReceta() {
+        return receta;
+    }
+
+    public void setReceta(Recetas receta) {
+        this.receta = receta;
     }
 }

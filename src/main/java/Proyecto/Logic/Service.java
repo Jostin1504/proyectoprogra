@@ -110,6 +110,8 @@ public class Service {
         return datos.getMedicamentos();
     }
 
+    public List<Recetas> getRecetas() {return datos.getRecetas(); }
+
     // --- METODOS MEDICOS ---
 
     //encontrar medicos en data

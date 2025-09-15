@@ -30,6 +30,8 @@ public class data {
     @XmlTransient
     private List<Usuario> usuarios;
 
+    private List<Recetas> recetas;
+
     public data() {
         medicos = new ArrayList<>();
         farmaceutas = new ArrayList<>();
@@ -37,6 +39,7 @@ public class data {
         pacientes = new ArrayList<>();
         medicamentos = new ArrayList<>();
         usuarios = new ArrayList<>();
+        recetas = new ArrayList<>();
         cargarDatos();
     }
 
@@ -89,4 +92,6 @@ public class data {
     }
 
     public List<Usuario> getUsuarios() {return usuarios;}
+
+    public List<Recetas> getRecetas() {return recetas;}
 }

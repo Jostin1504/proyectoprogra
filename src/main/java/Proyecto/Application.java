@@ -65,8 +65,11 @@ public class Application {
         Proyecto.Presentation.Medicamentos.View medicamentosView = new Proyecto.Presentation.Medicamentos.View();
         Proyecto.Presentation.Medicamentos.Controller medicamentosController = new Proyecto.Presentation.Medicamentos.Controller(medicamentosView, medicamentosModel);
 
-
         Proyecto.Presentation.AcercaDe.View acercaDeView = new Proyecto.Presentation.AcercaDe.View();
+
+        Proyecto.Presentation.Despacho.Model despachoModel = new Proyecto.Presentation.Despacho.Model();
+        Proyecto.Presentation.Despacho.View despachoView = new Proyecto.Presentation.Despacho.View();
+        Proyecto.Presentation.Despacho.Controller despachoController = new Proyecto.Presentation.Despacho.Controller(despachoView, despachoModel);
 
         switch (Sesion.getUsuario().getRol()){
             case "ADM":
@@ -88,9 +91,9 @@ public class Application {
                 //tabbedPane.addTab("Historico");
                 break;
             case "FAR":
-
-
+                tabbedPane.addTab("Despacho", despachoView.getMainPanelDespacho());
                 tabbedPane.addTab("Acerca de...", acercaDeView.getMainPanelAcercaDe());
+
                 //tabbedPane.addTab("Dashboard");
                 //tabbedPane.addTab("Historico");
                 break;

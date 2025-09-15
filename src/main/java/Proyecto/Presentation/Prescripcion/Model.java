@@ -65,14 +65,14 @@ public class Model extends AbstractModel {
         return medicamentos;
     }
 
-    public void setPacientes(List<Paciente> departamentos) {
-        this.pacientes = departamentos;
+    public void setPacientes(List<Paciente> pacientes) {
+        this.pacientes = pacientes;
         firePropertyChange(PACIENTES);
     }
 
 
-    public void setPaciente(Paciente departamento) {
-        this.current.setPaciente(departamento);
+    public void setPaciente(Paciente pacientes) {
+        this.current.setPaciente(pacientes);
         firePropertyChange(PACIENTES);
     }
 
