@@ -73,7 +73,8 @@ public class data {
         Recetas receta1 = new Recetas("2024-01-15", "101", "2024-01-10");
         receta1.añadirMed(new Medicamento("Acetaminofén", "500 mg", 30, 7, "Una cada 8 horas"));
         receta1.añadirMed(new Medicamento("Ibuprofeno", "400 mg", 20, 5, "Una cada 12 horas si hay dolor"));
-        paciente1.agregarReceta(receta1);
+        recetas.add(receta1);
+        pacientes.get(0).agregarReceta(receta1);
 
         usuarios.addAll(medicos);
         usuarios.addAll(farmaceutas);

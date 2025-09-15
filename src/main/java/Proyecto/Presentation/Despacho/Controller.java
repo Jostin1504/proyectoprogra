@@ -1,7 +1,6 @@
 package Proyecto.Presentation.Despacho;
 
 import Proyecto.Logic.Paciente;
-import Proyecto.Logic.Recetas;
 import Proyecto.Logic.Service;
 
 import java.util.List;
@@ -16,6 +15,7 @@ public class Controller {
         view.setController(this);
         view.setModel(model);
         model.addPropertyChangeListener(view);
+        model.setRecetas(model.getCurrent().getRecetas());
     }
 
     public void clear(){

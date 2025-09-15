@@ -16,6 +16,9 @@ public class Recetas {
     @XmlElement
     public String idPaciente;
 
+    @XmlElement
+    public String estado;
+
     @XmlElementWrapper(name = "medicamentos")
     @XmlElement(name = "medicamento")
     public List<Medicamento> medicamentos;
@@ -25,6 +28,15 @@ public class Recetas {
         this.idPaciente = idPaciente;
         this.fechaCreacion = fechaCreacion;
         this.medicamentos = new ArrayList<>();
+        this.estado = "Confeccionada";
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
 
     public Recetas() {
@@ -32,6 +44,7 @@ public class Recetas {
         fechaCreacion = "";
         idPaciente = "";
         medicamentos = new ArrayList<>();
+        estado = "Confeccionada";
     }
 
     public String getIdPaciente() {

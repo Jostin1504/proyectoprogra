@@ -3,8 +3,7 @@
     <medicos>
         <medico>
             <nombre>Juan Pérez</nombre>
-            <cedula>111</cedula>
-            <clave>111</clave>
+            <cedula>111</cedula><clave>111</clave>
             <rol>MED</rol>
             <especialidad>Cardiología</especialidad>
         </medico>
@@ -25,8 +24,8 @@
         <medico>
             <nombre>Fatima Rivera</nombre>
             <cedula>114</cedula>
-            <clave></clave>
-            <rol></rol>
+            <clave>114</clave>
+            <rol>MED</rol>
             <especialidad>Cirujana</especialidad>
         </medico>
     </medicos>
@@ -41,6 +40,12 @@
             <nombre>Luis Martínez</nombre>
             <cedula>223</cedula>
             <clave>223</clave>
+            <rol>FAR</rol>
+        </farmaceuta>
+        <farmaceuta>
+            <nombre>Ana García</nombre>
+            <cedula>222</cedula>
+            <clave></clave>
             <rol>FAR</rol>
         </farmaceuta>
     </farmaceutas>
@@ -67,6 +72,7 @@
                     <fechaRetiro>2025-09-19</fechaRetiro>
                     <fechaCreacion>2025-09-14 19:43:45</fechaCreacion>
                     <idPaciente>101</idPaciente>
+                    <estado>Confeccionada</estado>
                     <medicamentos>
                         <medicamento>
                             <codigo>AM1</codigo>
@@ -90,12 +96,13 @@
                     <fechaRetiro>2025-09-13</fechaRetiro>
                     <fechaCreacion>2025-09-14 19:00:50</fechaCreacion>
                     <idPaciente>102</idPaciente>
+                    <estado>Confeccionada</estado>
                     <medicamentos>
                         <medicamento>
                             <codigo>AC2</codigo>
                             <nombre>Acetaminofén</nombre>
                             <presentacion>100 mg</presentacion>
-                            <indicaciones>hola</indicaciones>
+                            <indicaciones>1 cada 3 horas</indicaciones>
                             <duracion>2</duracion>
                             <cantidad>2</cantidad>
                         </medicamento>
@@ -116,7 +123,7 @@
             <codigo>AC70</codigo>
             <nombre>Acetaminofén</nombre>
             <presentacion>500 mg</presentacion>
-            <indicaciones></indicaciones>
+            <indicaciones>1 cada 10 horas</indicaciones>
             <duracion>0</duracion>
             <cantidad>0</cantidad>
         </medicamento>
@@ -140,9 +147,33 @@
             <codigo>AM30</codigo>
             <nombre>Amoxicilina</nombre>
             <presentacion>250 mg</presentacion>
-            <indicaciones></indicaciones>
+            <indicaciones>1 cada 6 horas</indicaciones>
             <duracion>0</duracion>
             <cantidad>0</cantidad>
         </medicamento>
     </medicamentos>
+    <recetas>
+        <fechaRetiro>2024-01-15</fechaRetiro>
+        <fechaCreacion>2024-01-10</fechaCreacion>
+        <idPaciente>101</idPaciente>
+        <estado>Confeccionada</estado>
+        <medicamentos>
+            <medicamento>
+                <codigo>AC30</codigo>
+                <nombre>Acetaminofén</nombre>
+                <presentacion>500 mg</presentacion>
+                <indicaciones>Una cada 8 horas</indicaciones>
+                <duracion>7</duracion>
+                <cantidad>30</cantidad>
+            </medicamento>
+            <medicamento>
+                <codigo>IB20</codigo>
+                <nombre>Ibuprofeno</nombre>
+                <presentacion>400 mg</presentacion>
+                <indicaciones>Una cada 12 horas si hay dolor</indicaciones>
+                <duracion>5</duracion>
+                <cantidad>20</cantidad>
+            </medicamento>
+        </medicamentos>
+    </recetas>
 </data>

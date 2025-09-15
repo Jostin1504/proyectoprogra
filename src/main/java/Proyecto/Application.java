@@ -71,19 +71,25 @@ public class Application {
         Proyecto.Presentation.Despacho.View despachoView = new Proyecto.Presentation.Despacho.View();
         Proyecto.Presentation.Despacho.Controller despachoController = new Proyecto.Presentation.Despacho.Controller(despachoView, despachoModel);
 
+        Proyecto.Presentation.Dashboard.Model dashboardModel = new Proyecto.Presentation.Dashboard.Model();
+        Proyecto.Presentation.Dashboard.View dashboardView = new Proyecto.Presentation.Dashboard.View();
+        Proyecto.Presentation.Dashboard.Controller dashboardController =  new Proyecto.Presentation.Dashboard.Controller(dashboardView, dashboardModel);
+
         switch (Sesion.getUsuario().getRol()){
             case "ADM":
                 tabbedPane.addTab("Medicos", medicoView.getMainPanelMedico());
                 tabbedPane.addTab("Farmaceutas",  farmaceutaView.getMainPanelFarmaceuta());
                 tabbedPane.addTab("Pacientes", pacienteView.getMainPanelPaciente());
                 tabbedPane.addTab("Medicamentos", medicamentosView.getMainPanelMedicamento());
-                //tabbedPane.addTab("Dashboard");
+                tabbedPane.addTab("Dashboard", dashboardView.getMainPanelDashboard());
+
                 //tabbedPane.addTab("Historico");
                 tabbedPane.addTab("Acerca de...", acercaDeView.getMainPanelAcercaDe());
                 break;
             case "MED":
                 //IGUAL AQUÍ
                 tabbedPane.addTab("Prescribir",  prescripcionView.getMainPanelPrescripcion());
+                tabbedPane.addTab("Dashboard", dashboardView.getMainPanelDashboard());
 
                 tabbedPane.addTab("Acerca de...", acercaDeView.getMainPanelAcercaDe());
 
@@ -92,6 +98,8 @@ public class Application {
                 break;
             case "FAR":
                 tabbedPane.addTab("Despacho", despachoView.getMainPanelDespacho());
+                tabbedPane.addTab("Dashboard", dashboardView.getMainPanelDashboard());
+
                 tabbedPane.addTab("Acerca de...", acercaDeView.getMainPanelAcercaDe());
 
                 //tabbedPane.addTab("Dashboard");
@@ -99,7 +107,7 @@ public class Application {
                 break;
         }
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        window.setSize(1000, 700);  // O usa window.setSize(800, 600);
+        window.setSize(1200, 600);  // O usa window.setSize(800, 600);
         window.setLocationRelativeTo(null);
         window.setVisible(true);
     }

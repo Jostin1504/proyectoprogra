@@ -6,6 +6,7 @@ import Proyecto.Logic.Paciente;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
@@ -14,26 +15,44 @@ public class View implements PropertyChangeListener {
     Controller controller;
 
     private JPanel mainPanelDespacho;
-    private JButton actualizarEstadoButton;
-    private JComboBox comboBoxEstado;
+    private JButton procesoButton;
     private JTextField idPacFld;
     private JButton buscarRecetaButton;
+    private JTable recetas;
+    private JButton listaButton;
+    private JButton entregadaButton;
 
     public View() {
-        actualizarEstadoButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if(validate()){
-
-                }
-            }
-        });
         buscarRecetaButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (idPacFld.getText() != null) {
                     Paciente paciente = controller.getPaciente(idPacFld.getText());
                     model.setCurrent(paciente);
+                }
+            }
+        });
+        procesoButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(recetas.getSelectedRow() >= 0){
+                    model.getRecetas().get(recetas.getSelectedRow()).setEstado("En proceso");
+                }
+            }
+        });
+        listaButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(recetas.getSelectedRow() >= 0){
+                    model.getRecetas().get(recetas.getSelectedRow()).setEstado("Lista");
+                }
+            }
+        });
+        entregadaButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(recetas.getSelectedRow() >= 0){
+                    model.getRecetas().get(recetas.getSelectedRow()).setEstado("Entregada");
                 }
             }
         });
@@ -49,21 +68,15 @@ public class View implements PropertyChangeListener {
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        if (evt.getPropertyName().equals(Model.CURRENT)) {
-            idPacFld.setText(model.getCurrent().getNombre());
+        switch (evt.getPropertyName()) {
+            case Model.RECETAS:
+                int[] cols = {TableModel.FECHARET, TableModel.MEDICAMENTOS};
+                recetas.setModel(new TableModel(cols, model.getRecetas()));
+                break;
+            case Model.CURRENT:
+                idPacFld.setText(model.getCurrent().getNombre());
         }
         this.mainPanelDespacho.revalidate();
-    }
-
-    private boolean validate() {
-        boolean valid = true;
-        if (comboBoxEstado.isValid()) {
-            valid = false;
-            comboBoxEstado.setBackground(Application.BACKGROUND_ERROR);
-        } else {
-            comboBoxEstado.setBackground(null);
-        }
-        return valid;
     }
 
     public JPanel getMainPanelDespacho() {

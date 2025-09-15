@@ -1,6 +1,7 @@
 package Proyecto.Logic;
 
 import Proyecto.Data.data;
+import Proyecto.Data.XmlPersister;
 import jakarta.xml.bind.*;
 import java.io.File;
 import java.util.ArrayList;
@@ -19,38 +20,30 @@ public class Service {
     private data datos;
 
     public Service() {
-        cargarDatos();
+        try {
+            datos = cargarDatos();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public data getDatos() {
         return datos;
     }
 
-    private void cargarDatos() {
+    private data cargarDatos() {
         try {
-            File file = new File("data.xml");
-            if (file.exists()) {
-                JAXBContext context = JAXBContext.newInstance(data.class);
-                Unmarshaller unmarshaller = context.createUnmarshaller();
-                datos = (data) unmarshaller.unmarshal(file);
-            } else {
-                datos = new data();
-            }
-
+            return XmlPersister.instance().cargarDatos();
         } catch (Exception e) {
-            e.printStackTrace();
-            datos = new data();
+            throw new RuntimeException(e);
         }
     }
 
     public void guardarDatos() {
         try {
-            jakarta.xml.bind.JAXBContext context = jakarta.xml.bind.JAXBContext.newInstance(data.class);
-            jakarta.xml.bind.Marshaller marshaller = context.createMarshaller();
-            marshaller.setProperty(jakarta.xml.bind.Marshaller.JAXB_FORMATTED_OUTPUT, true);
-            marshaller.marshal(datos, new File("data.xml"));
+            XmlPersister.instance().guardarDatos(datos);
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 
@@ -277,7 +270,75 @@ public class Service {
         return todasLasRecetas;
     }
 
+    public List<Medicamento> getMedicamentoExacto(Medicamento medicamento) throws Exception {
+        List<Medicamento> l = new ArrayList<>();
+        for (Medicamento medicamento1 : datos.getMedicamentos()) {
+            if (medicamento1.getNombre().toLowerCase().contains(medicamento.getNombre().toLowerCase())) {
+                l.add(medicamento1);
+            }
+        }
+        return l;
+    }
+
+    public Number getCantidadTotalMedicamento(Medicamento medicamento) throws Exception {
+        int cont = 0;
+        List<Medicamento> l = getMedicamentoExacto(medicamento);
+        for (int i = 0; i < l.size(); i++) {
+            cont = cont + l.get(i).getCantidad();
+        }
+        return cont;
+    }
+
+    public int recetasListas(){
+        int cont = 0;
+        List<Recetas> r = getRecetas();
+        for(Recetas recetas : r){
+            if(recetas.getEstado().equals("Lista")){
+                cont++;
+            }
+        }
+        return cont;
+    }
+
+    public int recetasEnProceso(){
+        int cont = 0;
+        List<Recetas> r = getRecetas();
+        for(Recetas recetas : r){
+            if(recetas.getEstado().equals("En proceso")){
+                cont++;
+            }
+        }
+        return cont;
+    }
+
+    public int recetasEntregadas(){
+        int cont = 0;
+        List<Recetas> r = getRecetas();
+        for(Recetas recetas : r){
+            if(recetas.getEstado().equals("Entregada")){
+                cont++;
+            }
+        }
+        return cont;
+    }
+
+    public int recetasConfeccionadas(){
+        int cont = 0;
+        List<Recetas> r = getRecetas();
+        for(Recetas recetas : r){
+            if(recetas.getEstado().equals("Confeccionada")){
+                cont++;
+            }
+        }
+        return cont;
+    }
+
     public String ent(){
         return "entrar";
+    }
+
+    public void agregarReceta(Recetas recetas){
+        datos.getRecetas().add(recetas);
+        guardarDatos();
     }
 }

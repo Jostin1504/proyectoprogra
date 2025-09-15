@@ -6,6 +6,7 @@ import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
+import org.jfree.data.general.DefaultPieDataset;
 
 import java.util.List;
 
@@ -21,16 +22,25 @@ public class Controller {
         model.addPropertyChangeListener(view);
     }
 
-    /*public CategoryDataset createDataset(List<Medicamento> medicamentos) {
+    public CategoryDataset createDataset(List<Medicamento> medicamentos) {
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
         for  (Medicamento medicamento : medicamentos) {
-            dataset.addValue(Service.instance().getCantidadTotalMedicamento(medicamento),medicamento.getNombre(), medicamento.getDuracion());
+            try {
+                dataset.addValue(Service.instance().getCantidadTotalMedicamento(medicamento),medicamento.getNombre(), medicamento.getDuracion());
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
         }
         //dataset.addValue(); //eje Y, categoria en la que entra, eje X
         return dataset;
-    }*/
+    }
 
-   /* public void grafico1(){
-        model.setChart1(ChartFactory.createLineChart("Medicamentos","Mes", "Cantidad",createDataset(model.medicamentos)));
-    }*/
+   public DefaultPieDataset createPieDataset() {
+       DefaultPieDataset dataset = new DefaultPieDataset();
+       dataset.setValue("En proceso", Service.instance().recetasEnProceso());
+       dataset.setValue("Lista", Service.instance().recetasListas());
+       dataset.setValue("Entregada", Service.instance().recetasEntregadas());
+       dataset.setValue("Confeccionada", Service.instance().recetasConfeccionadas());
+       return dataset;
+   }
 }

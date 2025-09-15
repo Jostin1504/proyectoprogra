@@ -3,6 +3,7 @@ package Proyecto.Presentation.Prescripcion;
 import Proyecto.Logic.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Controller {
@@ -107,10 +108,21 @@ public class Controller {
         model.getCurrent().setFechaRetiro(fechaRetiro);
         model.getCurrent().setFechaCreacion(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
         model.guardarRecetaAPaciente();
+        agregarReceta();
         Service.instance().actualizarPaciente(model.getCurrentPaciente());
         Service.instance().guardarDatos();
         clear();
     }
+
+    public void agregarReceta(){
+        Recetas nuevaReceta = new Recetas();
+        nuevaReceta.setIdPaciente(model.currentPaciente.getId());
+        nuevaReceta.setFechaRetiro(model.current.getFechaRetiro());
+        nuevaReceta.setFechaCreacion(model.current.getFechaCreacion());
+        nuevaReceta.setMedicamentos(new ArrayList<>(model.current.getMedicamentos()));
+        Service.instance().agregarReceta(nuevaReceta);
+    }
+
 
     public List<Recetas> getRecetasPaciente(String idPaciente) throws Exception {
         Paciente paciente = Service.instance().buscarPaciente(idPaciente);

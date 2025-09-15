@@ -1,20 +1,16 @@
 package Proyecto.Presentation.Dashboard;
 
-import Proyecto.Logic.Medicamento;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
-import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
-import org.jfree.chart.renderer.category.LineAndShapeRenderer;
-import org.jfree.chart.*;
-import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
-import org.jfree.data.category.CategoryDataset;
+import org.jfree.data.general.DefaultPieDataset;
+
+import java.awt.*;
 
 import javax.swing.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.util.List;
 
 public class View implements PropertyChangeListener {
     Controller controller;
@@ -32,6 +28,7 @@ public class View implements PropertyChangeListener {
     private JButton button4;
     private JTable medicamentos;
     private JPanel panelMedicamentos;
+    private JPanel panelRecetas;
 
     public Controller getController() {
         return controller;
@@ -56,19 +53,24 @@ public class View implements PropertyChangeListener {
                 int[] cols = {TableModel.NOMBRE};
                 medicamentos.setModel(new TableModel(cols,model.getMedicamentos()));
                 break;
-            /*case Model.CHART1:
-                JFreeChart chart = ChartFactory.createLineChart("Medicamentos","Mes", "Cantidad", controller.createDataset(model.getMedicamentos()), PlotOrientation.VERTICAL, true, true, false);
-                CategoryPlot plot = (CategoryPlot) chart.getPlot();
-                XYLineAndShapeRenderer renderer = (XYLineAndShapeRenderer) plot.getRenderer();
+            case Model.CHART1:
+                JFreeChart chart1 = ChartFactory.createLineChart("Medicamentos","Mes",
+                        "Cantidad", controller.createDataset(model.getMedicamentos()), PlotOrientation.VERTICAL,
+                        true, true, false);
+                //CategoryPlot plot = (CategoryPlot) chart.getPlot();
+                //XYLineAndShapeRenderer renderer = (XYLineAndShapeRenderer) plot.getRenderer();
                 //renderer.setBaseShapesVisible(true);
-                ChartPanel chartPanel = new ChartPanel(chart, 400, 320, 10, 10,
-                1000, 1000, true, true, true, true, true, true);
+                ChartPanel chartPanel1 = new ChartPanel(chart1);
                 panelMedicamentos.removeAll();
-                panelMedicamentos.add(chartPanel);
-
-                break;*/
+                panelMedicamentos.add(chartPanel1);
+                break;
             case Model.CHART2:
-
+                JFreeChart chart2 = ChartFactory.createPieChart("Recetas", controller.createPieDataset(), true, true, true);
+                ChartPanel chartPanel2 = new ChartPanel(chart2);
+                chartPanel2.setLayout(null);
+                chartPanel2.setBounds(10, 10, 200, 200);
+                panelRecetas.removeAll();
+                panelRecetas.add(chartPanel2);
                 break;
         }
         this.mainPanelDashboard.revalidate();
