@@ -58,4 +58,5 @@ public class Medicamento {
     public void setIndicaciones(String indicaciones) {this.indicaciones = indicaciones;}
     public void setDuracion(int duracion) {this.duracion = duracion;}
     public void setCantidad(int cantidad) {this.cantidad = cantidad;}
+    public int getCantidad(){return cantidad;}
 }

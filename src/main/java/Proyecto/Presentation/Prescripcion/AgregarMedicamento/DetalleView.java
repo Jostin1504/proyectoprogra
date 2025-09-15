@@ -29,7 +29,8 @@ public class DetalleView extends JDialog implements PropertyChangeListener {
         setLocationRelativeTo(null);
         setTitle("Medicamentos");
         setSize(400, 250);
-
+        cantidadSpinner.setModel(new SpinnerNumberModel(1, 1, 1000, 1));
+        duracionSpinner.setModel(new SpinnerNumberModel(1, 1, 365, 1));
 
         guardarButton.addActionListener(new ActionListener() {
             @Override
@@ -49,6 +50,13 @@ public class DetalleView extends JDialog implements PropertyChangeListener {
 
                     setVisible(false);
                 }
+            }
+        });
+        cancelarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                model.clearCurrentMedicamento();
+                setVisible(false);
             }
         });
     }

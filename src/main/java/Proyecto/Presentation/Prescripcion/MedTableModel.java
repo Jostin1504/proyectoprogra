@@ -30,17 +30,19 @@ public class MedTableModel extends AbstractTableModel<Medicamento> implements ja
     protected Object getPropetyAt(Medicamento e, int col) {
         switch (cols[col]) {
             case NOMBRE:
-                return e.getCodigo();
-            case PRESENTACION:
                 return e.getNombre();
-            case CANTIDAD:
+            case PRESENTACION:
                 return e.getPresentacion();
-            case  INDICACIONES:
-                 return e.getIndicaciones();
+            case CANTIDAD:
+                return e.getCantidad();
+            case INDICACIONES:
+                return e.getIndicaciones();
             case DURACION:
-                 return e.getDuracion();
+                return e.getDuracion();
             default:
                 return "";
         }
     }
-}
+    }
+
+

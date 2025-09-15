@@ -19,7 +19,7 @@ public class Controller {
     }
 
     public void clear(){
-        model.setCurrent(new Recetas());
+        model.setCurrent(new Paciente());
     }
 
     public Paciente getPaciente(String id){

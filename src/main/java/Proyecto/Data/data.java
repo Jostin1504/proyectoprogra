@@ -61,10 +61,9 @@ public class data {
         pacientes.add(new Paciente("José Vargas", "101", "1980-05-15", "8888-1111"));
         pacientes.add(new Paciente("Carmen Solís", "102", "1990-12-03", "8888-2222"));
         pacientes.add(new Paciente("Roberto Mora", "103", "1975-08-20", "8888-3333"));
-        Paciente paciente1 = new Paciente("José Vargas", "101", "1980-05-15", "8888-1111");
-        Paciente paciente2 = new Paciente("Carmen Solís", "102", "1990-12-03", "8888-2222");
-        Paciente paciente3 = new Paciente("Roberto Mora", "103", "1975-08-20", "8888-3333");
-
+        Paciente paciente1 = pacientes.get(0);
+        Paciente paciente2 = pacientes.get(1);
+        Paciente paciente3 = pacientes.get(2);
         // Medicamentos
         medicamentos.add(new Medicamento("Acetaminofén", "500 mg", 70, 15, "Una cada 6 horas"));
         medicamentos.add(new Medicamento("Acetaminofén", "100 mg", 80, 15, "Una cada 6 horas"));

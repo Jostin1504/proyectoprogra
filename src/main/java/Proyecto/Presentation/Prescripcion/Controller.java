@@ -101,6 +101,9 @@ public class Controller {
         if (model.getCurrent().getMedicamentos().isEmpty()) {
             throw new Exception("La receta debe tener al menos un medicamento");
         }
+        if (fechaRetiro == null || fechaRetiro.trim().isEmpty()) {
+            throw new Exception("Debe seleccionar una fecha de retiro");
+        }
         model.getCurrent().setFechaRetiro(fechaRetiro);
         model.getCurrent().setFechaCreacion(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
         model.guardarRecetaAPaciente();

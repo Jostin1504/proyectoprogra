@@ -102,13 +102,21 @@ public class View implements PropertyChangeListener {
             case Model.CURRENTMED:
                 if (model.getCurrentMedicamento() != null &&
                         !model.getCurrentMedicamento().getCodigo().trim().isEmpty()) {
-
-                    try {
-                        detalleView = new Proyecto.Presentation.Prescripcion.AgregarMedicamento.DetalleView();
-                    } catch (Exception e) {
-                        throw new RuntimeException(e);
-                    }
-                    detalleView.setVisible(true);
+                    SwingUtilities.invokeLater(() -> {
+                        try {
+                            if (detalleView == null) {
+                                detalleView = new Proyecto.Presentation.Prescripcion.AgregarMedicamento.DetalleView();
+                                detalleView.setModel(model);
+                                detalleView.setController(controller);
+                            }
+                            detalleView.setVisible(true);
+                        } catch (Exception e) {
+                            JOptionPane.showMessageDialog(mainPanelPrescripcion,
+                                    "Error al abrir detalles: " + e.getMessage(),
+                                    "Error",
+                                    JOptionPane.ERROR_MESSAGE);
+                        }
+                    });
                 }
                 break;
             case Model.PACIENTE:

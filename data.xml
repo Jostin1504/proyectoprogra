@@ -62,18 +62,37 @@
             <id>101</id>
             <fechanac>1980-05-15</fechanac>
             <numTelefono>8888-1111</numTelefono>
+            <recetas/>
         </paciente>
         <paciente>
             <nombre>Carmen Solís</nombre>
             <id>102</id>
             <fechanac>1990-12-03</fechanac>
             <numTelefono>8888-2222</numTelefono>
+            <recetas>
+                <receta>
+                    <fechaRetiro>2025-09-13</fechaRetiro>
+                    <fechaCreacion>2025-09-14 19:00:50</fechaCreacion>
+                    <idPaciente>102</idPaciente>
+                    <medicamentos>
+                        <medicamento>
+                            <codigo>AC2</codigo>
+                            <nombre>Acetaminofén</nombre>
+                            <presentacion>100 mg</presentacion>
+                            <indicaciones>hola</indicaciones>
+                            <duracion>2</duracion>
+                            <cantidad>2</cantidad>
+                        </medicamento>
+                    </medicamentos>
+                </receta>
+            </recetas>
         </paciente>
         <paciente>
             <nombre>Roberto Mora</nombre>
             <id>103</id>
             <fechanac>1975-08-20</fechanac>
             <numTelefono>8888-3333</numTelefono>
+            <recetas/>
         </paciente>
     </pacientes>
     <medicamentos>
@@ -81,21 +100,33 @@
             <codigo>AC70</codigo>
             <nombre>Acetaminofén</nombre>
             <presentacion>500 mg</presentacion>
+            <indicaciones></indicaciones>
+            <duracion>0</duracion>
+            <cantidad>0</cantidad>
         </medicamento>
         <medicamento>
             <codigo>AC80</codigo>
             <nombre>Acetaminofén</nombre>
             <presentacion>100 mg</presentacion>
+            <indicaciones></indicaciones>
+            <duracion>0</duracion>
+            <cantidad>0</cantidad>
         </medicamento>
         <medicamento>
             <codigo>IB40</codigo>
             <nombre>Ibuprofeno</nombre>
             <presentacion>400 mg</presentacion>
+            <indicaciones></indicaciones>
+            <duracion>0</duracion>
+            <cantidad>0</cantidad>
         </medicamento>
         <medicamento>
             <codigo>AM30</codigo>
             <nombre>Amoxicilina</nombre>
             <presentacion>250 mg</presentacion>
+            <indicaciones></indicaciones>
+            <duracion>0</duracion>
+            <cantidad>0</cantidad>
         </medicamento>
     </medicamentos>
 </data>
