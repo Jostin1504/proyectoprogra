@@ -111,6 +111,8 @@ public class Service {
         return datos.getMedicamentos();
     }
 
+    public List<Recetas> getRecetas() {return datos.getRecetas(); }
+
     // --- METODOS MEDICOS ---
     public Medico buscarMedico(String e) throws Exception {
         Medico result = datos.getMedicos().stream()

@@ -35,7 +35,7 @@ public class Controller {
         model.setPacientes(Service.instance().getPacientes());
     }
 
-    //encontrar medicos en data con nombre
+    //encontrar paciente en data con nombre
     public void encontrarPaciente(String nom)throws  Exception{
         model.setCurrent(Service.instance().buscarPaciente(nom));
 
