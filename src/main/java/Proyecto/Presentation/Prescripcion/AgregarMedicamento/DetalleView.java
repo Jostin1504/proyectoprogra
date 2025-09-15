@@ -20,9 +20,10 @@ public class DetalleView extends JDialog implements PropertyChangeListener {
     Proyecto.Presentation.Prescripcion.Model model;
     Proyecto.Presentation.Prescripcion.Controller controller;
     Proyecto.Presentation.Prescripcion.View view;
+    private boolean modoEdicion = false;
+    private int indiceMedicamentoEditando = -1;
 
     public DetalleView() throws Exception {
-        model = new Model();
         setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(guardarButton);
@@ -43,11 +44,19 @@ public class DetalleView extends JDialog implements PropertyChangeListener {
                             (Integer) duracionSpinner.getValue(),
                             indicacionesFld.getText()
                     );
+                    if (modoEdicion && indiceMedicamentoEditando >= 0) {
+                        model.updateMedicamentoInReceta(indiceMedicamentoEditando, medicamentoEditado);
+                        JOptionPane.showMessageDialog(contentPane,
+                                "Medicamento actualizado correctamente",
+                                "Éxito",
+                                JOptionPane.INFORMATION_MESSAGE);
+                    } else {
+                        model.addMedicamentoToReceta(medicamentoEditado);
+                    }
 
-                    model.addMedicamentoToReceta(medicamentoEditado);
 
                     model.clearCurrentMedicamento();
-
+                    resetearModo();
                     setVisible(false);
                 }
             }
@@ -61,8 +70,37 @@ public class DetalleView extends JDialog implements PropertyChangeListener {
         });
     }
 
+    public void setModoEdicion(boolean esEdicion, int indiceMedicamento) {
+        this.modoEdicion = esEdicion;
+        this.indiceMedicamentoEditando = indiceMedicamento;
+
+        if (esEdicion) {
+            setTitle("Editar Detalles del Medicamento");
+            guardarButton.setText("Actualizar");
+
+            if (model.getCurrentMedicamento() != null) {
+                cantidadSpinner.setValue(model.getCurrentMedicamento().getCantidad());
+                duracionSpinner.setValue(model.getCurrentMedicamento().getDuracion());
+                indicacionesFld.setText(model.getCurrentMedicamento().getIndicaciones());
+            }
+        } else {
+            setTitle("Detalles del Medicamento");
+            guardarButton.setText("Guardar");
+            cantidadSpinner.setValue(1);
+            duracionSpinner.setValue(1);
+            indicacionesFld.setText("");
+        }
+    }
+
     public void setModel(Model model) {
         this.model = model;
+    }
+
+    private void resetearModo() {
+        modoEdicion = false;
+        indiceMedicamentoEditando = -1;
+        setTitle("Detalles del Medicamento");
+        guardarButton.setText("Guardar");
     }
 
     public void setController(Controller controller) {

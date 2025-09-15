@@ -1,7 +1,7 @@
 package Proyecto.Presentation.Prescripcion;
 
 import com.github.lgooddatepicker.components.DatePicker;
-
+import Proyecto.Logic.*;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -39,6 +39,34 @@ public class View implements PropertyChangeListener {
             }
         });
 
+        descartarMedicamentoButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int selectedRow = table1.getSelectedRow();
+                if (selectedRow >= 0) {
+                    int confirm = JOptionPane.showConfirmDialog(
+                            mainPanelPrescripcion,
+                            "¿Está seguro que desea eliminar este medicamento de la receta?",
+                            "Confirmar eliminación",
+                            JOptionPane.YES_NO_OPTION
+                    );
+                    if (confirm == JOptionPane.YES_OPTION) {
+                        model.getCurrent().getMedicamentos().remove(selectedRow);
+                        model.firePropertyChange(Model.MEDICAMENTO); // Refrescar tabla
+                        JOptionPane.showMessageDialog(mainPanelPrescripcion,
+                                "Medicamento eliminado de la receta",
+                                "Información",
+                                JOptionPane.INFORMATION_MESSAGE);
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(mainPanelPrescripcion,
+                            "Seleccione un medicamento para eliminar",
+                            "Advertencia",
+                            JOptionPane.WARNING_MESSAGE);
+                }
+            }
+        });
+
         agregarMedicamentoButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -49,6 +77,43 @@ public class View implements PropertyChangeListener {
                     medView.setVisible(true);
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(mainPanelPrescripcion, JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
+
+        detallesButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int selectedRow = table1.getSelectedRow();
+                if (selectedRow >= 0) {
+                    try {
+                        // Obtener el medicamento seleccionado de la receta
+                        Medicamento medicamentoSelected = model.getCurrent().getMedicamentos().get(selectedRow);
+
+                        // Configurar el medicamento actual en el modelo para edición
+                        model.setCurrentMedicamento(medicamentoSelected);
+
+                        // Crear o mostrar el DetalleView
+                        if (detalleView == null) {
+                            detalleView = new Proyecto.Presentation.Prescripcion.AgregarMedicamento.DetalleView();
+                            detalleView.setModel(model);
+                            detalleView.setController(controller);
+                        }
+
+                        detalleView.setModoEdicion(true, selectedRow);
+                        detalleView.setVisible(true);
+
+                    } catch (Exception ex) {
+                        JOptionPane.showMessageDialog(mainPanelPrescripcion,
+                                "Error al abrir detalles: " + ex.getMessage(),
+                                "Error",
+                                JOptionPane.ERROR_MESSAGE);
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(mainPanelPrescripcion,
+                            "Seleccione un medicamento para editar sus detalles",
+                            "Advertencia",
+                            JOptionPane.WARNING_MESSAGE);
                 }
             }
         });
@@ -130,21 +195,23 @@ public class View implements PropertyChangeListener {
                 }
                 break;
             case Model.CURRENT:
-                if (table1 != null && model.getCurrent() != null) {
                     int[] cols = {MedTableModel.NOMBRE, MedTableModel.PRESENTACION,
                             MedTableModel.CANTIDAD, MedTableModel.INDICACIONES,
                             MedTableModel.DURACION};
                     table1.setModel(new MedTableModel(cols, model.getCurrent().getMedicamentos()));
                     table1.revalidate();
                     table1.repaint();
-                }
                 break;
             case Model.MEDICAMENTO:
                 if (table1 != null && model.getCurrent() != null) {
-                    int[] cols = {MedTableModel.NOMBRE, MedTableModel.PRESENTACION,
+                    for (Medicamento med : model.getCurrent().getMedicamentos()) {
+                        System.out.println("Med: " + med.getNombre() + " - " + med.getCantidad() + " - " + med.getDuracion());
+                    }
+
+                    int[] cols2 = {MedTableModel.NOMBRE, MedTableModel.PRESENTACION,
                             MedTableModel.CANTIDAD, MedTableModel.INDICACIONES,
                             MedTableModel.DURACION};
-                    table1.setModel(new MedTableModel(cols, model.getCurrent().getMedicamentos()));
+                    table1.setModel(new MedTableModel(cols2, model.getCurrent().getMedicamentos()));
                     table1.revalidate();
                     table1.repaint();
 

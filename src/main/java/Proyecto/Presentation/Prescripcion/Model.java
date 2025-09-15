@@ -43,6 +43,32 @@ public class Model extends AbstractModel {
         firePropertyChange(CURRENTMED);
     }
 
+    public void firePropertyChange(String propertyName) {
+        super.firePropertyChange(propertyName);
+    }
+
+    public void updateMedicamentoInReceta(int index, Medicamento medicamento) {
+        if (index >= 0 && index < current.getMedicamentos().size()) {
+            current.getMedicamentos().set(index, medicamento);
+            firePropertyChange(MEDICAMENTO);
+            firePropertyChange(CURRENT);
+        }
+    }
+
+
+    public void removeMedicamentoFromReceta(int i) {
+        if (i >= 0 && i < current.getMedicamentos().size()) {
+            current.getMedicamentos().remove(i);
+            firePropertyChange(MEDICAMENTO);
+            firePropertyChange(CURRENT);
+        }
+    }
+
+    public void refreshMedicamentosTable() {
+        firePropertyChange(MEDICAMENTO);
+        firePropertyChange(CURRENT);
+    }
+
     public Recetas getCurrent() {
         return current;
     }

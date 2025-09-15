@@ -62,7 +62,23 @@
             <id>101</id>
             <fechanac>1980-05-15</fechanac>
             <numTelefono>8888-1111</numTelefono>
-            <recetas/>
+            <recetas>
+                <receta>
+                    <fechaRetiro>2025-09-19</fechaRetiro>
+                    <fechaCreacion>2025-09-14 19:43:45</fechaCreacion>
+                    <idPaciente>101</idPaciente>
+                    <medicamentos>
+                        <medicamento>
+                            <codigo>AM1</codigo>
+                            <nombre>Amoxicilina</nombre>
+                            <presentacion>250 mg</presentacion>
+                            <indicaciones>Tomar 1 al dia </indicaciones>
+                            <duracion>1</duracion>
+                            <cantidad>1</cantidad>
+                        </medicamento>
+                    </medicamentos>
+                </receta>
+            </recetas>
         </paciente>
         <paciente>
             <nombre>Carmen Solís</nombre>
