@@ -1,6 +1,6 @@
 package Proyecto.Presentation.Despacho;
 
-import Proyecto.Logic.Recetas;
+import Proyecto.Logic.*;
 import Proyecto.Presentation.AbstractTableModel;
 
 import java.util.List;
@@ -26,7 +26,20 @@ public class TableModel extends AbstractTableModel<Recetas> implements javax.swi
             case FECHARET:
                 return e.getFechaRetiro();
             case MEDICAMENTOS:
-                return e.getMedicamentos();
+                if (e.getMedicamentos() == null || e.getMedicamentos().isEmpty()) {
+                    return "Sin medicamentos";
+                }
+                StringBuilder sb = new StringBuilder();
+                for (int i = 0; i < e.getMedicamentos().size(); i++) {
+                    Medicamento med = e.getMedicamentos().get(i);
+                    sb.append(med.getNombre())
+                            .append(" - ")
+                            .append(med.getPresentacion());
+                    if (i < e.getMedicamentos().size() - 1) {
+                        sb.append("; ");
+                    }
+                }
+                return sb.toString();
             default:
                 return "";
         }

@@ -2,6 +2,7 @@ package Proyecto.Presentation.Despacho;
 
 import Proyecto.Application;
 import Proyecto.Logic.Paciente;
+import Proyecto.Logic.Recetas;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -13,7 +14,6 @@ import java.beans.PropertyChangeListener;
 public class View implements PropertyChangeListener {
     Model model;
     Controller controller;
-
     private JPanel mainPanelDespacho;
     private JButton procesoButton;
     private JTextField idPacFld;
@@ -23,12 +23,33 @@ public class View implements PropertyChangeListener {
     private JButton entregadaButton;
 
     public View() {
+        procesoButton.setEnabled(false);
+        listaButton.setEnabled(false);
+        entregadaButton.setEnabled(false);
         buscarRecetaButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (idPacFld.getText() != null) {
-                    Paciente paciente = controller.getPaciente(idPacFld.getText());
-                    model.setCurrent(paciente);
+                if (idPacFld.getText() != null && !idPacFld.getText().isEmpty()) {
+                    try {
+                        Paciente paciente = controller.getPaciente(idPacFld.getText());
+                        model.setCurrent(paciente);
+                        model.setRecetas(paciente.getRecetas());
+                    } catch (Exception ex) {
+                        JOptionPane.showMessageDialog(mainPanelDespacho,
+                                "Paciente no encontrado: " + ex.getMessage(),
+                                "Error",
+                                JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+            }
+        });
+        recetas.getSelectionModel().addListSelectionListener(e -> {
+            if (!e.getValueIsAdjusting()) {
+                int selectedRow = recetas.getSelectedRow();
+                if (selectedRow >= 0) {
+                    TableModel tableModel = (TableModel) recetas.getModel();
+                    Recetas equipoSeleccionado = tableModel.getRowAt(selectedRow);
+                    model.setReceta(equipoSeleccionado);
                 }
             }
         });
@@ -78,6 +99,10 @@ public class View implements PropertyChangeListener {
                 int[] cols2 = {TableModel.FECHARET, TableModel.MEDICAMENTOS};
                 recetas.setModel(new TableModel(cols2, model.getRecetas()));
                 break;
+            case Model.RECETA:
+                procesoButton.setEnabled(true);
+                listaButton.setEnabled(true);
+                entregadaButton.setEnabled(true);
         }
         this.mainPanelDespacho.revalidate();
     }

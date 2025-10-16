@@ -22,6 +22,16 @@ public class Controller {
         model.setCurrent(new Paciente());
     }
 
+    public void buscarPaciente(String id){
+        try {
+            Paciente paciente = Service.instance().buscarPaciente(id);
+            model.setCurrent(paciente);
+            model.setRecetas(paciente.getRecetas());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public Paciente getPaciente(String id){
         try {
             return Service.instance().buscarPaciente(id);

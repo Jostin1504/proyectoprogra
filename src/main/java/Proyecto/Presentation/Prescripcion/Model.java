@@ -56,19 +56,6 @@ public class Model extends AbstractModel {
     }
 
 
-    public void removeMedicamentoFromReceta(int i) {
-        if (i >= 0 && i < current.getMedicamentos().size()) {
-            current.getMedicamentos().remove(i);
-            firePropertyChange(MEDICAMENTO);
-            firePropertyChange(CURRENT);
-        }
-    }
-
-    public void refreshMedicamentosTable() {
-        firePropertyChange(MEDICAMENTO);
-        firePropertyChange(CURRENT);
-    }
-
     public Recetas getCurrent() {
         return current;
     }

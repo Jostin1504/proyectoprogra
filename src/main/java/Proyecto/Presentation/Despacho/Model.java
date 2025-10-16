@@ -1,7 +1,6 @@
 package Proyecto.Presentation.Despacho;
 
-import Proyecto.Logic.Paciente;
-import Proyecto.Logic.Recetas;
+import Proyecto.Logic.*;
 import Proyecto.Presentation.AbstractModel;
 
 import java.beans.PropertyChangeListener;
@@ -11,13 +10,16 @@ import java.util.List;
 public class Model extends AbstractModel {
     Paciente current;
     List<Recetas> recetas;
+    Recetas receta;
 
     public static final String CURRENT = "Current";
     public static final String RECETAS = "Recetas";
+    public static final String RECETA = "Receta";
 
     public Model() {
         this.current = new Paciente();
         this.recetas = current.getRecetas();
+        this.receta = new Recetas();
     }
 
     @Override
@@ -25,6 +27,7 @@ public class Model extends AbstractModel {
         super.addPropertyChangeListener(listener);
         firePropertyChange(CURRENT);
         firePropertyChange(RECETAS);
+        firePropertyChange(RECETA);
     }
 
     public Paciente getCurrent() {
@@ -33,6 +36,7 @@ public class Model extends AbstractModel {
 
     public void setCurrent(Paciente current) {
         this.current = current;
+        this.recetas = current.getRecetas();
         firePropertyChange(CURRENT);
         firePropertyChange(RECETAS);
     }
@@ -44,5 +48,9 @@ public class Model extends AbstractModel {
     public void setRecetas(List<Recetas> recetas) {
         this.recetas = recetas;
         firePropertyChange(RECETAS);
+    }
+    public void setReceta(Recetas recetas) {
+        this.receta = receta;
+        firePropertyChange(RECETA);
     }
 }
