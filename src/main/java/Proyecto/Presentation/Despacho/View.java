@@ -75,6 +75,9 @@ public class View implements PropertyChangeListener {
                 break;
             case Model.CURRENT:
                 idPacFld.setText(model.getCurrent().getNombre());
+                int[] cols2 = {TableModel.FECHARET, TableModel.MEDICAMENTOS};
+                recetas.setModel(new TableModel(cols2, model.getRecetas()));
+                break;
         }
         this.mainPanelDespacho.revalidate();
     }
