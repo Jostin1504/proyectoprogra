@@ -28,33 +28,10 @@ public class Controller {
         return Service.instance().getMedicamentos();
     }
 
-    public void seleccionarMedicamento(int row) {
-        if (row >= 0 && row < model.getMedicamentos().size()) {
-            Medicamento selected = model.getMedicamentos().get(row);
-            model.setCurrentMedicamento(selected);
-        }
-    }
-
-    public Medicamento encontrarMedicamento(String codigo) throws Exception {
-        return Service.instance().buscarMedicamento(codigo);
-    }
-
-    public Paciente buscarPaciente(String id) throws Exception {
-        return Service.instance().buscarPaciente(id);
-    }
-
     public void searchPacienteNombre(String nombre) throws Exception {
         Paciente d = new Paciente();
         d.setNombre(nombre);
         model.setPacientes(Service.instance().buscarPacienteNombre(d));
-    }
-
-    public void editarDetalle(String cantidad, String duracion, String detalles){
-        if (model.getCurrentMedicamento() != null) {
-            model.getCurrentMedicamento().setDuracion(Integer.parseInt(duracion));
-            model.getCurrentMedicamento().setCantidad(Integer.parseInt(cantidad));
-            model.getCurrentMedicamento().setIndicaciones(detalles);
-        }
     }
 
     public void searchMedNombre(String nombre) throws Exception {
@@ -121,11 +98,5 @@ public class Controller {
         nuevaReceta.setFechaCreacion(model.current.getFechaCreacion());
         nuevaReceta.setMedicamentos(new ArrayList<>(model.current.getMedicamentos()));
         Service.instance().agregarReceta(nuevaReceta);
-    }
-
-
-    public List<Recetas> getRecetasPaciente(String idPaciente) throws Exception {
-        Paciente paciente = Service.instance().buscarPaciente(idPaciente);
-        return paciente.getRecetas();
     }
 }

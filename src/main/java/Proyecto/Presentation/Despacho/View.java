@@ -56,28 +56,23 @@ public class View implements PropertyChangeListener {
         procesoButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(recetas.getSelectedRow() >= 0){
-                    model.getRecetas().get(recetas.getSelectedRow()).setEstado("En proceso");
-                }
+                controller.guardarEstado("En proceso");
             }
         });
         listaButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(recetas.getSelectedRow() >= 0){
-                    model.getRecetas().get(recetas.getSelectedRow()).setEstado("Lista");
-                }
+                controller.guardarEstado("Lista");
             }
         });
         entregadaButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(recetas.getSelectedRow() >= 0){
-                    model.getRecetas().get(recetas.getSelectedRow()).setEstado("Entregada");
-                }
+                controller.guardarEstado("Entregada");
             }
         });
     }
+
 
     public void setModel(Model model) {
         this.model = model;
@@ -91,18 +86,20 @@ public class View implements PropertyChangeListener {
     public void propertyChange(PropertyChangeEvent evt) {
         switch (evt.getPropertyName()) {
             case Model.RECETAS:
-                int[] cols = {TableModel.FECHARET, TableModel.MEDICAMENTOS};
+                int[] cols = {TableModel.FECHARET, TableModel.MEDICAMENTOS, TableModel.ESTADO};
                 recetas.setModel(new TableModel(cols, model.getRecetas()));
                 break;
             case Model.CURRENT:
                 idPacFld.setText(model.getCurrent().getNombre());
-                int[] cols2 = {TableModel.FECHARET, TableModel.MEDICAMENTOS};
+                int[] cols2 = {TableModel.FECHARET, TableModel.MEDICAMENTOS, TableModel.ESTADO};
                 recetas.setModel(new TableModel(cols2, model.getRecetas()));
                 break;
             case Model.RECETA:
-                procesoButton.setEnabled(true);
-                listaButton.setEnabled(true);
-                entregadaButton.setEnabled(true);
+                if(model.getReceta() != null) {
+                    procesoButton.setEnabled(true);
+                    listaButton.setEnabled(true);
+                    entregadaButton.setEnabled(true);
+                }
         }
         this.mainPanelDespacho.revalidate();
     }

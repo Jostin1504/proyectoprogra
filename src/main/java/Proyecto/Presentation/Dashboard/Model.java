@@ -2,21 +2,20 @@ package Proyecto.Presentation.Dashboard;
 
 import Proyecto.Logic.Medicamento;
 import Proyecto.Presentation.AbstractModel;
-import org.jfree.chart.ChartFactory;
-import org.jfree.chart.JFreeChart;
 
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Model extends AbstractModel {
-    JFreeChart chart1;
-    JFreeChart chart2;
+    // Cambiar a Object para poder disparar eventos incluso con null
+    Object chart1Update;
+    Object chart2Update;
     List<Medicamento> medicamentos;
 
     public Model() {
-        chart1 = null;
-        chart2 = null;
+        chart1Update = null;
+        chart2Update = null;
         medicamentos = new ArrayList<>();
     }
 
@@ -38,21 +37,16 @@ public class Model extends AbstractModel {
 
     public void setMedicamentos(List<Medicamento> medicamentos) {
         this.medicamentos = medicamentos;
+        firePropertyChange(MEDICAMENTOS);
     }
 
-    public JFreeChart getChart1() {
-        return chart1;
+    public void setChart1(Object trigger) {
+        this.chart1Update = trigger;
+        firePropertyChange(CHART1);
     }
 
-    public void setChart1(JFreeChart chart1) {
-        this.chart1 = chart1;
-    }
-
-    public JFreeChart getChart2() {
-        return chart2;
-    }
-
-    public void setChart2(JFreeChart chart2) {
-        this.chart2 = chart2;
+    public void setChart2(Object trigger) {
+        this.chart2Update = trigger;
+        firePropertyChange(CHART2);
     }
 }

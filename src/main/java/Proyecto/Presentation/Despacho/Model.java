@@ -19,7 +19,7 @@ public class Model extends AbstractModel {
     public Model() {
         this.current = new Paciente();
         this.recetas = current.getRecetas();
-        this.receta = new Recetas();
+        this.receta = null;
     }
 
     @Override
@@ -37,8 +37,13 @@ public class Model extends AbstractModel {
     public void setCurrent(Paciente current) {
         this.current = current;
         this.recetas = current.getRecetas();
+        this.recetas = null;
         firePropertyChange(CURRENT);
         firePropertyChange(RECETAS);
+    }
+
+    public Recetas getReceta(){
+        return receta;
     }
 
     public List<Recetas> getRecetas() {
@@ -49,7 +54,7 @@ public class Model extends AbstractModel {
         this.recetas = recetas;
         firePropertyChange(RECETAS);
     }
-    public void setReceta(Recetas recetas) {
+    public void setReceta(Recetas receta) {
         this.receta = receta;
         firePropertyChange(RECETA);
     }

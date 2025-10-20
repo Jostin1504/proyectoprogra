@@ -13,12 +13,14 @@ public class TableModel extends AbstractTableModel<Recetas> implements javax.swi
 
     public static final int FECHARET = 0;
     public static final int MEDICAMENTOS = 1;
+    public static final int ESTADO = 2;
 
     @Override
     protected void initColNames() {
-        colNames = new String[2];
+        colNames = new String[3];
         colNames[FECHARET] = "Fecha de retiro";
         colNames[MEDICAMENTOS] = "Medicamento";
+        colNames[ESTADO] = "Estado";
     }
     @Override
     protected Object getPropetyAt(Recetas e, int col) {
@@ -40,6 +42,8 @@ public class TableModel extends AbstractTableModel<Recetas> implements javax.swi
                     }
                 }
                 return sb.toString();
+                case ESTADO:
+                    return e.getEstado();
             default:
                 return "";
         }

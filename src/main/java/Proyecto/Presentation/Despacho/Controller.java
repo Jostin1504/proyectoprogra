@@ -39,4 +39,9 @@ public class Controller {
             throw new RuntimeException(e);
         }
     }
+
+    public void guardarEstado(String e){
+        model.getReceta().setEstado(e);
+        Service.instance().guardarDatos();
+    }
 }
