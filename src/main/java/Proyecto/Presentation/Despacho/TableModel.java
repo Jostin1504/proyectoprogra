@@ -5,8 +5,8 @@ import Proyecto.Presentation.AbstractTableModel;
 
 import java.util.List;
 
-public class TableModel extends AbstractTableModel<Recetas> implements javax.swing.table.TableModel {
-    public TableModel(int[] cols, List<Recetas> rows) {
+public class TableModel extends AbstractTableModel<Receta> implements javax.swing.table.TableModel {
+    public TableModel(int[] cols, List<Receta> rows) {
         super(cols, rows);
     }
 
@@ -23,7 +23,7 @@ public class TableModel extends AbstractTableModel<Recetas> implements javax.swi
         colNames[ESTADO] = "Estado";
     }
     @Override
-    protected Object getPropetyAt(Recetas e, int col) {
+    protected Object getPropetyAt(Receta e, int col) {
         switch (cols[col]) {
             case FECHARET:
                 return e.getFechaRetiro();

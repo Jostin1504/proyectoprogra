@@ -1,29 +1,17 @@
 package Proyecto.Logic;
 
-import jakarta.xml.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@XmlRootElement(name = "receta")
-@XmlAccessorType(XmlAccessType.FIELD)
-public class Recetas {
-    @XmlElement
+public class Receta {
     public String fechaRetiro;
-
-    @XmlElement
     public String fechaCreacion;
-
-    @XmlElement
     public String idPaciente;
-
-    @XmlElement
     public String estado;
 
-    @XmlElementWrapper(name = "medicamentos")
-    @XmlElement(name = "medicamento")
     public List<Medicamento> medicamentos;
 
-    public Recetas(String fechaRetiro, String idPaciente, String fechaCreacion) {
+    public Receta(String fechaRetiro, String idPaciente, String fechaCreacion) {
         this.fechaRetiro = fechaRetiro;
         this.idPaciente = idPaciente;
         this.fechaCreacion = fechaCreacion;
@@ -39,7 +27,7 @@ public class Recetas {
         this.estado = estado;
     }
 
-    public Recetas() {
+    public Receta() {
         fechaRetiro = "";
         fechaCreacion = "";
         idPaciente = "";

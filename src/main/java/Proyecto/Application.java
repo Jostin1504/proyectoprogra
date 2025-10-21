@@ -6,6 +6,8 @@ import Proyecto.Presentation.Sesion;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class Application {
 
@@ -109,6 +111,13 @@ public class Application {
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setSize(1200, 600);  // O usa window.setSize(800, 600);
         window.setLocationRelativeTo(null);
+        window.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                super.windowClosing(e);
+                Service.instance().stop();
+            }
+        });
         window.setVisible(true);
     }
 }

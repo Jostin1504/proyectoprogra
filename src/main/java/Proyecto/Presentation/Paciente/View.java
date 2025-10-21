@@ -35,7 +35,11 @@ public class View implements PropertyChangeListener {
             public void actionPerformed(ActionEvent e) {
                 if (validate()){
                     Paciente p = obtenerP();
-                    controller.guardarPaciente(p);
+                    try {
+                        controller.guardarPaciente(p);
+                    } catch (Exception ex) {
+                        throw new RuntimeException(ex);
+                    }
                     JOptionPane.showMessageDialog(mainPanelPaciente, "Paciente guardado exitosamente");
                 }
             }
@@ -49,7 +53,11 @@ public class View implements PropertyChangeListener {
         borrarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                controller.borrarPaciente(model.getCurrent());
+                try {
+                    controller.borrarPaciente(model.getCurrent());
+                } catch (Exception ex) {
+                    throw new RuntimeException(ex);
+                }
                 JOptionPane.showMessageDialog(mainPanelPaciente, "Paciente borrado");
             }
         });

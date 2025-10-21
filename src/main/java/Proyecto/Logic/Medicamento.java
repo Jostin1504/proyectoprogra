@@ -2,14 +2,9 @@ package Proyecto.Logic;
 
 import jakarta.xml.bind.annotation.*;
 
-@XmlRootElement(name = "medicamento")
-@XmlAccessorType(XmlAccessType.FIELD)
 public class Medicamento {
-    @XmlID
     protected String codigo;
-    @XmlElement
     protected String nombre;
-    @XmlElement
     protected String presentacion;
 
     protected String indicaciones;

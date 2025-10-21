@@ -42,6 +42,5 @@ public class Controller {
 
     public void guardarEstado(String e){
         model.getReceta().setEstado(e);
-        Service.instance().guardarDatos();
     }
 }

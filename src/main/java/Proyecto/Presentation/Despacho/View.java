@@ -1,13 +1,11 @@
 package Proyecto.Presentation.Despacho;
 
-import Proyecto.Application;
 import Proyecto.Logic.Paciente;
-import Proyecto.Logic.Recetas;
+import Proyecto.Logic.Receta;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ComponentAdapter;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
@@ -48,7 +46,7 @@ public class View implements PropertyChangeListener {
                 int selectedRow = recetas.getSelectedRow();
                 if (selectedRow >= 0) {
                     TableModel tableModel = (TableModel) recetas.getModel();
-                    Recetas equipoSeleccionado = tableModel.getRowAt(selectedRow);
+                    Receta equipoSeleccionado = tableModel.getRowAt(selectedRow);
                     model.setReceta(equipoSeleccionado);
                 }
             }

@@ -11,58 +11,10 @@
     <version>1.0-SNAPSHOT</version>
 
     <dependencies>
-        <!-- https://mvnrepository.com/artifact/com.github.lgooddatepicker/LGoodDatePicker -->
         <dependency>
-            <groupId>com.github.lgooddatepicker</groupId>
-            <artifactId>LGoodDatePicker</artifactId>
-            <version>11.2.1</version>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/org.jfree/jfreechart -->
-        <dependency>
-            <groupId>org.jfree</groupId>
-            <artifactId>jfreechart</artifactId>
-            <version>1.5.6</version>
-        </dependency>
-        <dependency>
-            <groupId>jakarta.xml.bind</groupId>
-            <artifactId>jakarta.xml.bind-api</artifactId>
-            <version>4.0.0</version>
-        </dependency>
-
-        <!-- JAXB Implementation -->
-        <dependency>
-            <groupId>com.sun.xml.bind</groupId>
-            <artifactId>jaxb-impl</artifactId>
-            <version>4.0.0</version>
-        </dependency>
-
-        <!-- JAXB Core -->
-        <dependency>
-            <groupId>com.sun.xml.bind</groupId>
-            <artifactId>jaxb-core</artifactId>
-            <version>4.0.0</version>
-        </dependency>
-
-        <!-- Jakarta Activation API (requerida por JAXB) -->
-        <dependency>
-            <groupId>jakarta.activation</groupId>
-            <artifactId>jakarta.activation-api</artifactId>
-            <version>2.1.0</version>
-        </dependency>
-
-        <!-- Implementación de Jakarta Activation -->
-        <dependency>
-            <groupId>org.eclipse.angus</groupId>
-            <artifactId>angus-activation</artifactId>
-            <version>1.1.0</version>
-            <scope>runtime</scope>
-        </dependency>
-
-        <!-- GlassFish JAXB Runtime (opcional, pero recomendado) -->
-        <dependency>
-            <groupId>org.glassfish.jaxb</groupId>
-            <artifactId>jaxb-runtime</artifactId>
-            <version>4.0.0</version>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.21</version>
         </dependency>
     </dependencies>
 

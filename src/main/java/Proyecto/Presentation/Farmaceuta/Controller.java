@@ -28,7 +28,7 @@ public class Controller {
     }
 
     //guardar medicos en data
-    public void guardarFarmaceuta(Farmaceuta farmaceuta){
+    public void guardarFarmaceuta(Farmaceuta farmaceuta) throws Exception {
         Service.instance().anadirFarmaceuta(farmaceuta);
         model.setCurrent(new Farmaceuta());
         model.setFarmaceutas(Service.instance().getFarmaceutas());
@@ -40,7 +40,7 @@ public class Controller {
     }
 
     //borrar medicos de la lista
-    public void borrarFarmaceuta(Farmaceuta farmaceuta){
+    public void borrarFarmaceuta(Farmaceuta farmaceuta) throws Exception {
         Service.instance().eliminarFarmaceuta(farmaceuta);
         model.setCurrent(new Farmaceuta());
     }

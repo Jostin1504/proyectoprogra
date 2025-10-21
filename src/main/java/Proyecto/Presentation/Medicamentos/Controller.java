@@ -40,7 +40,7 @@ public class Controller {
     }
 
     //borrar medicos de la lista
-    public void borrarMedicamento(Medicamento medico){
+    public void borrarMedicamento(Medicamento medico) throws Exception {
         Service.instance().eliminarMedicamento(medico);
         model.setCurrent(new Medicamento());
     }

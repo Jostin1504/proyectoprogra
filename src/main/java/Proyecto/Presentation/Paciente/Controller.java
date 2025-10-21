@@ -29,7 +29,7 @@ public class Controller {
     }
 
     //guardar medicos en data
-    public void guardarPaciente(Paciente paciente){
+    public void guardarPaciente(Paciente paciente) throws Exception {
         Service.instance().anadirPaciente(paciente);
         model.setCurrent(new Paciente());
         model.setPacientes(Service.instance().getPacientes());
@@ -42,7 +42,7 @@ public class Controller {
     }
 
     //borrar medicos de la lista
-    public void borrarPaciente(Paciente paciente){
+    public void borrarPaciente(Paciente paciente) throws Exception {
         Service.instance().eliminarPaciente(paciente);
         model.setCurrent(new Paciente());
     }

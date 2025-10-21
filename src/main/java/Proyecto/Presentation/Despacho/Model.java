@@ -4,13 +4,12 @@ import Proyecto.Logic.*;
 import Proyecto.Presentation.AbstractModel;
 
 import java.beans.PropertyChangeListener;
-import java.util.ArrayList;
 import java.util.List;
 
 public class Model extends AbstractModel {
     Paciente current;
-    List<Recetas> recetas;
-    Recetas receta;
+    List<Receta> recetas;
+    Receta receta;
 
     public static final String CURRENT = "Current";
     public static final String RECETAS = "Recetas";
@@ -42,19 +41,19 @@ public class Model extends AbstractModel {
         firePropertyChange(RECETAS);
     }
 
-    public Recetas getReceta(){
+    public Receta getReceta(){
         return receta;
     }
 
-    public List<Recetas> getRecetas() {
+    public List<Receta> getRecetas() {
         return recetas;
     }
 
-    public void setRecetas(List<Recetas> recetas) {
+    public void setRecetas(List<Receta> recetas) {
         this.recetas = recetas;
         firePropertyChange(RECETAS);
     }
-    public void setReceta(Recetas receta) {
+    public void setReceta(Receta receta) {
         this.receta = receta;
         firePropertyChange(RECETA);
     }

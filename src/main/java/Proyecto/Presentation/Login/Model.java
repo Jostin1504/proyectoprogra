@@ -1,7 +1,6 @@
 package Proyecto.Presentation.Login;
 
 import Proyecto.Logic.*;
-import Proyecto.Data.data;
 import Proyecto.Presentation.AbstractModel;
 import java.beans.PropertyChangeListener;
 

@@ -32,7 +32,11 @@ public class View implements PropertyChangeListener {
             public void actionPerformed(ActionEvent e) {
                 if (validate()){
                     Farmaceuta f = obtenerF();
-                    controller.guardarFarmaceuta(f);
+                    try {
+                        controller.guardarFarmaceuta(f);
+                    } catch (Exception ex) {
+                        throw new RuntimeException(ex);
+                    }
                 }
             }
         });

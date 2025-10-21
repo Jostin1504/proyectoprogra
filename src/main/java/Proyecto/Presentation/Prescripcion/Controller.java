@@ -20,7 +20,7 @@ public class Controller {
     }
 
     void clear(){
-        model.setCurrent(new Recetas());
+        model.setCurrent(new Receta());
         model.setCurrentPaciente(null);
     }
 
@@ -87,12 +87,11 @@ public class Controller {
         model.guardarRecetaAPaciente();
         agregarReceta();
         Service.instance().actualizarPaciente(model.getCurrentPaciente());
-        Service.instance().guardarDatos();
         clear();
     }
 
-    public void agregarReceta(){
-        Recetas nuevaReceta = new Recetas();
+    public void agregarReceta() throws Exception {
+        Receta nuevaReceta = new Receta();
         nuevaReceta.setIdPaciente(model.currentPaciente.getId());
         nuevaReceta.setFechaRetiro(model.current.getFechaRetiro());
         nuevaReceta.setFechaCreacion(model.current.getFechaCreacion());

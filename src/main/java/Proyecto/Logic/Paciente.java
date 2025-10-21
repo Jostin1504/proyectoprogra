@@ -4,22 +4,13 @@ import jakarta.xml.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@XmlRootElement(name = "paciente")
-@XmlAccessorType(XmlAccessType.FIELD)
+
 public class Paciente {
-    @XmlElement
     protected String nombre;
-
-    @XmlElement
     protected String id;
-    @XmlElement
     protected String fechanac;
-    @XmlElement
     protected String numTelefono;
-
-    @XmlElementWrapper(name = "recetas")
-    @XmlElement(name = "receta")
-    protected List<Recetas> recetas;
+    protected List<Receta> recetas;
 
     public Paciente(String nombre, String id, String fechanac, String numTelefono) {
         this.nombre = nombre;
@@ -53,7 +44,7 @@ public class Paciente {
         return numTelefono;
     }
 
-    public List<Recetas> getRecetas() {
+    public List<Receta> getRecetas() {
         return recetas;
     }
 
@@ -73,18 +64,18 @@ public class Paciente {
         this.numTelefono = numTelefono;
     }
 
-    public void setRecetas(List<Recetas> recetas) {
+    public void setRecetas(List<Receta> recetas) {
         this.recetas = recetas;
     }
 
-    public void agregarReceta(Recetas receta) {
+    public void agregarReceta(Receta receta) {
         if (this.recetas == null) {
             this.recetas = new ArrayList<>();
         }
         this.recetas.add(receta);
     }
 
-    public void eliminarReceta(Recetas receta) {
+    public void eliminarReceta(Receta receta) {
         if (this.recetas != null) {
             this.recetas.remove(receta);
         }

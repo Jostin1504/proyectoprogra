@@ -7,8 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Model extends AbstractModel {
-    Recetas current;
-    List<Recetas> list;
+    Receta current;
+    List<Receta> list;
     List<Paciente> pacientes;
     List<Medicamento> medicamentos;
     Medicamento currentMed;
@@ -23,8 +23,8 @@ public class Model extends AbstractModel {
     public static final String CURRENTMED = "currentmed";
 
     public Model() {
-        current = new Recetas();
-        list = new ArrayList<Recetas>();
+        current = new Receta();
+        list = new ArrayList<Receta>();
         pacientes = new ArrayList<Paciente>();
         medicamentos = new ArrayList<Medicamento>();
         currentMed = new Medicamento();
@@ -56,21 +56,21 @@ public class Model extends AbstractModel {
     }
 
 
-    public Recetas getCurrent() {
+    public Receta getCurrent() {
         return current;
     }
 
-    public void setCurrent(Recetas current) {
+    public void setCurrent(Receta current) {
         this.current = current;
         firePropertyChange(CURRENT);
         firePropertyChange(MEDICAMENTO);
     }
 
-    public List<Recetas> getList() {
+    public List<Receta> getList() {
         return list;
     }
 
-    public void setList(List<Recetas> list) {
+    public void setList(List<Receta> list) {
         this.list = list;
         firePropertyChange(LIST);
     }
@@ -130,13 +130,13 @@ public class Model extends AbstractModel {
 
     public void guardarRecetaAPaciente() {
         if (currentPaciente != null && current != null) {
-            Recetas nuevaReceta = new Recetas();
+            Receta nuevaReceta = new Receta();
             nuevaReceta.setIdPaciente(currentPaciente.getId());
             nuevaReceta.setFechaRetiro(current.getFechaRetiro());
             nuevaReceta.setFechaCreacion(current.getFechaCreacion());
             nuevaReceta.setMedicamentos(new ArrayList<>(current.getMedicamentos()));
             currentPaciente.agregarReceta(nuevaReceta);
-            current = new Recetas();
+            current = new Receta();
             firePropertyChange(CURRENT);
             firePropertyChange(PACIENTE);
         }
