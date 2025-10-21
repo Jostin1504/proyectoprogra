@@ -36,19 +36,13 @@ public class Service {
     }
 
     public boolean cambiarClave(String id, String claveActual, String claveNueva) throws Exception {
-        try {
-            Usuario us = new Usuario("", id, "");
-            Usuario usuarioEncontrado = read(us);
-            if (!usuarioEncontrado.getClave().equals(claveActual)) {
-                throw new Exception("La clave actual es incorrecta");
-            }
-            usuarioEncontrado.setClave(claveNueva);
-            Usuario verificacion = read(us);
-            return true;
-
-        } catch (Exception e) {
-            throw e;
+        Usuario usuarioEncontrado = usuarioDao.read(id);
+        if (!usuarioEncontrado.getClave().equals(claveActual)) {
+            throw new Exception("La clave actual es incorrecta");
         }
+        usuarioEncontrado.setClave(claveNueva);
+        usuarioDao.update(usuarioEncontrado);
+        return true;
     }
 
     public Usuario read(Usuario e) throws Exception {

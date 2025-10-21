@@ -121,9 +121,11 @@ public class View implements PropertyChangeListener {
         return valid;
     }
     public Farmaceuta obtenerF(){
-        Farmaceuta aux = new Farmaceuta();
-        aux.setCedula(idFld.getText());
-        aux.setNombre(name1Fld.getText());
+        Farmaceuta aux = new Farmaceuta(
+                name1Fld.getText(),
+                idFld.getText(),
+                "FAR"
+        );
         return aux;
     }
 
