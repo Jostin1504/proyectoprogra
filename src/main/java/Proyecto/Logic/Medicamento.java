@@ -1,7 +1,5 @@
 package Proyecto.Logic;
 
-import jakarta.xml.bind.annotation.*;
-
 public class Medicamento {
     protected String codigo;
     protected String nombre;

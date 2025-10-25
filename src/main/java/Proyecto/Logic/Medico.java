@@ -1,20 +1,19 @@
 package Proyecto.Logic;
 
 import Proyecto.Logic.Usuario;
-import jakarta.xml.bind.annotation.*;
 
 public class Medico extends Usuario {
-    @XmlElement
     private String especialidad;
 
 
     public Medico(String nombre, String cedula, String rol, String especialidad) {
-        super(nombre, cedula, rol);
+        super(nombre, cedula, "MED");
         this.especialidad = especialidad;
     }
 
     public Medico() {
         super();
+        this.rol = "MED";
         especialidad = "";
     }
 

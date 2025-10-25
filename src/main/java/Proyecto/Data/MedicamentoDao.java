@@ -15,15 +15,11 @@ public class MedicamentoDao {
     }
 
     public void create(Medicamento m) throws Exception {
-        String sql = "insert into Medicamento (codigo, nombre, presentacion, cantidad, " +
-                "duracion, indicaciones) values(?,?,?,?,?,?)";
+        String sql = "insert into Medicamento (codigo, nombre, presentacion) values(?,?,?)";
         PreparedStatement stm = db.prepareStatement(sql);
         stm.setString(1, m.getCodigo());
         stm.setString(2, m.getNombre());
         stm.setString(3, m.getPresentacion());
-        stm.setInt(4, m.getCantidad());
-        stm.setInt(5, m.getDuracion());
-        stm.setString(6, m.getIndicaciones());
         int count = db.executeUpdate(stm);
         if (count == 0) {
             throw new Exception("Medicamento ya existe");
@@ -44,15 +40,11 @@ public class MedicamentoDao {
     }
 
     public void update(Medicamento m) throws Exception {
-        String sql = "update Medicamento set nombre=?, presentacion=?, cantidad=?, " +
-                "duracion=?, indicaciones=? where codigo=?";
+        String sql = "update Medicamento set nombre=?, presentacion=? where codigo=?";
         PreparedStatement stm = db.prepareStatement(sql);
         stm.setString(1, m.getNombre());
         stm.setString(2, m.getPresentacion());
-        stm.setInt(3, m.getCantidad());
-        stm.setInt(4, m.getDuracion());
-        stm.setString(5, m.getIndicaciones());
-        stm.setString(6, m.getCodigo());
+        stm.setString(3, m.getCodigo());
         int count = db.executeUpdate(stm);
         if (count == 0) {
             throw new Exception("Medicamento no existe");
@@ -119,9 +111,7 @@ public class MedicamentoDao {
             m.setCodigo(rs.getString(alias + "codigo"));
             m.setNombre(rs.getString(alias + "nombre"));
             m.setPresentacion(rs.getString(alias + "presentacion"));
-            m.setCantidad(rs.getInt(alias + "cantidad"));
-            m.setDuracion(rs.getInt(alias + "duracion"));
-            m.setIndicaciones(rs.getString(alias + "indicaciones"));
+            // cantidad, duracion e indicaciones quedan en 0/"" por defecto
             return m;
         } catch (SQLException ex) {
             return null;

@@ -1,7 +1,7 @@
-
 CREATE SCHEMA IF NOT EXISTS `mydb` DEFAULT CHARACTER SET utf8;
 USE `mydb`;
 
+-- Tabla Usuario
 CREATE TABLE IF NOT EXISTS `Usuario` (
                                          `cedula` VARCHAR(20) NOT NULL,
     `nombre` VARCHAR(100) NOT NULL,
@@ -20,14 +20,11 @@ CREATE TABLE IF NOT EXISTS `Paciente` (
     PRIMARY KEY (`id`)
     ) ENGINE = InnoDB;
 
--- Tabla Medicamento
+-- Tabla Medicamentos
 CREATE TABLE IF NOT EXISTS `Medicamento` (
                                              `codigo` VARCHAR(20) NOT NULL,
     `nombre` VARCHAR(100) NOT NULL,
     `presentacion` VARCHAR(50) NULL,
-    `cantidad` INT NULL,
-    `duracion` INT NULL,
-    `indicaciones` TEXT NULL,
     PRIMARY KEY (`codigo`)
     ) ENGINE = InnoDB;
 
@@ -47,12 +44,12 @@ CREATE TABLE IF NOT EXISTS `Receta` (
     ON UPDATE CASCADE
     ) ENGINE = InnoDB;
 
--- Tabla intermedia Receta_Medicamento
 CREATE TABLE IF NOT EXISTS `Receta_Medicamento` (
                                                     `idReceta` INT NOT NULL,
                                                     `codigoMedicamento` VARCHAR(20) NOT NULL,
     `cantidad` INT NOT NULL,
     `duracion` INT NOT NULL,
+    `indicaciones` TEXT NULL,
     PRIMARY KEY (`idReceta`, `codigoMedicamento`),
     INDEX `fk_RecetaMed_Medicamento_idx` (`codigoMedicamento` ASC),
     CONSTRAINT `fk_RecetaMed_Receta`
@@ -66,3 +63,22 @@ CREATE TABLE IF NOT EXISTS `Receta_Medicamento` (
     ON DELETE CASCADE
     ON UPDATE CASCADE
     ) ENGINE = InnoDB;
+
+INSERT INTO Usuario (cedula, nombre, clave, rol, especialidad)
+VALUES
+    ('333', 'Administrador', '333', 'ADM', NULL),
+    ('111', 'Dr. Juan Pérez', '111', 'MED', 'Medicina General'),
+    ('222', 'Farm. María López', '222', 'FAR', NULL);
+
+-- Insertar medicamentos
+INSERT INTO Medicamento (codigo, nombre, presentacion)
+VALUES
+    ('PA500', 'Paracetamol', 'Tabletas 500mg'),
+    ('IB400', 'Ibuprofeno', 'Tabletas 400mg'),
+    ('AM500', 'Amoxicilina', 'Cápsulas 500mg'),
+    ('OM20', 'Omeprazol', 'Cápsulas 20mg'),
+    ('LO10', 'Loratadina', 'Tabletas 10mg');
+
+-- Insertar un paciente
+INSERT INTO Paciente (id, nombre, fechaNacimiento, telefono)
+VALUES ('1-2345-6789', 'Carlos Rodríguez', '1985-05-15', '8888-8888');

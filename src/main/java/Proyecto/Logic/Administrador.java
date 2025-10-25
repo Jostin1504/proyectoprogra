@@ -1,7 +1,6 @@
 package Proyecto.Logic;
 
 import Proyecto.Logic.Usuario;
-import jakarta.xml.bind.annotation.*;
 
 public class Administrador extends Usuario{
 

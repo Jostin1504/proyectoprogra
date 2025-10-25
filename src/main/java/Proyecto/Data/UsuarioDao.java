@@ -20,14 +20,27 @@ public class UsuarioDao {
         PreparedStatement stm = db.prepareStatement(sql);
         stm.setString(1, u.getCedula());
         stm.setString(2, u.getNombre());
-        stm.setString(3, u.getClave());
-        stm.setString(4, u.getRol());
+
+        String clave = u.getClave();
+        if (clave == null || clave.trim().isEmpty()) {
+            clave = u.getCedula();
+        }
+        stm.setString(3, clave);
+
+        String rol = "ADM";
+        if (u instanceof Medico) {
+            rol = "MED";
+        } else if (u instanceof Farmaceuta) {
+            rol = "FAR";
+        }
+        stm.setString(4, rol);
 
         if (u instanceof Medico) {
             stm.setString(5, ((Medico) u).getEspecialidad());
         } else {
             stm.setString(5, null);
         }
+
         int count = db.executeUpdate(stm);
         if (count == 0) {
             throw new Exception("Usuario ya existe");
@@ -163,6 +176,7 @@ public class UsuarioDao {
             u.setCedula(rs.getString(alias + "cedula"));
             u.setNombre(rs.getString(alias + "nombre"));
             u.setClave(rs.getString(alias + "clave"));
+            u.setRol(rol);
             return u;
         } catch (SQLException ex) {
             return null;

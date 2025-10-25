@@ -1,5 +1,4 @@
 package Proyecto.Logic;
-import jakarta.xml.bind.annotation.*;
 
 public class Usuario {
     protected String nombre;
@@ -29,6 +28,6 @@ public class Usuario {
     public void setNombre(String nombre) { this.nombre = nombre; }
     public void setCedula(String cedula) { this.cedula = cedula; }
     public void setClave(String clave) { this.clave = clave; }
-
+    public void setRol(String rol) { this.rol = rol; }
 
 }

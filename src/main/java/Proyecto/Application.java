@@ -39,6 +39,15 @@ public class Application {
         Proyecto.Presentation.Login.Model loginModel = new Proyecto.Presentation.Login.Model();
         Proyecto.Presentation.Login.Controller loginController = new Proyecto.Presentation.Login.Controller(loginView, loginModel);
         loginView.setVisible(true);
+
+        loginView.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent e) {
+                if (!Sesion.isLoggedIn()) {
+                    System.exit(0);
+                }
+            }
+        });
     }
 
     private static void doRun() throws Exception {
@@ -111,6 +120,9 @@ public class Application {
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setSize(1200, 600);  // O usa window.setSize(800, 600);
         window.setLocationRelativeTo(null);
+        window.setAlwaysOnTop(true);
+        window.setVisible(true);
+        window.setAlwaysOnTop(false);
         window.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
