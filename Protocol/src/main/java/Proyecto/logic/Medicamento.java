@@ -1,6 +1,8 @@
 package Proyecto.logic;
 
-public class Medicamento {
+import java.io.Serializable;
+
+public class Medicamento implements Serializable {
     protected String codigo;
     protected String nombre;
     protected String presentacion;

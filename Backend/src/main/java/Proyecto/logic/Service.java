@@ -158,12 +158,20 @@ public class Service {
         usuarioDao.update(u);
     }
 
+    public void updateMed(Medicamento u) throws Exception {
+        medicamentoDao.update(u);
+    }
+
     public void deleteReceta(int id)  throws Exception {
         recetaDao.delete(id);
     }
 
     public void delete(Usuario u) throws Exception {
         usuarioDao.delete(u);
+    }
+
+    public void deleteMed(Medicamento u) throws Exception {
+         medicamentoDao.delete(u);
     }
 
     public List<Receta> buscarRecetasPorPaciente(String idPaciente) throws Exception {
@@ -176,5 +184,17 @@ public class Service {
 
     public List<Receta> obtenerTodasRecetas() throws Exception {
         return recetaDao.findAll();
+    }
+
+    public List<Medicamento> buscarMedNombre(String nombre) throws Exception {
+        return medicamentoDao.findByNombre(nombre);
+    }
+
+    public List<Medicamento> buscarMedCodigo(String codigo) throws Exception {
+        return medicamentoDao.findByCodigo(codigo);
+    }
+
+    public List<Medicamento> obtenerMedicamentos() throws Exception {
+        return medicamentoDao.findAll();
     }
 }

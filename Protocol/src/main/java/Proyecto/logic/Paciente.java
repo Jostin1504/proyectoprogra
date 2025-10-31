@@ -1,10 +1,11 @@
 package Proyecto.logic;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class Paciente {
+public class Paciente implements Serializable {
     protected String nombre;
     protected String id;
     protected String fechanac;

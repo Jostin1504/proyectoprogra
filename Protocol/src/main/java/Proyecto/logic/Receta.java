@@ -1,9 +1,10 @@
 package Proyecto.logic;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Receta {
+public class Receta implements Serializable {
     public String fechaRetiro;
     public String fechaCreacion;
     public String idPaciente;

@@ -34,6 +34,18 @@ public class Protocol {
     // Usuarios (Login)
     public static final int USUARIO_LOGIN = 401;
     public static final int USUARIO_READ = 402;
+    public static final int USUARIO_CAMBIAR_CLAVE = 403;
+
+    // Médicos
+    public static final int MEDICO_CREATE = 404;
+    public static final int MEDICO_UPDATE = 405;
+    public static final int MEDICO_DELETE = 406;
+    public static final int MEDICO_FIND_ALL = 407;
+
+    // Farmaceutas
+    public static final int FARMACEUTA_CREATE = 408;
+    public static final int FARMACEUTA_DELETE = 409;
+    public static final int FARMACEUTA_FIND_ALL = 410;
 
     // Errores
     public static final int ERROR_NO_ERROR = 0;

@@ -1,6 +1,8 @@
 package Proyecto.logic;
 
-public class Medico extends Usuario {
+import java.io.Serializable;
+
+public class Medico extends Usuario implements Serializable {
     private String especialidad;
 
 

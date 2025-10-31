@@ -1,6 +1,8 @@
 package Proyecto.logic;
 
-public class Usuario {
+import java.io.Serializable;
+
+public class Usuario implements Serializable {
     protected String nombre;
     protected String cedula;
     protected String clave;
