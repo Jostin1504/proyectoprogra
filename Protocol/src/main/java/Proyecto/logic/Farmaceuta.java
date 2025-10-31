@@ -1,6 +1,4 @@
-package Proyecto.Logic;
-
-import Proyecto.Logic.Usuario;
+package Proyecto.logic;
 
 public class Farmaceuta extends Usuario {
     public Farmaceuta(String nombre, String cedula, String rol) {

@@ -1,6 +1,4 @@
-package Proyecto.Logic;
-
-import Proyecto.Logic.Usuario;
+package Proyecto.logic;
 
 public class Administrador extends Usuario{
 

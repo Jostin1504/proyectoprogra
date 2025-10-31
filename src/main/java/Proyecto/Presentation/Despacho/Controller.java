@@ -3,8 +3,6 @@ package Proyecto.Presentation.Despacho;
 import Proyecto.Logic.Paciente;
 import Proyecto.Logic.Service;
 
-import java.util.List;
-
 public class Controller {
     View view;
     Model model;

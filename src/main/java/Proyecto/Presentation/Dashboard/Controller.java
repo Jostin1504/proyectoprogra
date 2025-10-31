@@ -2,8 +2,6 @@ package Proyecto.Presentation.Dashboard;
 
 import Proyecto.Logic.Service;
 import Proyecto.Logic.Medicamento;
-import org.jfree.chart.ChartFactory;
-import org.jfree.chart.JFreeChart;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.DefaultPieDataset;

@@ -1,4 +1,4 @@
-package Proyecto.Logic;
+package Proyecto.logic;
 
 public class Usuario {
     protected String nombre;

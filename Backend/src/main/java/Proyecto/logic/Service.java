@@ -1,4 +1,4 @@
-package Proyecto.Logic;
+package Proyecto.logic;
 
 import Proyecto.Data.*;
 

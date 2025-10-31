@@ -1,6 +1,5 @@
 package Proyecto.Presentation.Prescripcion;
 
-import Proyecto.Logic.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;

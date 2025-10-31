@@ -1,4 +1,4 @@
-package Proyecto.Data;
+package Proyecto.data;
 
 import java.io.BufferedInputStream;
 import java.io.File;

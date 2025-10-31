@@ -1,6 +1,5 @@
 package Proyecto.Presentation.Prescripcion.BuscarPaciente;
 
-import Proyecto.Logic.*;
 import Proyecto.Presentation.AbstractTableModel;
 
 import java.util.List;

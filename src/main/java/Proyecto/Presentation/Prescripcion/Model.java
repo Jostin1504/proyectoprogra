@@ -1,6 +1,5 @@
 package Proyecto.Presentation.Prescripcion;
 
-import Proyecto.Logic.*;
 import Proyecto.Presentation.AbstractModel;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;

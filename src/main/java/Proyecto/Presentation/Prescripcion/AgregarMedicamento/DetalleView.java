@@ -2,8 +2,7 @@ package Proyecto.Presentation.Prescripcion.AgregarMedicamento;
 
 import Proyecto.Presentation.Prescripcion.Controller;
 import Proyecto.Presentation.Prescripcion.Model;
-import Proyecto.Presentation.Prescripcion.View;
-import Proyecto.Logic.*;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

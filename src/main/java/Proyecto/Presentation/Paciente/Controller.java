@@ -3,7 +3,6 @@ package Proyecto.Presentation.Paciente;
 import Proyecto.Logic.Paciente;
 import Proyecto.Logic.Service;
 
-import java.beans.PropertyChangeListener;
 import java.util.List;
 
 public class Controller {

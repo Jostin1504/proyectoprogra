@@ -1,6 +1,4 @@
-package Proyecto.Logic;
-
-import Proyecto.Logic.Usuario;
+package Proyecto.logic;
 
 public class Medico extends Usuario {
     private String especialidad;
