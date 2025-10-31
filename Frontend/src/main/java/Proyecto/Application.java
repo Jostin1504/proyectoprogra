@@ -1,9 +1,8 @@
 package Proyecto;
 
-import Proyecto.Logic.Service;
-import Proyecto.Logic.Usuario;
+import Proyecto.logic.Service;
+import Proyecto.logic.*;
 import Proyecto.Presentation.Sesion;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowAdapter;

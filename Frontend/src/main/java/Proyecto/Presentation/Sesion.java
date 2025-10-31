@@ -1,6 +1,6 @@
 package Proyecto.Presentation;
 
-import Proyecto.Logic.Usuario;
+import Proyecto.logic.Usuario;
 
 public class Sesion {
     public static Usuario usuario;

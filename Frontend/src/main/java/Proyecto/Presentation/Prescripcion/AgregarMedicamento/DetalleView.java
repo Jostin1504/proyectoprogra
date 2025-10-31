@@ -16,8 +16,8 @@ public class DetalleView extends JDialog implements PropertyChangeListener {
     private JSpinner cantidadSpinner;
     private JSpinner duracionSpinner;
     private JPanel contentPane;
-    Proyecto.Presentation.Prescripcion.Model model;
-    Proyecto.Presentation.Prescripcion.Controller controller;
+    Model model;
+    Controller controller;
     Proyecto.Presentation.Prescripcion.View view;
     private boolean modoEdicion = false;
     private int indiceMedicamentoEditando = -1;
