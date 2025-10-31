@@ -2,6 +2,7 @@ package Proyecto.Presentation.Prescripcion;
 
 import com.github.lgooddatepicker.components.DatePicker;
 
+import Proyecto.logic.*;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

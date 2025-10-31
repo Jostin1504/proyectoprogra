@@ -1,7 +1,7 @@
 package Proyecto.Presentation.Farmaceuta;
 
-import Proyecto.Logic.Farmaceuta;
-import Proyecto.Logic.Service;
+import Proyecto.logic.Farmaceuta;
+import Proyecto.logic.Service;
 
 import java.util.List;
 
@@ -9,7 +9,7 @@ public class Controller {
       View view;
       Model model;
 
-    public Controller(View view, Model model) {
+    public Controller(View view, Model model) throws Exception {
         this.view = view;
         this.model = model;
         view.setController(this);
@@ -23,7 +23,7 @@ public class Controller {
     }
 
     //obtener lista de medicos
-    public List<Farmaceuta> getFarmaceutas(){
+    public List<Farmaceuta> getFarmaceutas() throws Exception {
         return Service.instance().getFarmaceutas();
     }
 

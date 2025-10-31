@@ -1,6 +1,6 @@
 package Proyecto.Presentation.Medicamentos;
 
-import Proyecto.Logic.Medicamento;
+import Proyecto.logic.*;
 import Proyecto.Presentation.AbstractModel;
 
 import java.beans.PropertyChangeListener;

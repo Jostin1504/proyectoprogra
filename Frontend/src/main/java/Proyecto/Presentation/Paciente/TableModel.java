@@ -1,6 +1,6 @@
 package Proyecto.Presentation.Paciente;
 
-import Proyecto.Logic.Paciente;
+import Proyecto.logic.Paciente;
 import Proyecto.Presentation.AbstractTableModel;
 
 import java.util.List;

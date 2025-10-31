@@ -41,11 +41,13 @@ public class Protocol {
     public static final int MEDICO_UPDATE = 405;
     public static final int MEDICO_DELETE = 406;
     public static final int MEDICO_FIND_ALL = 407;
+    public static final int MEDICO_FIND_BY_NOMBRE = 408;
 
     // Farmaceutas
-    public static final int FARMACEUTA_CREATE = 408;
-    public static final int FARMACEUTA_DELETE = 409;
-    public static final int FARMACEUTA_FIND_ALL = 410;
+    public static final int FARMACEUTA_CREATE = 409;
+    public static final int FARMACEUTA_DELETE = 410;
+    public static final int FARMACEUTA_FIND_ALL = 411;
+    public static final int FARMACEUTA_FIND_BY_NOMBRE = 412;
 
     // Errores
     public static final int ERROR_NO_ERROR = 0;

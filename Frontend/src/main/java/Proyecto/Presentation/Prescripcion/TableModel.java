@@ -1,7 +1,7 @@
 package Proyecto.Presentation.Prescripcion;
 
 import Proyecto.Presentation.AbstractTableModel;
-import Proyecto.Logic.Medicamento;
+import Proyecto.logic.Medicamento;
 
 import java.util.List;
 

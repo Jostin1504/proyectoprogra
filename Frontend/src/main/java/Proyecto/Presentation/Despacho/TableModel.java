@@ -1,7 +1,7 @@
 package Proyecto.Presentation.Despacho;
 
 import Proyecto.Presentation.AbstractTableModel;
-
+import Proyecto.logic.*;
 import java.util.List;
 
 public class TableModel extends AbstractTableModel<Receta> implements javax.swing.table.TableModel {

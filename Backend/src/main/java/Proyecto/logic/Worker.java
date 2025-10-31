@@ -125,6 +125,7 @@ public class Worker {
                         } catch (Exception ex) {
                             os.writeInt(Protocol.ERROR_ERROR);
                         }
+                        break;
                     case Protocol.MEDICAMENTO_CREATE:
                         try {
                             service.anadirMedicamento((Medicamento) is.readObject());
@@ -380,6 +381,26 @@ public class Worker {
                     case Protocol.DISCONNECT:
                         stop();
                         srv.remove(this);
+                        break;
+                    case Protocol.MEDICO_FIND_BY_NOMBRE:
+                        try {
+                            String filter = (String) is.readObject();
+                            Medico medico = service.buscarMedicoNombre(filter);
+                            os.writeInt(Protocol.ERROR_NO_ERROR);
+                            os.writeObject(medico);
+                        } catch (Exception ex) {
+                            os.writeInt(Protocol.ERROR_ERROR);
+                        }
+                        break;
+                    case Protocol.FARMACEUTA_FIND_BY_NOMBRE:
+                        try {
+                            String filter = (String) is.readObject();
+                            Farmaceuta medico = service.buscarFarNombre(filter);
+                            os.writeInt(Protocol.ERROR_NO_ERROR);
+                            os.writeObject(medico);
+                        } catch (Exception ex) {
+                            os.writeInt(Protocol.ERROR_ERROR);
+                        }
                         break;
                 }
                 os.flush();

@@ -1,5 +1,6 @@
 package Proyecto.Presentation.Prescripcion;
 
+import Proyecto.logic.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -23,7 +24,7 @@ public class Controller {
         model.setCurrentPaciente(null);
     }
 
-    public List<Medicamento> getMedicamentos(){
+    public List<Medicamento> getMedicamentos() throws Exception {
         return Service.instance().getMedicamentos();
     }
 

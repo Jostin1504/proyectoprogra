@@ -1,6 +1,6 @@
 package Proyecto.Presentation.Medico;
 
-import Proyecto.Logic.Medico;
+import Proyecto.logic.*;
 import Proyecto.Presentation.AbstractModel;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;

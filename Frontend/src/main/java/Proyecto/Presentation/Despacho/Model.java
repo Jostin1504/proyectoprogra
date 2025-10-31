@@ -1,7 +1,7 @@
 package Proyecto.Presentation.Despacho;
 
 import Proyecto.Presentation.AbstractModel;
-
+import Proyecto.logic.*;
 import java.beans.PropertyChangeListener;
 import java.util.List;
 

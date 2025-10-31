@@ -190,6 +190,14 @@ public class Service {
         return medicamentoDao.findByNombre(nombre);
     }
 
+    public Medico buscarMedicoNombre(String nombre) throws Exception {
+        return usuarioDao.findMedicoByNombre(nombre);
+    }
+
+    public Farmaceuta buscarFarNombre(String nombre) throws Exception {
+        return usuarioDao.findFarByNombre(nombre);
+    }
+
     public List<Medicamento> buscarMedCodigo(String codigo) throws Exception {
         return medicamentoDao.findByCodigo(codigo);
     }

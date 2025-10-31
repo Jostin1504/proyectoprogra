@@ -121,6 +121,54 @@ public class UsuarioDao {
         return resultado;
     }
 
+
+    public Medico findMedicoByNombre(String nombre) {
+        Medico medicoEncontrado = null;
+
+        try {
+            String sql = "SELECT cedula, nombre, clave, especialidad FROM Usuario WHERE rol='MED' AND nombre = ?";
+            PreparedStatement stm = db.prepareStatement(sql);
+            stm.setString(1, nombre);
+
+            ResultSet rs = db.executeQuery(stm);
+
+            if (rs.next()) {
+                medicoEncontrado = new Medico();
+                medicoEncontrado.setCedula(rs.getString("cedula"));
+                medicoEncontrado.setNombre(rs.getString("nombre"));
+                medicoEncontrado.setClave(rs.getString("clave"));
+                medicoEncontrado.setEspecialidad(rs.getString("especialidad"));
+            }
+        } catch (SQLException ex) {
+            System.err.println("Error al buscar médico por nombre: " + ex.getMessage());
+        }
+
+        return medicoEncontrado;
+    }
+
+    public Farmaceuta findFarByNombre(String nombre) {
+        Farmaceuta medicoEncontrado = null;
+
+        try {
+            String sql = "SELECT cedula, nombre, clave, especialidad FROM Usuario WHERE rol='FAR' AND nombre = ?";
+            PreparedStatement stm = db.prepareStatement(sql);
+            stm.setString(1, nombre);
+
+            ResultSet rs = db.executeQuery(stm);
+
+            if (rs.next()) {
+                medicoEncontrado = new Farmaceuta();
+                medicoEncontrado.setCedula(rs.getString("cedula"));
+                medicoEncontrado.setNombre(rs.getString("nombre"));
+                medicoEncontrado.setClave(rs.getString("clave"));
+            }
+        } catch (SQLException ex) {
+            System.err.println("Error al buscar médico por nombre: " + ex.getMessage());
+        }
+
+        return medicoEncontrado;
+    }
+
     public List<Farmaceuta> findAllFarmaceutas() {
         List<Farmaceuta> resultado = new ArrayList<>();
         try {

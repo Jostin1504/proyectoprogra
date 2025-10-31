@@ -1,6 +1,6 @@
 package Proyecto.Presentation.Farmaceuta;
 
-import Proyecto.Logic.Farmaceuta;
+import Proyecto.logic.Farmaceuta;
 import Proyecto.Presentation.AbstractModel;
 
 import java.beans.PropertyChangeListener;

@@ -1,7 +1,7 @@
 package Proyecto.Presentation.Farmaceuta;
 
 import Proyecto.Application;
-import Proyecto.Logic.Farmaceuta;
+import Proyecto.logic.Farmaceuta;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;

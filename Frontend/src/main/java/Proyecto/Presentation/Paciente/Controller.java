@@ -1,7 +1,7 @@
 package Proyecto.Presentation.Paciente;
 
-import Proyecto.Logic.Paciente;
-import Proyecto.Logic.Service;
+import Proyecto.logic.Paciente;
+import Proyecto.logic.Service;
 
 import java.util.List;
 
@@ -9,7 +9,7 @@ public class Controller {
     private View view;
     private Model model;
 
-    public Controller(View view, Model model) {
+    public Controller(View view, Model model) throws Exception {
         this.view = view;
         this.model = model;
         view.setController(this);
@@ -23,7 +23,7 @@ public class Controller {
     }
 
     //obtener lista de medicos
-    public List<Paciente> getPacientes(){
+    public List<Paciente> getPacientes() throws Exception {
         return Service.instance().getPacientes();
     }
 

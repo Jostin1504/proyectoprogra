@@ -6,7 +6,7 @@ import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import Proyecto.Application;
-import Proyecto.Logic.Medico;
+import Proyecto.logic.Medico;
 import com.github.lgooddatepicker.components.DatePicker;
 
 public class View implements PropertyChangeListener {

@@ -1,7 +1,7 @@
 package Proyecto.Presentation.Login;
 
-import Proyecto.Logic.Service;
-import Proyecto.Logic.Usuario;
+import Proyecto.logic.Service;
+import Proyecto.logic.Usuario;
 import Proyecto.Presentation.Sesion;
 
 import javax.swing.*;

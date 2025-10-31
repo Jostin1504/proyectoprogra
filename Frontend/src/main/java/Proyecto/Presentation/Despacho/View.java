@@ -1,8 +1,6 @@
 package Proyecto.Presentation.Despacho;
 
-import Proyecto.Logic.Paciente;
-import Proyecto.Logic.Receta;
-
+import Proyecto.logic.*;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

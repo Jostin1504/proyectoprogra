@@ -1,7 +1,7 @@
 package Proyecto.Presentation.Dashboard;
 
-import Proyecto.Logic.Medicamento;
-import Proyecto.Logic.Service;
+import Proyecto.logic.Medicamento;
+import Proyecto.logic.Service;
 import Proyecto.Presentation.AbstractTableModel;
 
 import java.util.List;
@@ -30,12 +30,7 @@ public class TableModel extends AbstractTableModel<Medicamento> implements javax
                 return e.getNombre();
             case PRESENTACION:
                 return e.getPresentacion();
-            case CANTIDAD:
-                try {
-                    return Service.instance().getCantidadTotalMedicamento(e);
-                } catch (Exception ex) {
-                    return 0;
-                }
+
             default:
                 return "";
         }

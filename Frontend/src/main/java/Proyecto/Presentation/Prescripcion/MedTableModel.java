@@ -1,5 +1,5 @@
 package Proyecto.Presentation.Prescripcion;
-
+import Proyecto.logic.*;
 import Proyecto.Presentation.AbstractTableModel;
 
 import java.util.List;

@@ -1,5 +1,6 @@
 package Proyecto.Presentation;
 
+import Proyecto.logic.*;
 import java.util.List;
 
 public abstract class AbstractTableModel<E> extends javax.swing.table.AbstractTableModel implements javax.swing.table.TableModel {

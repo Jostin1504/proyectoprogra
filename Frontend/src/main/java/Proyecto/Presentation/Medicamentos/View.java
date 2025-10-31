@@ -1,7 +1,7 @@
 package Proyecto.Presentation.Medicamentos;
 
 import Proyecto.Application;
-import Proyecto.Logic.Medicamento;
+import Proyecto.logic.Medicamento;
 import com.github.lgooddatepicker.components.DatePicker;
 
 import javax.swing.*;

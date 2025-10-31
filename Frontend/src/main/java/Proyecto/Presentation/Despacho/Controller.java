@@ -1,7 +1,10 @@
 package Proyecto.Presentation.Despacho;
 
-import Proyecto.Logic.Paciente;
-import Proyecto.Logic.Service;
+import Proyecto.Application;
+import Proyecto.logic.Paciente;
+import Proyecto.logic.Service;
+import Proyecto.Presentation.ThreadListener;
+import java.util.List;
 
 public class Controller {
     View view;
