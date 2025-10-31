@@ -1,5 +1,6 @@
 package Proyecto.data;
 
+import Proyecto.logic.*;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -36,14 +37,12 @@ public class RecetaDao {
             idReceta = generatedKeys.getInt(1);
         }
 
-        // IMPORTANTE: Guardar cada medicamento con sus datos específicos
         for (Medicamento m : r.getMedicamentos()) {
             insertarMedicamentoReceta(idReceta, m);
         }
         return idReceta;
     }
 
-    // ACTUALIZADO: Incluir indicaciones en la tabla intermedia
     private void insertarMedicamentoReceta(int idReceta, Medicamento m) throws Exception {
         String sql = "insert into Receta_Medicamento (idReceta, codigoMedicamento, " +
                 "cantidad, duracion, indicaciones) values(?,?,?,?,?)";
@@ -64,7 +63,6 @@ public class RecetaDao {
 
         if (rs.next()) {
             Receta r = from(rs, "");
-            // Cargar los medicamentos asociados
             r.setMedicamentos(obtenerMedicamentosReceta(id));
             return r;
         } else {
@@ -72,7 +70,6 @@ public class RecetaDao {
         }
     }
 
-    // ACTUALIZADO: Cargar también las indicaciones específicas
     private List<Medicamento> obtenerMedicamentosReceta(int idReceta) {
         List<Medicamento> medicamentos = new ArrayList<>();
         try {
@@ -112,12 +109,21 @@ public class RecetaDao {
 
             while (rs.next()) {
                 Receta r = from(rs, "");
-                // Cargar los medicamentos de cada receta
                 r.setMedicamentos(obtenerMedicamentosReceta(rs.getInt("id")));
                 resultado.add(r);
             }
         } catch (SQLException ex) { }
         return resultado;
+    }
+
+    public void delete(int id) throws Exception {
+        String sql = "delete from Receta where id=?";
+        PreparedStatement stm = db.prepareStatement(sql);
+        stm.setInt(1, id);
+        int count = db.executeUpdate(stm);
+        if (count == 0) {
+            throw new Exception("Receta no existe");
+        }
     }
 
     public List<Receta> findByPaciente(String idPaciente) {

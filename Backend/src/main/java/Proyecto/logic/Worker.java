@@ -60,52 +60,55 @@ public class Worker {
                 method = is.readInt();
                 System.out.println("Operacion: " + method);
                 switch (method) {
-                    case Protocol.PRODUCTO_CREATE:
+                    case Protocol.RECETA_CREATE:
                         try {
-                            service.create((Producto) is.readObject());
+                            service.agregarReceta((Receta) is.readObject());
                             os.writeInt(Protocol.ERROR_NO_ERROR);
-                            srv.deliver_message(this,"Producto creado");
+                            srv.deliver_message(this,"Receta creada");
                         } catch (Exception ex) {
                             os.writeInt(Protocol.ERROR_ERROR);
                         }
                         break;
-                    case Protocol.PRODUCTO_READ:
+                    case Protocol.RECETA_READ:
                         try {
-                            Producto e = service.read((Producto) is.readObject());
+                            int id = is.readInt();
+                            Receta r = service.readReceta(id);
                             os.writeInt(Protocol.ERROR_NO_ERROR);
-                            os.writeObject(e);
+                            os.writeObject(r);
                         } catch (Exception ex) {
                             os.writeInt(Protocol.ERROR_ERROR);
                         }
                         break;
-                    case Protocol.PRODUCTO_UPDATE:
+                    case Protocol.RECETA_UPDATE:
                         try {
-                            service.update((Producto) is.readObject());
-                            os.writeInt(Protocol.ERROR_NO_ERROR);
-                        } catch (Exception ex) {
-                            os.writeInt(Protocol.ERROR_ERROR);
-                        }
-                        break;
-                    case Protocol.PRODUCTO_DELETE:
-                        try {
-                            service.delete((Producto) is.readObject());
+                            int id = is.readInt();
+                            service.updateReceta((Receta) is.readObject(), id);
                             os.writeInt(Protocol.ERROR_NO_ERROR);
                         } catch (Exception ex) {
                             os.writeInt(Protocol.ERROR_ERROR);
                         }
                         break;
-                    case Protocol.PRODUCTO_SEARCH:
+                    case Protocol.RECETA_DELETE:
                         try {
-                            List<Producto> le = service.search((Producto) is.readObject());
+                            int id = is.readInt();
+                            service.deleteReceta(id);
+                            os.writeInt(Protocol.ERROR_NO_ERROR);
+                        } catch (Exception ex) {
+                            os.writeInt(Protocol.ERROR_ERROR);
+                        }
+                        break;
+                    case Protocol.RECETA_FIND_ALL:
+                        try {
+                            List<Receta> le = service.obtenerTodasRecetas();
                             os.writeInt(Protocol.ERROR_NO_ERROR);
                             os.writeObject(le);
                         } catch (Exception ex) {
                             os.writeInt(Protocol.ERROR_ERROR);
                         }
                         break;
-                    case Protocol.CATEGORIA_SEARCH:
+                    case Protocol.RECETA_FIND_BY_ESTADO:
                         try {
-                            List<Categoria> le = service.search((Categoria) is.readObject());
+                            List<Receta> le = service.buscarRecetasPorEstado();
                             os.writeInt(Protocol.ERROR_NO_ERROR);
                             os.writeObject(le);
                         } catch (Exception ex) {

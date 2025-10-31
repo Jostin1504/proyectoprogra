@@ -1,6 +1,6 @@
 package Proyecto.logic;
 
-import Proyecto.Data.*;
+import Proyecto.data.*;
 
 import java.util.List;
 
@@ -49,6 +49,9 @@ public class Service {
         return usuarioDao.read(e.getCedula());
     }
 
+    public Receta readReceta(int id)throws Exception {
+        return recetaDao.read(id);
+    }
     // --- GETTERS PARA ACCESO A DATOS ---
     public List<Medico> getMedicos() {
         return usuarioDao.findAllMedicos();
@@ -143,60 +146,35 @@ public class Service {
         return medicamentoDao.read(e);
     }
 
-    public Number getCantidadTotalMedicamento(Medicamento medicamento) throws Exception {
-        int cont = 0;
-        List<Medicamento> l = buscarMedNombre(medicamento);
-        for (int i = 0; i < l.size(); i++) {
-            cont = cont + l.get(i).getCantidad();
-        }
-        return cont;
-    }
-
-    public int recetasListas(){
-        int cont = 0;
-        List<Receta> r = getRecetas();
-        for(Receta recetas : r){
-            if(recetas.getEstado().equals("Lista")){
-                cont++;
-            }
-        }
-        return cont;
-    }
-
-    public int recetasEnProceso(){
-        int cont = 0;
-        List<Receta> r = getRecetas();
-        for(Receta recetas : r){
-            if(recetas.getEstado().equals("En proceso")){
-                cont++;
-            }
-        }
-        return cont;
-    }
-
-    public int recetasEntregadas(){
-        int cont = 0;
-        List<Receta> r = getRecetas();
-        for(Receta recetas : r){
-            if(recetas.getEstado().equals("Entregada")){
-                cont++;
-            }
-        }
-        return cont;
-    }
-
-    public int recetasConfeccionadas(){
-        int cont = 0;
-        List<Receta> r = getRecetas();
-        for(Receta recetas : r){
-            if(recetas.getEstado().equals("Confeccionada")){
-                cont++;
-            }
-        }
-        return cont;
-    }
-
     public void agregarReceta(Receta recetas) throws Exception {
         recetaDao.create(recetas);
+    }
+
+    public void updateReceta(Receta r, int id) throws Exception {
+        recetaDao.update(r, id);
+    }
+
+    public void update(Usuario u) throws Exception {
+        usuarioDao.update(u);
+    }
+
+    public void deleteReceta(int id)  throws Exception {
+        recetaDao.delete(id);
+    }
+
+    public void delete(Usuario u) throws Exception {
+        usuarioDao.delete(u);
+    }
+
+    public List<Receta> buscarRecetasPorPaciente(String idPaciente) throws Exception {
+        return recetaDao.findByPaciente(idPaciente);
+    }
+
+    public List<Receta> buscarRecetasPorEstado(String estado) throws Exception {
+        return recetaDao.findByEstado(estado);
+    }
+
+    public List<Receta> obtenerTodasRecetas() throws Exception {
+        return recetaDao.findAll();
     }
 }

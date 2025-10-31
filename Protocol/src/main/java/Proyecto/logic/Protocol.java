@@ -7,17 +7,29 @@ public class Protocol {
     // Recetas
     public static final int RECETA_CREATE = 101;
     public static final int RECETA_READ = 102;
-    public static final int RECETA_UPDATE = 103;
-    public static final int RECETA_SEARCH_BY_PACIENTE = 104;
+    public static final int RECETA_DELETE = 103;
+    public static final int RECETA_FIND_ALL = 104;
+    public static final int RECETA_FIND_BY_PACIENTE  = 105;
+    public static final int RECETA_FIND_BY_ESTADO = 106;
+    public static final int RECETA_UPDATE = 107;
 
     // Medicamentos
     public static final int MEDICAMENTO_CREATE = 201;
-    public static final int MEDICAMENTO_SEARCH = 202;
+    public static final int MEDICAMENTO_READ = 202;
+    public static final int MEDICAMENTO_UPDATE = 203;
+    public static final int MEDICAMENTO_DELETE = 204;
+    public static final int MEDICAMENTO_FIND_BY_NOMBRE = 205;
+    public static final int MEDICAMENTO_FIND_BY_CODIGO = 206;
+    public static final int MEDICAMENTO_FIND_ALL = 207;
 
     // Pacientes
     public static final int PACIENTE_CREATE = 301;
     public static final int PACIENTE_READ = 302;
-    // ... etc para cada operación que necesites
+    public static final int PACIENTE_UPDATE = 303;
+    public static final int PACIENTE_DELETE = 304;
+    public static final int PACIENTE_FIND_BY_NOMBRE = 305;
+    public static final int PACIENTE_FIND_ALL  = 306;
+    public static final int PACIENTE_FIND_BY_ID  = 307;
 
     // Usuarios (Login)
     public static final int USUARIO_LOGIN = 401;

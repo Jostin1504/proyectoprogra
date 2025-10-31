@@ -1,6 +1,6 @@
 package Proyecto.data;
 
-
+import Proyecto.logic.Medicamento;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -111,7 +111,6 @@ public class MedicamentoDao {
             m.setCodigo(rs.getString(alias + "codigo"));
             m.setNombre(rs.getString(alias + "nombre"));
             m.setPresentacion(rs.getString(alias + "presentacion"));
-            // cantidad, duracion e indicaciones quedan en 0/"" por defecto
             return m;
         } catch (SQLException ex) {
             return null;
