@@ -1,12 +1,16 @@
 package Proyecto.Presentation.Despacho;
 
+import Proyecto.Presentation.ThreadListener;
+import Proyecto.Presentation.SocketListener;
+import javax.swing.SwingUtilities;
 import Proyecto.Application;
 import Proyecto.logic.Paciente;
 import Proyecto.logic.Service;
 import Proyecto.Presentation.ThreadListener;
 import java.util.List;
 
-public class Controller {
+public class Controller implements ThreadListener {
+    private SocketListener socketListener;
     View view;
     Model model;
 
@@ -17,6 +21,12 @@ public class Controller {
         view.setModel(model);
         model.addPropertyChangeListener(view);
         model.setRecetas(model.getCurrent().getRecetas());
+        try {
+            socketListener = new SocketListener(this, Service.instance().getSid());
+            socketListener.start();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void clear(){
@@ -38,6 +48,27 @@ public class Controller {
             return Service.instance().buscarPaciente(id);
         } catch (Exception e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public void deliver_message(String message) {
+        SwingUtilities.invokeLater(() -> {
+            // Refrescar lista de recetas si hay un paciente actual
+            if (model.getCurrent() != null && model.getCurrent().getId() != null) {
+                try {
+                    buscarPaciente(model.getCurrent().getId());
+                    System.out.println("Despacho actualizado: " + message);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    public void stop() {
+        if (socketListener != null) {
+            socketListener.stop();
         }
     }
 

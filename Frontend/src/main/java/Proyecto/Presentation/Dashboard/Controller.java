@@ -7,17 +7,19 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.DefaultPieDataset;
-
+import Proyecto.Presentation.ThreadListener;
+import Proyecto.Presentation.SocketListener;
 import javax.swing.*;
 import java.awt.*;
 import java.util.List;
 import java.util.Map;
 
-public class Controller {
+public class Controller implements ThreadListener{
     private View view;
     private Model model;
     private ChartPanel chartPanelLinea;
     private ChartPanel chartPanelPastel;
+    private SocketListener socketListener;
 
     public Controller(View view, Model model) throws Exception {
         this.view = view;
@@ -28,6 +30,13 @@ public class Controller {
 
         configurarEventos();
         inicializarDatos();
+
+        try {
+            socketListener = new SocketListener(this, Service.instance().getSid());
+            socketListener.start();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -55,7 +64,7 @@ public class Controller {
             @Override
             protected Void doInBackground() throws Exception {
                 // Cargar medicamentos
-                List<Medicamento> medicamentos = Service.instance().buscarTodosMedicamentos();
+                List<Medicamento> medicamentos = Service.instance().getMedicamentos();
                 model.setMedicamentos(medicamentos);
 
                 // Cargar recetas
@@ -92,6 +101,24 @@ public class Controller {
         worker.execute();
     }
 
+
+    @Override
+    public void deliver_message(String message) {
+        SwingUtilities.invokeLater(() -> {
+            try {
+                inicializarDatos(); // Recargar datos cuando haya cambios
+                System.out.println("Dashboard actualizado: " + message);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
+    public void stop() {
+        if (socketListener != null) {
+            socketListener.stop();
+        }
+    }
     /**
      * Inicializa el comboBox5 con los medicamentos disponibles
      */

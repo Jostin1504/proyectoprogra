@@ -1,5 +1,6 @@
 package Proyecto;
 
+import javax.swing.border.Border;
 import Proyecto.logic.Service;
 import Proyecto.logic.*;
 import Proyecto.Presentation.Sesion;
@@ -28,7 +29,9 @@ public class Application {
         }
     }
 
-    public static final Color BACKGROUND_ERROR = new Color(255, 102, 102);
+    public static final Border BORDER_ERROR = BorderFactory.createMatteBorder(0, 0, 2, 0, Color.RED);
+    public static final int MODE_CREATE = 1;
+    public static final int MODE_EDIT = 2;
 
     private static void doLogin(){
         Proyecto.Presentation.Login.View loginView = new Proyecto.Presentation.Login.View(null, true);
@@ -74,6 +77,7 @@ public class Application {
         Proyecto.Presentation.Medicamentos.Model medicamentosModel = new Proyecto.Presentation.Medicamentos.Model();
         Proyecto.Presentation.Medicamentos.View medicamentosView = new Proyecto.Presentation.Medicamentos.View();
         Proyecto.Presentation.Medicamentos.Controller medicamentosController = new Proyecto.Presentation.Medicamentos.Controller(medicamentosView, medicamentosModel);
+
 
         Proyecto.Presentation.AcercaDe.View acercaDeView = new Proyecto.Presentation.AcercaDe.View();
 
@@ -126,10 +130,17 @@ public class Application {
             @Override
             public void windowClosing(WindowEvent e) {
                 super.windowClosing(e);
+                if (dashboardController != null) {
+                    dashboardController.stop();
+                }
+                if (despachoController != null) {
+                    despachoController.stop();
+                }
                 Service.instance().stop();
             }
         });
         window.setVisible(true);
     }
+
 }
 

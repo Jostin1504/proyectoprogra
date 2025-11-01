@@ -100,11 +100,11 @@ public class View implements PropertyChangeListener {
                 idFld.setText(model.getCurrent().getCedula());
                 name1Fld.setText(model.getCurrent().getNombre());
                 specialFld.setText(model.getCurrent().getEspecialidad());
-                idFld.setBackground(null);
+                idFld.setBorder(null);
                 idFld.setToolTipText(null);
-                name1Fld.setBackground(null);
+                name1Fld.setBorder(null);
                 name1Fld.setToolTipText(null);
-                specialFld.setBackground(null);
+                specialFld.setBorder(null);
                 specialFld.setToolTipText(null);
                 break;
         }
@@ -118,25 +118,28 @@ public class View implements PropertyChangeListener {
         }
         if (idFld.getText().isEmpty()) {
             valid = false;
-            idFld.setBackground(Application.BACKGROUND_ERROR);
+            idFld.setBorder(Application.BORDER_ERROR);
+            idFld.setToolTipText("ID requerido");
         } else {
-            idFld.setBackground(null);
+            idFld.setBorder(null);
             idFld.setToolTipText(null);
         }
 
         if (name1Fld.getText().isEmpty()) {
             valid = false;
-            name1Fld.setBackground(Application.BACKGROUND_ERROR);
+            name1Fld.setBorder(Application.BORDER_ERROR);
+            name1Fld.setToolTipText("ID requerido");
         } else {
-            name1Fld.setBackground(null);
+            name1Fld.setBorder(null);
             name1Fld.setToolTipText(null);
         }
 
         if (specialFld.getText().isEmpty()) {
             valid = false;
-            specialFld.setBackground(Application.BACKGROUND_ERROR);
+            specialFld.setBorder(Application.BORDER_ERROR);
+            specialFld.setToolTipText("ID requerido");
         } else {
-            specialFld.setBackground(null);
+            specialFld.setBorder(null);
             specialFld.setToolTipText(null);
         }
         return valid;

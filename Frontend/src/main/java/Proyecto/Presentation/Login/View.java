@@ -146,19 +146,19 @@ public class View extends JDialog implements PropertyChangeListener {
 
         if (idFld.getText().trim().isEmpty()) {
             valid = false;
-            idFld.setBackground(Application.BACKGROUND_ERROR);
+            idFld.setBorder(Application.BORDER_ERROR);  // CAMBIAR
             idFld.setToolTipText("ID es requerido");
         } else {
-            idFld.setBackground(null);
+            idFld.setBorder(null);  // CAMBIAR
             idFld.setToolTipText(null);
         }
 
         if (new String(claveFld.getPassword()).trim().isEmpty()) {
             valid = false;
-            claveFld.setBackground(Application.BACKGROUND_ERROR);
+            claveFld.setBorder(Application.BORDER_ERROR);  // CAMBIAR
             claveFld.setToolTipText("Clave es requerida");
         } else {
-            claveFld.setBackground(null);
+            claveFld.setBorder(null);  // CAMBIAR
             claveFld.setToolTipText(null);
         }
 
@@ -166,9 +166,9 @@ public class View extends JDialog implements PropertyChangeListener {
     }
 
     private void limpiarValidacion() {
-        idFld.setBackground(null);
+        idFld.setBorder(null);  // CAMBIAR
         idFld.setToolTipText(null);
-        claveFld.setBackground(null);
+        claveFld.setBorder(null);  // CAMBIAR
         claveFld.setToolTipText(null);
     }
 

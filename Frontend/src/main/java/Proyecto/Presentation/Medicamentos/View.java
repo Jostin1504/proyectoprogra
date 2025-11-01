@@ -101,11 +101,11 @@ public class View implements PropertyChangeListener {
                 idFld.setText(model.getCurrent().getCodigo());
                 name1Fld.setText(model.getCurrent().getNombre());
                 PresentacionFld.setText(model.getCurrent().getPresentacion());
-                idFld.setBackground(null);
+                idFld.setBorder(null);
                 idFld.setToolTipText(null);
-                name1Fld.setBackground(null);
+                name1Fld.setBorder(null);
                 name1Fld.setToolTipText(null);
-                PresentacionFld.setBackground(null);
+                PresentacionFld.setBorder(null);
                 PresentacionFld.setToolTipText(null);
                 break;
         }
@@ -117,27 +117,28 @@ public class View implements PropertyChangeListener {
             valid = false;
             JOptionPane.showMessageDialog(mainPanelMedicamento, "Asegurese de llenar los espacios vacíos");
         }
-         if (idFld.getText().isEmpty()) {
+
+        if (idFld.getText().isEmpty()) {
             valid = false;
-            idFld.setBackground(Application.BACKGROUND_ERROR);
+            idFld.setBorder(Application.BORDER_ERROR);  // CAMBIAR
         } else {
-            idFld.setBackground(null);
+            idFld.setBorder(null);  // CAMBIAR
             idFld.setToolTipText(null);
         }
 
-         if (name1Fld.getText().isEmpty()) {
+        if (name1Fld.getText().isEmpty()) {
             valid = false;
-            name1Fld.setBackground(Application.BACKGROUND_ERROR);
+            name1Fld.setBorder(Application.BORDER_ERROR);  // CAMBIAR
         } else {
-            name1Fld.setBackground(null);
+            name1Fld.setBorder(null);  // CAMBIAR
             name1Fld.setToolTipText(null);
         }
 
-         if (PresentacionFld.getText().isEmpty()) {
+        if (PresentacionFld.getText().isEmpty()) {
             valid = false;
-            PresentacionFld.setBackground(Application.BACKGROUND_ERROR);
+            PresentacionFld.setBorder(Application.BORDER_ERROR);  // CAMBIAR
         } else {
-            PresentacionFld.setBackground(null);
+            PresentacionFld.setBorder(null);  // CAMBIAR
             PresentacionFld.setToolTipText(null);
         }
         return valid;

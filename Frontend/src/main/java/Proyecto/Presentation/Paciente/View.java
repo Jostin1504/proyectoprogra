@@ -108,37 +108,37 @@ public class View implements PropertyChangeListener {
         boolean valid = true;
         if (idFld.getText().isEmpty()) {
             valid = false;
-            idFld.setBackground(Application.BACKGROUND_ERROR);
+            idFld.setBorder(Application.BORDER_ERROR);  // CAMBIAR
             idFld.setToolTipText("id requerido");
         } else {
-            idFld.setBackground(null);
+            idFld.setBorder(null);  // CAMBIAR
             idFld.setToolTipText(null);
         }
 
         if (name1Fld.getText().isEmpty()) {
             valid = false;
-            name1Fld.setBackground(Application.BACKGROUND_ERROR);
+            name1Fld.setBorder(Application.BORDER_ERROR);  // CAMBIAR
             name1Fld.setToolTipText("Nombre requerido");
         } else {
-            name1Fld.setBackground(null);
+            name1Fld.setBorder(null);  // CAMBIAR
             name1Fld.setToolTipText(null);
         }
 
         if (model.getCurrent().getNumTelefono()==null) {
             valid = false;
-            numFld.setBackground(Application.BACKGROUND_ERROR);
+            numFld.setBorder(Application.BORDER_ERROR);  // CAMBIAR
             numFld.setToolTipText("Numero de telefono requerido");
         } else {
-            numFld.setBackground(null);
+            numFld.setBorder(null);  // CAMBIAR
             numFld.setToolTipText(null);
         }
 
         if (model.getCurrent().getFechanac()==null) {
             valid = false;
-            dateFld.setBackground(Application.BACKGROUND_ERROR);
+            dateFld.setBorder(Application.BORDER_ERROR);  // CAMBIAR
             dateFld.setToolTipText("Fecha de nacimiento requerida");
         } else {
-            dateFld.setBackground(null);
+            dateFld.setBorder(null);  // CAMBIAR
             dateFld.setToolTipText(null);
         }
         return valid;
