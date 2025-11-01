@@ -1,7 +1,6 @@
 package Proyecto.Presentation.Dashboard;
 
 import Proyecto.logic.Medicamento;
-import Proyecto.logic.Service;
 import Proyecto.Presentation.AbstractTableModel;
 
 import java.util.List;

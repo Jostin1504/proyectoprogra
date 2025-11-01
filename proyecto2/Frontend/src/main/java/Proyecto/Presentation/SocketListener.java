@@ -6,7 +6,6 @@
 package Proyecto.Presentation;
 
 import Proyecto.logic.Protocol;
-import Proyecto.Presentation.ThreadListener;
 
 import javax.swing.*;
 import java.io.IOException;

@@ -19,16 +19,24 @@ public class Service {
 
     public Service() {
         try {
+            System.out.println("Intentando conectar al servidor en " + Protocol.SERVER + ":" + Protocol.PORT);
             s = new Socket(Protocol.SERVER, Protocol.PORT);
+            System.out.println("Conexión establecida, creando streams...");
+
             os = new ObjectOutputStream(s.getOutputStream());
             is = new ObjectInputStream(s.getInputStream());
 
+            System.out.println("Enviando solicitud SYNC...");
             os.writeInt(Protocol.SYNC);
             os.flush();
+
+            System.out.println("Esperando Session ID...");
             sid=(String)is.readObject(); // Stores returned Session Id
+            System.out.println("Session ID recibido: " + sid);
 
         } catch (Exception e) {
             System.err.println("Error conectando al servidor: " + e.getMessage());
+            e.printStackTrace();
             System.exit(-1);
         }
     }
@@ -275,14 +283,18 @@ public class Service {
     }
 
     public Usuario read(Usuario u) throws Exception {
+        System.out.println("Intentando leer usuario: " + u.getCedula());
         os.writeInt(Protocol.USUARIO_READ);
         os.writeObject(u);
         os.flush();
         if (is.readInt() == Protocol.ERROR_NO_ERROR) {
-            return (Usuario) is.readObject();
+            Usuario usuario = (Usuario) is.readObject();
+            System.out.println("Usuario leído: " + usuario.getNombre());
+            return usuario;
         }
         else {
             String errorMsg = (String) is.readObject();
+            System.out.println("Error al leer usuario: " + errorMsg);
             throw new Exception(errorMsg);
         }
     }

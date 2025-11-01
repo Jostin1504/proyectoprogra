@@ -3,11 +3,9 @@ package Proyecto.Presentation.Despacho;
 import Proyecto.Presentation.ThreadListener;
 import Proyecto.Presentation.SocketListener;
 import javax.swing.SwingUtilities;
-import Proyecto.Application;
+
 import Proyecto.logic.Paciente;
 import Proyecto.logic.Service;
-import Proyecto.Presentation.ThreadListener;
-import java.util.List;
 
 public class Controller implements ThreadListener {
     private SocketListener socketListener;
