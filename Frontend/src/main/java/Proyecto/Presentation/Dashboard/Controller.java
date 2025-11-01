@@ -1,15 +1,23 @@
 package Proyecto.Presentation.Dashboard;
 
 import Proyecto.logic.*;
-import org.jfree.data.category.CategoryDataset;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.DefaultPieDataset;
 
+import javax.swing.*;
+import java.awt.*;
 import java.util.List;
+import java.util.Map;
 
 public class Controller {
-    View view;
-    Model model;
+    private View view;
+    private Model model;
+    private ChartPanel chartPanelLinea;
+    private ChartPanel chartPanelPastel;
 
     public Controller(View view, Model model) throws Exception {
         this.view = view;
@@ -17,74 +25,277 @@ public class Controller {
         view.setController(this);
         view.setModel(model);
         model.addPropertyChangeListener(view);
+
+        configurarEventos();
         inicializarDatos();
     }
 
+    /**
+     * Configura los listeners de los botones
+     */
+    private void configurarEventos() {
+        // button1: Agregar medicamento seleccionado de comboBox5
+        view.getButton1().addActionListener(e -> agregarMedicamentoSeleccionado());
+
+        // button2: Agregar todos los medicamentos
+        view.getButton2().addActionListener(e -> agregarTodosMedicamentos());
+
+        // button3: Remover medicamento seleccionado de la tabla
+        view.getButton3().addActionListener(e -> removerMedicamentoSeleccionado());
+
+        // button4: Actualizar gráficos
+        view.getButton4().addActionListener(e -> actualizarGraficos());
+    }
+
+    /**
+     * Carga datos iniciales
+     */
     public void inicializarDatos() throws Exception {
-        List<Medicamento> medicamentos = Service.instance().getMedicamentos();
-        model.setMedicamentos(medicamentos);
-        actualizarGraficos();
-    }
+        SwingWorker<Void, Void> worker = new SwingWorker<>() {
+            @Override
+            protected Void doInBackground() throws Exception {
+                // Cargar medicamentos
+                List<Medicamento> medicamentos = Service.instance().buscarTodosMedicamentos();
+                model.setMedicamentos(medicamentos);
 
-    public void actualizarGraficos() {
-        model.setChart1(new Object());
-        model.setChart2(new Object());
-    }
-/*
-     public CategoryDataset createDataset(List<Medicamento> medicamentos) {
-        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+                // Cargar recetas
+                List<Receta> recetas = Service.instance().buscarTodasRecetas();
+                model.setTodasLasRecetas(recetas);
 
-        if (medicamentos == null || medicamentos.isEmpty()) {
-            return dataset;
-        }
-
-        for (Medicamento medicamento : medicamentos) {
-            try {
-                String categoria = medicamento.getNombre();
-                String serie = medicamento.getPresentacion();
-                Number cantidad = Service.instance().getCantidadTotalMedicamento(medicamento);
-
-                dataset.addValue(cantidad, categoria, serie);
-            } catch (Exception e) {
-                System.err.println("Error al agregar medicamento al dataset: " + e.getMessage());
+                return null;
             }
+
+            @Override
+            protected void done() {
+                try {
+                    get();
+                    inicializarComboBoxMedicamentos();
+                    actualizarGraficos(); // Generar gráficos iniciales
+                    JOptionPane.showMessageDialog(
+                            view.getMainPanelDashboard(),
+                            "Datos cargados: " + model.getMedicamentos().size() +
+                                    " medicamentos y " + model.getTodasLasRecetas().size() + " recetas",
+                            "Éxito",
+                            JOptionPane.INFORMATION_MESSAGE
+                    );
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(
+                            view.getMainPanelDashboard(),
+                            "Error al cargar datos: " + e.getMessage(),
+                            "Error",
+                            JOptionPane.ERROR_MESSAGE
+                    );
+                    e.printStackTrace();
+                }
+            }
+        };
+        worker.execute();
+    }
+
+    /**
+     * Inicializa el comboBox5 con los medicamentos disponibles
+     */
+    private void inicializarComboBoxMedicamentos() {
+        DefaultComboBoxModel<String> comboModel = new DefaultComboBoxModel<>();
+        for (Medicamento med : model.getMedicamentos()) {
+            comboModel.addElement(med.getCodigo() + " - " + med.getNombre());
+        }
+        view.getComboBox5().setModel(comboModel);
+    }
+
+    /**
+     * Agrega el medicamento seleccionado en comboBox5 a la lista
+     */
+    private void agregarMedicamentoSeleccionado() {
+        String seleccion = (String) view.getComboBox5().getSelectedItem();
+        if (seleccion == null) return;
+
+        String codigo = seleccion.split(" - ")[0];
+        Medicamento med = model.getMedicamentos().stream()
+                .filter(m -> m.getCodigo().equals(codigo))
+                .findFirst()
+                .orElse(null);
+
+        if (med != null) {
+            model.agregarMedicamentoSeleccionado(med);
+        }
+    }
+
+    /**
+     * Agrega todos los medicamentos a la lista
+     */
+    private void agregarTodosMedicamentos() {
+        for (Medicamento med : model.getMedicamentos()) {
+            model.agregarMedicamentoSeleccionado(med);
+        }
+    }
+
+    /**
+     * Remueve el medicamento seleccionado de la tabla
+     */
+    private void removerMedicamentoSeleccionado() {
+        int selectedRow = view.getMedicamentos().getSelectedRow();
+        if (selectedRow >= 0) {
+            Medicamento med = model.getMedicamentosSeleccionados().get(selectedRow);
+            model.removerMedicamentoSeleccionado(med);
+        } else {
+            JOptionPane.showMessageDialog(
+                    view.getMainPanelDashboard(),
+                    "Seleccione un medicamento de la tabla",
+                    "Advertencia",
+                    JOptionPane.WARNING_MESSAGE
+            );
+        }
+    }
+
+    /**
+     * Actualiza ambos gráficos
+     */
+    public void actualizarGraficos() {
+        if (model.getMedicamentosSeleccionados().isEmpty()) {
+            JOptionPane.showMessageDialog(
+                    view.getMainPanelDashboard(),
+                    "Agregue al menos un medicamento antes de actualizar los gráficos",
+                    "Advertencia",
+                    JOptionPane.WARNING_MESSAGE
+            );
+            return;
         }
 
-        return dataset;
+        SwingWorker<Void, Void> worker = new SwingWorker<>() {
+            @Override
+            protected Void doInBackground() throws Exception {
+                return null;
+            }
+
+            @Override
+            protected void done() {
+                try {
+                    actualizarGraficoLinea();
+                    actualizarGraficoPastel();
+                    model.setChart1(new Object());
+                    model.setChart2(new Object());
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(
+                            view.getMainPanelDashboard(),
+                            "Error al actualizar gráficos: " + e.getMessage(),
+                            "Error",
+                            JOptionPane.ERROR_MESSAGE
+                    );
+                    e.printStackTrace();
+                }
+            }
+        };
+        worker.execute();
     }
-    public DefaultPieDataset createPieDataset() {
-        DefaultPieDataset dataset = new DefaultPieDataset();
 
-        int enProceso = Service.instance().recetasEnProceso();
-        int listas = Service.instance().recetasListas();
-        int entregadas = Service.instance().recetasEntregadas();
-        int confeccionadas = Service.instance().recetasConfeccionadas();
+    /**
+     * Genera y muestra el gráfico de línea (medicamentos por mes)
+     */
+    private void actualizarGraficoLinea() {
+        try {
+            // Obtener fechas seleccionadas
+            String añoInicio = (String) view.getComboBox1().getSelectedItem();
+            String mesInicio = (String) view.getComboBox2().getSelectedItem();
+            String añoFin = (String) view.getComboBox3().getSelectedItem();
+            String mesFin = (String) view.getComboBox4().getSelectedItem();
 
-        if (enProceso > 0) dataset.setValue("En proceso", enProceso);
-        if (listas > 0) dataset.setValue("Lista", listas);
-        if (entregadas > 0) dataset.setValue("Entregada", entregadas);
-        if (confeccionadas > 0) dataset.setValue("Confeccionada", confeccionadas);
+            // Generar datos
+            Map<String, Map<String, Integer>> datos =
+                    model.generarDatosMedicamentosPorMes(añoInicio, mesInicio, añoFin, mesFin);
 
-        return dataset;
-    }
-*/
-    public void agregarMedicamento(Medicamento medicamento) {
-        if (!model.getMedicamentos().contains(medicamento)) {
-            model.getMedicamentos().add(medicamento);
-            model.setMedicamentos(model.getMedicamentos()); // Actualizar vista
-            actualizarGraficos();
+            // Crear dataset
+            DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+            for (Map.Entry<String, Map<String, Integer>> entry : datos.entrySet()) {
+                String medicamento = entry.getKey();
+                for (Map.Entry<String, Integer> mesEntry : entry.getValue().entrySet()) {
+                    dataset.addValue(mesEntry.getValue(), medicamento, mesEntry.getKey());
+                }
+            }
+
+            // Crear gráfico
+            JFreeChart chart = ChartFactory.createLineChart(
+                    "Medicamentos Prescritos por Mes",
+                    "Mes",
+                    "Cantidad",
+                    dataset,
+                    PlotOrientation.VERTICAL,
+                    true,
+                    true,
+                    false
+            );
+
+            // Personalizar
+            chart.getPlot().setBackgroundPaint(Color.WHITE);
+            chart.setBackgroundPaint(new Color(240, 240, 240));
+
+            // Actualizar panel
+            JPanel panelMedicamentos = view.getPanelMedicamentos();
+            panelMedicamentos.removeAll();
+
+            chartPanelLinea = new ChartPanel(chart);
+            chartPanelLinea.setPreferredSize(new Dimension(500, 400));
+
+            panelMedicamentos.setLayout(new BorderLayout());
+            panelMedicamentos.add(chartPanelLinea, BorderLayout.CENTER);
+            panelMedicamentos.revalidate();
+            panelMedicamentos.repaint();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("Error generando gráfico de línea: " + e.getMessage());
         }
     }
 
-    public void removerMedicamento(Medicamento medicamento) {
-        model.getMedicamentos().remove(medicamento);
-        model.setMedicamentos(model.getMedicamentos()); // Actualizar vista
-        actualizarGraficos();
-    }
+    /**
+     * Genera y muestra el gráfico de pastel (recetas por estado)
+     */
+    private void actualizarGraficoPastel() {
+        try {
+            // Generar datos
+            Map<String, Integer> datos = model.generarDatosRecetasPorEstado();
 
-    public void limpiarMedicamentos() {
-        model.getMedicamentos().clear();
-        model.setMedicamentos(model.getMedicamentos());
-        actualizarGraficos();
+            if (datos.isEmpty()) {
+                JOptionPane.showMessageDialog(
+                        view.getMainPanelDashboard(),
+                        "No hay recetas para mostrar",
+                        "Información",
+                        JOptionPane.INFORMATION_MESSAGE
+                );
+                return;
+            }
+
+            // Crear dataset
+            DefaultPieDataset dataset = new DefaultPieDataset();
+            datos.forEach(dataset::setValue);
+
+            // Crear gráfico
+            JFreeChart chart = ChartFactory.createPieChart(
+                    "Recetas por Estado",
+                    dataset,
+                    true,
+                    true,
+                    false
+            );
+
+            // Personalizar
+            chart.setBackgroundPaint(new Color(240, 240, 240));
+
+            // Actualizar panel
+            JPanel panelRecetas = view.getPanelRecetas();
+            panelRecetas.removeAll();
+
+            chartPanelPastel = new ChartPanel(chart);
+            chartPanelPastel.setPreferredSize(new Dimension(500, 500));
+
+            panelRecetas.setLayout(new BorderLayout());
+            panelRecetas.add(chartPanelPastel, BorderLayout.CENTER);
+            panelRecetas.revalidate();
+            panelRecetas.repaint();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("Error generando gráfico de pastel: " + e.getMessage());
+        }
     }
 }
