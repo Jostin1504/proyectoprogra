@@ -84,7 +84,6 @@ public class Controller {
         }
         model.getCurrent().setFechaRetiro(fechaRetiro);
         model.getCurrent().setFechaCreacion(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
-        model.guardarRecetaAPaciente();
         agregarReceta();
         Service.instance().actualizarPaciente(model.getCurrentPaciente());
         clear();

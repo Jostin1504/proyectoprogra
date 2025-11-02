@@ -205,10 +205,6 @@ public class View implements PropertyChangeListener {
                 break;
             case Model.MEDICAMENTO:
                 if (table1 != null && model.getCurrent() != null) {
-                    for (Medicamento med : model.getCurrent().getMedicamentos()) {
-                        System.out.println("Med: " + med.getNombre() + " - " + med.getCantidad() + " - " + med.getDuracion());
-                    }
-
                     int[] cols2 = {MedTableModel.NOMBRE, MedTableModel.PRESENTACION,
                             MedTableModel.CANTIDAD, MedTableModel.INDICACIONES,
                             MedTableModel.DURACION};

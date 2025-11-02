@@ -62,10 +62,13 @@ public class Worker {
                 switch (method) {
                     case Protocol.RECETA_CREATE:
                         try {
-                            service.agregarReceta((Receta) is.readObject());
+                            Receta recetaRecibida = (Receta) is.readObject();
+                            service.agregarReceta(recetaRecibida);
                             os.writeInt(Protocol.ERROR_NO_ERROR);
-                            srv.deliver_message(this,"Receta creada");
+                            srv.deliver_message(this, "Receta creada");
                         } catch (Exception ex) {
+                            System.err.println("WORKER ERROR: " + ex.getMessage());
+                            ex.printStackTrace();
                             os.writeInt(Protocol.ERROR_ERROR);
                         }
                         break;

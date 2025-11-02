@@ -66,7 +66,7 @@ CREATE TABLE IF NOT EXISTS `Receta_Medicamento` (
 
 INSERT INTO Usuario (cedula, nombre, clave, rol, especialidad)
 VALUES
-    ('333', 'Administrador', '333', 'ADM', NULL),
+    ('334', 'Administrador 2', '334', 'ADM', NULL),
     ('111', 'Dr. Juan Pérez', '111', 'MED', 'Medicina General'),
     ('222', 'Farm. María López', '222', 'FAR', NULL);
 

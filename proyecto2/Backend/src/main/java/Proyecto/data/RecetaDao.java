@@ -18,6 +18,11 @@ public class RecetaDao {
     }
 
     public int create(Receta r) throws Exception {
+        System.out.println("DAO: Iniciando creación de receta");
+        System.out.println("DAO: Paciente: " + r.getIdPaciente());
+        System.out.println("DAO: Fecha Creación: " + r.getFechaCreacion());
+        System.out.println("DAO: Estado: " + r.getEstado());
+
         String sql = "insert into Receta (fechaRetiro, fechaCreacion, idPaciente, estado) " +
                 "values(?,?,?,?)";
         PreparedStatement stm = db.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -26,24 +31,40 @@ public class RecetaDao {
         stm.setString(3, r.getIdPaciente());
         stm.setString(4, r.getEstado());
 
+        System.out.println("DAO: Ejecutando INSERT en tabla Receta");
         int count = db.executeUpdate(stm);
         if (count == 0) {
+            System.err.println("DAO ERROR: No se insertó la receta");
             throw new Exception("Error al crear receta");
         }
+        System.out.println("DAO: Receta insertada, count=" + count);
 
         ResultSet generatedKeys = stm.getGeneratedKeys();
         int idReceta = 0;
         if (generatedKeys.next()) {
             idReceta = generatedKeys.getInt(1);
+            System.out.println("DAO: ID de receta generado: " + idReceta);
         }
 
-        for (Medicamento m : r.getMedicamentos()) {
-            insertarMedicamentoReceta(idReceta, m);
+        System.out.println("DAO: Insertando medicamentos...");
+        if (r.getMedicamentos() != null) {
+            System.out.println("DAO: Cantidad de medicamentos: " + r.getMedicamentos().size());
+            for (Medicamento m : r.getMedicamentos()) {
+                System.out.println("DAO: Insertando medicamento: " + m.getNombre() +
+                        " (Código: " + m.getCodigo() + ")");
+                insertarMedicamentoReceta(idReceta, m);
+            }
+        } else {
+            System.out.println("DAO WARNING: La lista de medicamentos es NULL");
         }
+
+        System.out.println("DAO: Receta creada completamente con ID: " + idReceta);
         return idReceta;
     }
 
     private void insertarMedicamentoReceta(int idReceta, Medicamento m) throws Exception {
+        System.out.println("DAO: insertarMedicamentoReceta() - ID Receta: " + idReceta +
+                ", Medicamento: " + m.getCodigo());
         String sql = "insert into Receta_Medicamento (idReceta, codigoMedicamento, " +
                 "cantidad, duracion, indicaciones) values(?,?,?,?,?)";
         PreparedStatement stm = db.prepareStatement(sql);
@@ -51,8 +72,9 @@ public class RecetaDao {
         stm.setString(2, m.getCodigo());
         stm.setInt(3, m.getCantidad());
         stm.setInt(4, m.getDuracion());
-        stm.setString(5, m.getIndicaciones()); // AGREGADO
-        db.executeUpdate(stm);
+        stm.setString(5, m.getIndicaciones());
+        int count = db.executeUpdate(stm);
+        System.out.println("DAO: Medicamento insertado en Receta_Medicamento, count=" + count);
     }
 
     public Receta read(int id) throws Exception {

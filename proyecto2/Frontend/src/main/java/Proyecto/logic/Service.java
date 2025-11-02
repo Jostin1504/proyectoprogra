@@ -48,11 +48,33 @@ public class Service {
     // ==================== RECETAS ====================
 
     public void agregarReceta(Receta r) throws Exception {
+        System.out.println("====================================");
+        System.out.println("SERVICE (Frontend): Enviando receta al servidor");
+        System.out.println("SERVICE: ID Paciente: " + r.getIdPaciente());
+        System.out.println("SERVICE: Fecha Creación: " + r.getFechaCreacion());
+        System.out.println("SERVICE: Fecha Retiro: " + r.getFechaRetiro());
+        System.out.println("SERVICE: Estado: " + r.getEstado());
+        System.out.println("SERVICE: Medicamentos: " +
+                (r.getMedicamentos() != null ? r.getMedicamentos().size() : "NULL"));
+
+        if (r.getMedicamentos() != null) {
+            for (int i = 0; i < r.getMedicamentos().size(); i++) {
+                Medicamento m = r.getMedicamentos().get(i);
+                System.out.println("  Medicamento " + (i+1) + ": " + m.getNombre() +
+                        " (Código: " + m.getCodigo() +
+                        ", Cantidad: " + m.getCantidad() +
+                        ", Duración: " + m.getDuracion() + " días)");
+            }
+        }
+
         os.writeInt(Protocol.RECETA_CREATE);
         os.writeObject(r);
         os.flush();
-        if (is.readInt() == Protocol.ERROR_NO_ERROR) {}
-        else throw new Exception("Error al crear receta");
+        if (is.readInt() == Protocol.ERROR_NO_ERROR) {
+            System.out.println("Receta creada exitosamente");
+        } else {
+            throw new Exception("Error al crear receta");
+        }
     }
 
     public Receta leerReceta(int id) throws Exception {

@@ -36,13 +36,19 @@ public class DetalleView extends JDialog implements PropertyChangeListener {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (model.getCurrentMedicamento() != null) {
-                    Medicamento medicamentoEditado = new Medicamento(
-                            model.getCurrentMedicamento().getNombre(),
-                            model.getCurrentMedicamento().getPresentacion(),
-                            (Integer) cantidadSpinner.getValue(),
-                            (Integer) duracionSpinner.getValue(),
-                            indicacionesFld.getText()
-                    );
+                    // Crear una copia del medicamento con los detalles actualizados
+                    Medicamento medicamentoEditado = new Medicamento();
+
+                    // IMPORTANTE: Copiar TODOS los datos del medicamento original del catálogo
+                    medicamentoEditado.setCodigo(model.getCurrentMedicamento().getCodigo());
+                    medicamentoEditado.setNombre(model.getCurrentMedicamento().getNombre());
+                    medicamentoEditado.setPresentacion(model.getCurrentMedicamento().getPresentacion());
+
+                    // Agregar los detalles de la prescripción
+                    medicamentoEditado.setCantidad((Integer) cantidadSpinner.getValue());
+                    medicamentoEditado.setDuracion((Integer) duracionSpinner.getValue());
+                    medicamentoEditado.setIndicaciones(indicacionesFld.getText());
+
                     if (modoEdicion && indiceMedicamentoEditando >= 0) {
                         model.updateMedicamentoInReceta(indiceMedicamentoEditando, medicamentoEditado);
                         JOptionPane.showMessageDialog(contentPane,
@@ -51,8 +57,11 @@ public class DetalleView extends JDialog implements PropertyChangeListener {
                                 JOptionPane.INFORMATION_MESSAGE);
                     } else {
                         model.addMedicamentoToReceta(medicamentoEditado);
+                        JOptionPane.showMessageDialog(contentPane,
+                                "Medicamento agregado a la receta",
+                                "Éxito",
+                                JOptionPane.INFORMATION_MESSAGE);
                     }
-
 
                     model.clearCurrentMedicamento();
                     resetearModo();
