@@ -48,15 +48,6 @@ public class Service {
     // ==================== RECETAS ====================
 
     public void agregarReceta(Receta r) throws Exception {
-        System.out.println("====================================");
-        System.out.println("SERVICE (Frontend): Enviando receta al servidor");
-        System.out.println("SERVICE: ID Paciente: " + r.getIdPaciente());
-        System.out.println("SERVICE: Fecha Creación: " + r.getFechaCreacion());
-        System.out.println("SERVICE: Fecha Retiro: " + r.getFechaRetiro());
-        System.out.println("SERVICE: Estado: " + r.getEstado());
-        System.out.println("SERVICE: Medicamentos: " +
-                (r.getMedicamentos() != null ? r.getMedicamentos().size() : "NULL"));
-
         if (r.getMedicamentos() != null) {
             for (int i = 0; i < r.getMedicamentos().size(); i++) {
                 Medicamento m = r.getMedicamentos().get(i);
@@ -332,7 +323,7 @@ public class Service {
             String errorMsg = (String) is.readObject();
             throw new Exception(errorMsg);
         }
-        return false;
+        return true;
     }
 
     // ==================== MÉDICOS ====================

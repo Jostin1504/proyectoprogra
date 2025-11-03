@@ -100,6 +100,10 @@ public class Application {
                 Proyecto.Presentation.Dashboard.View dashboardViewAdm = new Proyecto.Presentation.Dashboard.View();
                 Proyecto.Presentation.Dashboard.Controller dashboardControllerAdm = new Proyecto.Presentation.Dashboard.Controller(dashboardViewAdm, dashboardModelAdm);
 
+                Proyecto.Presentation.Historico.Model historicoModelAdm = new Proyecto.Presentation.Historico.Model();
+                Proyecto.Presentation.Historico.View historicoViewAdm = new Proyecto.Presentation.Historico.View();
+                Proyecto.Presentation.Historico.Controller historicoControllerAdm = new Proyecto.Presentation.Historico.Controller(historicoViewAdm, historicoModelAdm);
+
                 tabbedPane.addTab("Medicos", medicoView.getMainPanelMedico());
                 tabbedPane.addTab("Farmaceutas", farmaceutaView.getMainPanelFarmaceuta());
                 tabbedPane.addTab("Pacientes", pacienteView.getMainPanelPaciente());
@@ -125,6 +129,11 @@ public class Application {
                 Proyecto.Presentation.Dashboard.View dashboardViewMed = new Proyecto.Presentation.Dashboard.View();
                 Proyecto.Presentation.Dashboard.Controller dashboardControllerMed = new Proyecto.Presentation.Dashboard.Controller(dashboardViewMed, dashboardModelMed);
 
+                Proyecto.Presentation.Historico.Model historicoModelMed = new Proyecto.Presentation.Historico.Model();
+                Proyecto.Presentation.Historico.View historicoViewMed = new Proyecto.Presentation.Historico.View();
+                Proyecto.Presentation.Historico.Controller historicoControllerMed = new Proyecto.Presentation.Historico.Controller(historicoViewMed, historicoModelMed);
+
+
                 tabbedPane.addTab("Prescribir", prescripcionView.getMainPanelPrescripcion());
                 tabbedPane.addTab("Dashboard", dashboardViewMed.getMainPanelDashboard());
                 tabbedPane.addTab("Acerca de...", acercaDeView.getMainPanelAcercaDe());
@@ -146,6 +155,11 @@ public class Application {
                 Proyecto.Presentation.Dashboard.Model dashboardModelFar = new Proyecto.Presentation.Dashboard.Model();
                 Proyecto.Presentation.Dashboard.View dashboardViewFar = new Proyecto.Presentation.Dashboard.View();
                 Proyecto.Presentation.Dashboard.Controller dashboardControllerFar = new Proyecto.Presentation.Dashboard.Controller(dashboardViewFar, dashboardModelFar);
+
+                Proyecto.Presentation.Historico.Model historicoModelFar = new Proyecto.Presentation.Historico.Model();
+                Proyecto.Presentation.Historico.View historicoViewFar = new Proyecto.Presentation.Historico.View();
+                Proyecto.Presentation.Historico.Controller historicoControllerFar = new Proyecto.Presentation.Historico.Controller(historicoViewFar, historicoModelFar);
+
 
                 tabbedPane.addTab("Despacho", despachoView.getMainPanelDespacho());
                 tabbedPane.addTab("Dashboard", dashboardViewFar.getMainPanelDashboard());

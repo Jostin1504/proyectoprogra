@@ -130,18 +130,6 @@ public class Service {
         medicamentoDao.create(medicamento);
     }
 
-    public void eliminarMedicamento(Medicamento medicamento) throws Exception {
-        medicamentoDao.delete(medicamento);
-    }
-
-    public List<Medicamento> buscarMedNombre(Medicamento e) throws Exception {
-        return medicamentoDao.findByNombre(e.getNombre());
-    }
-
-    public List<Medicamento> buscarMedCodigo(Medicamento e) throws Exception {
-        return medicamentoDao.findByCodigo(e.getCodigo());
-    }
-
     public Medicamento buscarMedicamento(String e) throws Exception{
         return medicamentoDao.read(e);
     }

@@ -27,7 +27,7 @@ public class MedicamentoDao {
     }
 
     public Medicamento read(String nombre) throws Exception {
-        String sql = "select * from Medicamento where nombre=?";
+        String sql = "select * from Medicamento where codigo=?";
         PreparedStatement stm = db.prepareStatement(sql);
         stm.setString(1, nombre);
         ResultSet rs = db.executeQuery(stm);

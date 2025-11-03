@@ -36,7 +36,11 @@ public class Controller {
 
     //encontrar medicos en data con nombre
     public void encontrarMedico(String nom) throws Exception{
-        model.setCurrent(Service.instance().buscarMedico(nom));
+        Medico f = Service.instance().buscarMedico(nom);
+        if (f == null) {
+            throw new Exception("Medico con nombre '" + nom + "' no encontrado");
+        }
+        model.setCurrent(f);
     }
 
     //borrar medicos de la lista
