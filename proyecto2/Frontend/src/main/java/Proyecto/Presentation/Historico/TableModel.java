@@ -11,13 +11,15 @@ public class TableModel extends AbstractTableModel<Receta> implements javax.swin
         super(cols, rows);
     }
 
-    public static final int FECHARET = 0;
-    public static final int MEDICAMENTOS = 1;
-    public static final int ESTADO = 2;
+    public static final int FECHARET = 1;
+    public static final int MEDICAMENTOS = 2;
+    public static final int ESTADO = 3;
+    public static final int ID = 0;
 
     @Override
     protected void initColNames() {
-        colNames = new String[3];
+        colNames = new String[4];
+        colNames[ID] = "Paciente(ID)";
         colNames[FECHARET] = "Fecha de retiro";
         colNames[MEDICAMENTOS] = "Medicamento";
         colNames[ESTADO] = "Estado";
@@ -44,6 +46,8 @@ public class TableModel extends AbstractTableModel<Receta> implements javax.swin
                 return sb.toString();
                 case ESTADO:
                     return e.getEstado();
+                case ID:
+                    return e.getIdPaciente();
             default:
                 return "";
         }

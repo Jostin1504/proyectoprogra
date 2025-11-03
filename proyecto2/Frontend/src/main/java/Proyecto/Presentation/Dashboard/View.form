@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="Proyecto.Presentation.Dashboard.View">
+  <grid id="27dc6" binding="mainPanelDashboard" layout-manager="GridLayoutManager" row-count="1" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+    <margin top="25" left="25" bottom="25" right="25"/>
+    <constraints>
+      <xy x="20" y="20" width="799" height="476"/>
+    </constraints>
+    <properties>
+      <minimumSize width="300" height="150"/>
+      <preferredSize width="300" height="150"/>
+    </properties>
+    <border type="none"/>
+    <children>
+      <grid id="9525a" layout-manager="GridLayoutManager" row-count="5" column-count="8" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+        <margin top="0" left="0" bottom="0" right="0"/>
+        <constraints>
+          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="8" fill="2" indent="0" use-parent-layout="true"/>
+        </constraints>
+        <properties/>
+        <border type="line" title="Datos">
+          <color color="-16777216"/>
+        </border>
+        <children>
+          <component id="4728e" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="0" column="1" row-span="1" col-span="3" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="Desde"/>
+            </properties>
+          </component>
+          <component id="4809d" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="1" column="1" row-span="1" col-span="3" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="Hasta"/>
+            </properties>
+          </component>
+          <component id="a320c" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="2" column="1" row-span="1" col-span="3" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="Medicamentos"/>
+            </properties>
+          </component>
+          <component id="39642" class="javax.swing.JComboBox" binding="comboBox1" default-binding="true">
+            <constraints>
+              <grid row="0" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <model>
+                <item value="2024"/>
+                <item value="2025"/>
+                <item value="2026"/>
+                <item value="2027"/>
+                <item value="2028"/>
+              </model>
+            </properties>
+          </component>
+          <component id="1be9b" class="javax.swing.JComboBox" binding="comboBox2" default-binding="true">
+            <constraints>
+              <grid row="0" column="5" row-span="1" col-span="2" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <model>
+                <item value="11-septiembre"/>
+                <item value="12-septiembre"/>
+                <item value="13-septiembre"/>
+                <item value="14-septiembre"/>
+                <item value="15-septiembre"/>
+                <item value="16-septiembre"/>
+                <item value="17-septiembre"/>
+                <item value="18-septiembre"/>
+                <item value="19-septiembre"/>
+                <item value="20-septiembre"/>
+                <item value="21-septiembre"/>
+                <item value="22-septiembre"/>
+                <item value="23-septiembre"/>
+                <item value="24-septiembre"/>
+                <item value="25-septiembre"/>
+                <item value="26-septiembre"/>
+                <item value="27-septiembre"/>
+                <item value="28-septiembre"/>
+                <item value="29-septiembre"/>
+                <item value="30-septiembre"/>
+                <item value="01-octubre"/>
+                <item value="02-octubre"/>
+                <item value="03-octubre"/>
+                <item value="04-octubre"/>
+                <item value="05-octubre"/>
+                <item value="06-octubre"/>
+                <item value="07-octubre"/>
+              </model>
+            </properties>
+          </component>
+          <component id="f6236" class="javax.swing.JComboBox" binding="comboBox3" default-binding="true">
+            <constraints>
+              <grid row="1" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties/>
+          </component>
+          <component id="84da6" class="javax.swing.JComboBox" binding="comboBox4" default-binding="true">
+            <constraints>
+              <grid row="1" column="5" row-span="1" col-span="2" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties/>
+          </component>
+          <component id="3ee19" class="javax.swing.JComboBox" binding="comboBox5" default-binding="true">
+            <constraints>
+              <grid row="2" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties/>
+          </component>
+          <component id="9c737" class="javax.swing.JButton" binding="button1" default-binding="true">
+            <constraints>
+              <grid row="2" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <icon value="imagenes/check_icon.png"/>
+              <text value=""/>
+            </properties>
+          </component>
+          <component id="e19fa" class="javax.swing.JButton" binding="button3" default-binding="true">
+            <constraints>
+              <grid row="4" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <icon value="imagenes/minus_icon.png"/>
+              <text value=""/>
+            </properties>
+          </component>
+          <component id="a53b1" class="javax.swing.JButton" binding="button4" default-binding="true">
+            <constraints>
+              <grid row="4" column="5" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <icon value="imagenes/equal_icon.png"/>
+              <text value=""/>
+            </properties>
+          </component>
+          <scrollpane id="452ea">
+            <constraints>
+              <grid row="3" column="0" row-span="1" col-span="7" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties/>
+            <border type="none"/>
+            <children>
+              <component id="632e3" class="javax.swing.JTable" binding="medicamentos">
+                <constraints/>
+                <properties/>
+              </component>
+            </children>
+          </scrollpane>
+          <component id="91f4a" class="javax.swing.JButton" binding="button2" default-binding="true">
+            <constraints>
+              <grid row="2" column="6" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <icon value="imagenes/double_check_icon.png"/>
+              <text value=""/>
+            </properties>
+          </component>
+        </children>
+      </grid>
+      <grid id="e46e6" binding="panelMedicamentos" layout-manager="BorderLayout" hgap="0" vgap="0">
+        <constraints>
+          <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="2" hsize-policy="2" anchor="0" fill="3" indent="0" use-parent-layout="false">
+            <preferred-size width="400" height="400"/>
+          </grid>
+        </constraints>
+        <properties/>
+        <border type="line" title="Medicamentos"/>
+        <children/>
+      </grid>
+      <grid id="96def" binding="panelRecetas" layout-manager="BorderLayout" hgap="0" vgap="0">
+        <constraints>
+          <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false">
+            <preferred-size width="500" height="500"/>
+            <maximum-size width="600" height="600"/>
+          </grid>
+        </constraints>
+        <properties/>
+        <border type="line" title="Recetas"/>
+        <children/>
+      </grid>
+    </children>
+  </grid>
+</form>

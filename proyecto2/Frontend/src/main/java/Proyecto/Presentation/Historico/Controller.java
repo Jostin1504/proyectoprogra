@@ -14,7 +14,6 @@ public class Controller {
         view.setController(this);
         view.setModel(model);
         model.addPropertyChangeListener(view);
-        model.setRecetas(Service.instance().buscarTodasRecetas());
     }
 
     void clear(){

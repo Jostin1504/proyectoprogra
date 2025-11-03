@@ -104,6 +104,7 @@ public class Application {
                 Proyecto.Presentation.Historico.View historicoViewAdm = new Proyecto.Presentation.Historico.View();
                 Proyecto.Presentation.Historico.Controller historicoControllerAdm = new Proyecto.Presentation.Historico.Controller(historicoViewAdm, historicoModelAdm);
 
+                tabbedPane.addTab("Histórico", historicoViewAdm.getMainPanelHistorico());
                 tabbedPane.addTab("Medicos", medicoView.getMainPanelMedico());
                 tabbedPane.addTab("Farmaceutas", farmaceutaView.getMainPanelFarmaceuta());
                 tabbedPane.addTab("Pacientes", pacienteView.getMainPanelPaciente());
@@ -133,7 +134,7 @@ public class Application {
                 Proyecto.Presentation.Historico.View historicoViewMed = new Proyecto.Presentation.Historico.View();
                 Proyecto.Presentation.Historico.Controller historicoControllerMed = new Proyecto.Presentation.Historico.Controller(historicoViewMed, historicoModelMed);
 
-
+                tabbedPane.addTab("Histórico", historicoViewMed.getMainPanelHistorico());
                 tabbedPane.addTab("Prescribir", prescripcionView.getMainPanelPrescripcion());
                 tabbedPane.addTab("Dashboard", dashboardViewMed.getMainPanelDashboard());
                 tabbedPane.addTab("Acerca de...", acercaDeView.getMainPanelAcercaDe());
@@ -160,7 +161,7 @@ public class Application {
                 Proyecto.Presentation.Historico.View historicoViewFar = new Proyecto.Presentation.Historico.View();
                 Proyecto.Presentation.Historico.Controller historicoControllerFar = new Proyecto.Presentation.Historico.Controller(historicoViewFar, historicoModelFar);
 
-
+                tabbedPane.addTab("Histórico", historicoViewFar.getMainPanelHistorico());
                 tabbedPane.addTab("Despacho", despachoView.getMainPanelDespacho());
                 tabbedPane.addTab("Dashboard", dashboardViewFar.getMainPanelDashboard());
                 tabbedPane.addTab("Acerca de...", acercaDeView.getMainPanelAcercaDe());

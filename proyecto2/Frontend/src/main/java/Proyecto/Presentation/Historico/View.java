@@ -1,9 +1,6 @@
 package Proyecto.Presentation.Historico;
 
-import Proyecto.Application;
-import Proyecto.Presentation.Despacho.TableModel;
-import Proyecto.logic.Farmaceuta;
-
+import Proyecto.Presentation.Historico.TableModel;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -52,7 +49,7 @@ public class View implements PropertyChangeListener {
         switch (evt.getPropertyName()) {
             case Model.CURRENT:
                 name2Fld.setText(model.getCurrent().getNombre());
-                int[] cols = {Proyecto.Presentation.Despacho.TableModel.FECHARET, Proyecto.Presentation.Despacho.TableModel.MEDICAMENTOS, Proyecto.Presentation.Despacho.TableModel.ESTADO};
+                int[] cols = { TableModel.ID, TableModel.FECHARET, TableModel.MEDICAMENTOS, TableModel.ESTADO};
                 recetas.setModel(new TableModel(cols, model.getCurrent().getRecetas()));
                 break;
             case Model.RECETAS:
