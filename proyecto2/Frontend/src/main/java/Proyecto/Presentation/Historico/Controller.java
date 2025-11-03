@@ -26,6 +26,20 @@ public class Controller {
         return Service.instance().buscarTodasRecetas();
     }
 
+    public void seleccionarPacienteYBuscarRecetas(int row) throws Exception {
+        if (row >= 0 && row < model.getPacientes().size()) {
+            Paciente selectedPaciente = model.getPacientes().get(row);
+            model.setCurrent(selectedPaciente);
+
+            String idPaciente = selectedPaciente.getId();
+            List<Receta> recetas = Service.instance().buscarRecetasPorPaciente(idPaciente);
+            if (recetas == null) {
+                recetas = new ArrayList<>();
+            }
+            model.setRecetas(recetas);
+        }
+    }
+
     public void searchPacienteNombre(String nombre) throws Exception {
         Paciente d = new Paciente();
         d.setNombre(nombre);

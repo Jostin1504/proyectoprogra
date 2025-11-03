@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Receta implements Serializable {
+    private int id;
     public String fechaRetiro;
     public String fechaCreacion;
     public String idPaciente;
@@ -35,6 +36,10 @@ public class Receta implements Serializable {
         medicamentos = new ArrayList<>();
         estado = "Confeccionada";
     }
+
+    public int getId() { return id; }
+
+    public void setId(int id) { this.id = id; }
 
     public String getIdPaciente() {
         return idPaciente;

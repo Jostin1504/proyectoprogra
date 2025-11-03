@@ -6,6 +6,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.ArrayList;
+import java.util.List;
 
 public class View implements PropertyChangeListener {
     Model model;
@@ -29,7 +31,12 @@ public class View implements PropertyChangeListener {
                     try {
                         Paciente paciente = controller.getPaciente(idPacFld.getText());
                         model.setCurrent(paciente);
-                        model.setRecetas(paciente.getRecetas());
+                        String idPaciente = model.getCurrent().getId();
+                        List<Receta> recetas = Service.instance().buscarRecetasPorPaciente(idPaciente);
+                        if (recetas == null) {
+                            recetas = new ArrayList<>();
+                        }
+                        model.setRecetas(recetas);
                     } catch (Exception ex) {
                         JOptionPane.showMessageDialog(mainPanelDespacho,
                                 "Paciente no encontrado: " + ex.getMessage(),
@@ -52,19 +59,31 @@ public class View implements PropertyChangeListener {
         procesoButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                controller.guardarEstado("En proceso");
+                try {
+                    controller.guardarEstado("En proceso");
+                } catch (Exception ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         });
         listaButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                controller.guardarEstado("Lista");
+                try {
+                    controller.guardarEstado("Lista");
+                } catch (Exception ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         });
         entregadaButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                controller.guardarEstado("Entregada");
+                try {
+                    controller.guardarEstado("Entregada");
+                } catch (Exception ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         });
     }

@@ -85,9 +85,12 @@ public class Worker {
                     case Protocol.RECETA_UPDATE:
                         try {
                             int id = is.readInt();
-                            service.updateReceta((Receta) is.readObject(), id);
+                            Receta r = (Receta) is.readObject();
+                            service.updateReceta(r, id);
                             os.writeInt(Protocol.ERROR_NO_ERROR);
                         } catch (Exception ex) {
+                            System.err.println("Error al actualizar receta: " + ex.getMessage());
+                            ex.printStackTrace();
                             os.writeInt(Protocol.ERROR_ERROR);
                         }
                         break;

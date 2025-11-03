@@ -49,14 +49,26 @@ public class View extends JDialog implements PropertyChangeListener {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(list.getSelectedRow() >= 0){
-                    controller.setCurrent(list.getSelectedRow());
+                    try {
+                        controller.seleccionarPacienteYBuscarRecetas(list.getSelectedRow());
+
+                        JOptionPane.showMessageDialog(contentPane,
+                                "Paciente: " + model.getCurrent().getNombre() +
+                                        "\nRecetas: " + model.getRecetas().size(),
+                                "Paciente Seleccionado",
+                                JOptionPane.INFORMATION_MESSAGE);
+
+                        View.this.setVisible(false);
+                    } catch (Exception ex) {
+                        JOptionPane.showMessageDialog(contentPane,
+                                "Error: " + ex.getMessage(),
+                                "Error",
+                                JOptionPane.ERROR_MESSAGE);
+                    }
+                } else {
                     JOptionPane.showMessageDialog(contentPane,
-                            "Paciente seleccionado: " + model.getCurrent().getNombre(),
-                            "Paciente Seleccionado",
-                            JOptionPane.INFORMATION_MESSAGE);
-                    View.this.setVisible(false);
-                }else{
-                    JOptionPane.showMessageDialog(contentPane,
+                            "Por favor seleccione un paciente de la lista",
+                            "Aviso",
                             JOptionPane.WARNING_MESSAGE);
                 }
             }

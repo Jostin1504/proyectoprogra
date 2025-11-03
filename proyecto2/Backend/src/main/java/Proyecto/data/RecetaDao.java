@@ -195,6 +195,7 @@ public class RecetaDao {
     private Receta from(ResultSet rs, String alias) {
         try {
             Receta r = new Receta();
+            r.setId(rs.getInt(alias + "id"));  // ✅ AGREGAR ESTA LÍNEA
             r.setFechaRetiro(rs.getString(alias + "fechaRetiro"));
             r.setFechaCreacion(rs.getString(alias + "fechaCreacion"));
             r.setIdPaciente(rs.getString(alias + "idPaciente"));

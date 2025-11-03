@@ -3,9 +3,7 @@ package Proyecto.Presentation.Despacho;
 import Proyecto.Presentation.ThreadListener;
 import Proyecto.Presentation.SocketListener;
 import javax.swing.SwingUtilities;
-
-import Proyecto.logic.Paciente;
-import Proyecto.logic.Service;
+import Proyecto.logic.*;
 
 public class Controller implements ThreadListener {
     private SocketListener socketListener;
@@ -70,7 +68,18 @@ public class Controller implements ThreadListener {
         }
     }
 
-    public void guardarEstado(String e){
-        model.getReceta().setEstado(e);
+    public void guardarEstado(String nuevoEstado) throws Exception {
+        if (model.getReceta() == null) {
+            throw new Exception("No hay receta seleccionada");
+        }
+        model.getReceta().setEstado(nuevoEstado);
+        Service.instance().actualizarReceta(getRecetaId(model.getReceta()), model.getReceta());
+        if (model.getCurrent() != null && model.getCurrent().getId() != null) {
+            buscarPaciente(model.getCurrent().getId());
+        }
+    }
+
+    private int getRecetaId(Receta receta) {
+        return model.getRecetas().indexOf(receta);
     }
 }

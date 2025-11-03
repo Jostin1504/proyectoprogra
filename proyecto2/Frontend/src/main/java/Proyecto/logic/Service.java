@@ -41,13 +41,13 @@ public class Service {
         }
     }
 
-    public String getSid() {
+    public synchronized String getSid() {
         return sid;
     }
 
     // ==================== RECETAS ====================
 
-    public void agregarReceta(Receta r) throws Exception {
+    public synchronized void agregarReceta(Receta r) throws Exception {
         if (r.getMedicamentos() != null) {
             for (int i = 0; i < r.getMedicamentos().size(); i++) {
                 Medicamento m = r.getMedicamentos().get(i);
@@ -68,7 +68,7 @@ public class Service {
         }
     }
 
-    public Receta leerReceta(int id) throws Exception {
+    public synchronized Receta leerReceta(int id) throws Exception {
         os.writeInt(Protocol.RECETA_READ);
         os.writeInt(id);
         os.flush();
@@ -78,7 +78,7 @@ public class Service {
         else throw new Exception("Receta no existe");
     }
 
-    public void actualizarReceta(int id, Receta r) throws Exception {
+    public synchronized void actualizarReceta(int id, Receta r) throws Exception {
         os.writeInt(Protocol.RECETA_UPDATE);
         os.writeInt(id);
         os.writeObject(r);
@@ -87,7 +87,7 @@ public class Service {
         else throw new Exception("Error al actualizar receta");
     }
 
-    public void eliminarReceta(int id) throws Exception {
+    public synchronized void eliminarReceta(int id) throws Exception {
         os.writeInt(Protocol.RECETA_DELETE);
         os.writeInt(id);
         os.flush();
@@ -95,7 +95,7 @@ public class Service {
         else throw new Exception("Error al eliminar receta");
     }
 
-    public List<Receta> buscarTodasRecetas() throws Exception {
+    public synchronized List<Receta> buscarTodasRecetas() throws Exception {
         os.writeInt(Protocol.RECETA_FIND_ALL);
         os.flush();
         if (is.readInt() == Protocol.ERROR_NO_ERROR) {
@@ -104,7 +104,7 @@ public class Service {
         else throw new Exception("Error al buscar recetas");
     }
 
-    public List<Receta> buscarRecetasPorEstado(String estado) throws Exception {
+    public synchronized List<Receta> buscarRecetasPorEstado(String estado) throws Exception {
         os.writeInt(Protocol.RECETA_FIND_BY_ESTADO);
         os.writeObject(estado);
         os.flush();
@@ -114,7 +114,7 @@ public class Service {
         else throw new Exception("Error al buscar recetas por estado");
     }
 
-    public List<Receta> buscarRecetasPorPaciente(String idPaciente) throws Exception {
+    public synchronized List<Receta> buscarRecetasPorPaciente(String idPaciente) throws Exception {
         os.writeInt(Protocol.RECETA_FIND_BY_PACIENTE);
         os.writeObject(idPaciente);
         os.flush();
@@ -126,7 +126,7 @@ public class Service {
 
     // ==================== MEDICAMENTOS ====================
 
-    public void anadirMedicamento(Medicamento m) throws Exception {
+    public synchronized void anadirMedicamento(Medicamento m) throws Exception {
         os.writeInt(Protocol.MEDICAMENTO_CREATE);
         os.writeObject(m);
         os.flush();
@@ -134,7 +134,7 @@ public class Service {
         else throw new Exception("Medicamento ya existe");
     }
 
-    public Medicamento buscarMedicamento(String codigo) throws Exception {
+    public synchronized Medicamento buscarMedicamento(String codigo) throws Exception {
         os.writeInt(Protocol.MEDICAMENTO_READ);
         os.writeObject(codigo);
         os.flush();
@@ -144,7 +144,7 @@ public class Service {
         else throw new Exception("Medicamento no existe");
     }
 
-    public void actualizarMedicamento(Medicamento m) throws Exception {
+    public synchronized void actualizarMedicamento(Medicamento m) throws Exception {
         os.writeInt(Protocol.MEDICAMENTO_UPDATE);
         os.writeObject(m);
         os.flush();
@@ -152,7 +152,7 @@ public class Service {
         else throw new Exception("Error al actualizar medicamento");
     }
 
-    public void eliminarMedicamento(Medicamento m) throws Exception {
+    public synchronized void eliminarMedicamento(Medicamento m) throws Exception {
         os.writeInt(Protocol.MEDICAMENTO_DELETE);
         os.writeObject(m);
         os.flush();
@@ -160,7 +160,7 @@ public class Service {
         else throw new Exception("Error al eliminar medicamento");
     }
 
-    public List<Medicamento> getMedicamentos() throws Exception {
+    public synchronized List<Medicamento> getMedicamentos() throws Exception {
         os.writeInt(Protocol.MEDICAMENTO_FIND_ALL);
         os.flush();
         if (is.readInt() == Protocol.ERROR_NO_ERROR) {
@@ -169,7 +169,7 @@ public class Service {
         else throw new Exception("Error al buscar medicamentos");
     }
 
-    public List<Medicamento> buscarMedCodigo(Medicamento m) throws Exception {
+    public synchronized List<Medicamento> buscarMedCodigo(Medicamento m) throws Exception {
         os.writeInt(Protocol.MEDICAMENTO_FIND_BY_CODIGO);
         os.writeObject(m);
         os.flush();
@@ -179,7 +179,7 @@ public class Service {
         else throw new Exception("Error al buscar medicamentos por código");
     }
 
-    public List<Medicamento> buscarMedNombre(Medicamento m) throws Exception {
+    public synchronized List<Medicamento> buscarMedNombre(Medicamento m) throws Exception {
         os.writeInt(Protocol.MEDICAMENTO_FIND_BY_NOMBRE);
         os.writeObject(m);
         os.flush();
@@ -191,7 +191,7 @@ public class Service {
 
     // ==================== PACIENTES ====================
 
-    public void anadirPaciente(Paciente p) throws Exception {
+    public synchronized void anadirPaciente(Paciente p) throws Exception {
         os.writeInt(Protocol.PACIENTE_CREATE);
         os.writeObject(p);
         os.flush();
@@ -199,7 +199,7 @@ public class Service {
         else throw new Exception("Paciente ya existe");
     }
 
-    public Paciente buscarPaciente(String id) throws Exception {
+    public synchronized Paciente buscarPaciente(String id) throws Exception {
         os.writeInt(Protocol.PACIENTE_READ);
         os.writeObject(id);
         os.flush();
@@ -209,7 +209,7 @@ public class Service {
         else throw new Exception("Paciente no existe");
     }
 
-    public Medico buscarMedico(String id) throws Exception {
+    public synchronized Medico buscarMedico(String id) throws Exception {
         os.writeInt(Protocol.MEDICO_FIND_BY_NOMBRE);
         os.writeObject(id);
         os.flush();
@@ -219,7 +219,7 @@ public class Service {
         else throw new Exception("Paciente no existe");
     }
 
-    public Farmaceuta buscarFarmaceuta(String id) throws Exception {
+    public synchronized Farmaceuta buscarFarmaceuta(String id) throws Exception {
         os.writeInt(Protocol.FARMACEUTA_FIND_BY_NOMBRE);
         os.writeObject(id);
         os.flush();
@@ -229,7 +229,7 @@ public class Service {
         else throw new Exception("Paciente no existe");
     }
 
-    public void actualizarPaciente(Paciente p) throws Exception {
+    public synchronized void actualizarPaciente(Paciente p) throws Exception {
         os.writeInt(Protocol.PACIENTE_UPDATE);
         os.writeObject(p);
         os.flush();
@@ -240,7 +240,7 @@ public class Service {
         }
     }
 
-    public void eliminarPaciente(Paciente p) throws Exception {
+    public synchronized void eliminarPaciente(Paciente p) throws Exception {
         os.writeInt(Protocol.PACIENTE_DELETE);
         os.writeObject(p);
         os.flush();
@@ -251,7 +251,7 @@ public class Service {
         }
     }
 
-    public List<Paciente> getPacientes() throws Exception {
+    public synchronized List<Paciente> getPacientes() throws Exception {
         os.writeInt(Protocol.PACIENTE_FIND_ALL);
         os.flush();
         if (is.readInt() == Protocol.ERROR_NO_ERROR) {
@@ -260,7 +260,7 @@ public class Service {
         else throw new Exception("Error al buscar pacientes");
     }
 
-    public List<Paciente> buscarPacienteNombre(Paciente filtro) throws Exception {
+    public synchronized List<Paciente> buscarPacienteNombre(Paciente filtro) throws Exception {
         os.writeInt(Protocol.PACIENTE_FIND_BY_NOMBRE);
         os.writeObject(filtro);
         os.flush();
@@ -270,7 +270,7 @@ public class Service {
         else throw new Exception("Error al buscar pacientes por nombre");
     }
 
-    public List<Paciente> buscarPacienteCedula(Paciente filtro) throws Exception {
+    public synchronized List<Paciente> buscarPacienteCedula(Paciente filtro) throws Exception {
         os.writeInt(Protocol.PACIENTE_FIND_BY_ID);
         os.writeObject(filtro);
         os.flush();
@@ -282,7 +282,7 @@ public class Service {
 
     // ==================== USUARIOS / LOGIN ====================
 
-    public Usuario login(Usuario u) throws Exception {
+    public synchronized Usuario login(Usuario u) throws Exception {
         os.writeInt(Protocol.USUARIO_LOGIN);
         os.writeObject(u);
         os.flush();
@@ -295,7 +295,7 @@ public class Service {
         }
     }
 
-    public Usuario read(Usuario u) throws Exception {
+    public synchronized Usuario read(Usuario u) throws Exception {
         System.out.println("Intentando leer usuario: " + u.getCedula());
         os.writeInt(Protocol.USUARIO_READ);
         os.writeObject(u);
@@ -312,7 +312,7 @@ public class Service {
         }
     }
 
-    public boolean cambiarClave(String cedula, String claveActual, String claveNueva) throws Exception {
+    public synchronized boolean cambiarClave(String cedula, String claveActual, String claveNueva) throws Exception {
         os.writeInt(Protocol.USUARIO_CAMBIAR_CLAVE);
         os.writeObject(cedula);
         os.writeObject(claveActual);
@@ -328,7 +328,7 @@ public class Service {
 
     // ==================== MÉDICOS ====================
 
-    public void anadirMedico(Medico m) throws Exception {
+    public synchronized void anadirMedico(Medico m) throws Exception {
         os.writeInt(Protocol.MEDICO_CREATE);
         os.writeObject(m);
         os.flush();
@@ -339,7 +339,7 @@ public class Service {
         }
     }
 
-    public void actualizarMedico(Usuario m) throws Exception {
+    public synchronized void actualizarMedico(Usuario m) throws Exception {
         os.writeInt(Protocol.MEDICO_UPDATE);
         os.writeObject(m);
         os.flush();
@@ -350,7 +350,7 @@ public class Service {
         }
     }
 
-    public void eliminarMedico(Medico m) throws Exception {
+    public synchronized void eliminarMedico(Medico m) throws Exception {
         os.writeInt(Protocol.MEDICO_DELETE);
         os.writeObject(m);
         os.flush();
@@ -361,7 +361,7 @@ public class Service {
         }
     }
 
-    public List<Medico> getMedicos() throws Exception {
+    public synchronized List<Medico> getMedicos() throws Exception {
         os.writeInt(Protocol.MEDICO_FIND_ALL);
         os.flush();
         if (is.readInt() == Protocol.ERROR_NO_ERROR) {
@@ -372,7 +372,7 @@ public class Service {
 
     // ==================== FARMACEUTAS ====================
 
-    public void anadirFarmaceuta(Farmaceuta f) throws Exception {
+    public synchronized void anadirFarmaceuta(Farmaceuta f) throws Exception {
         os.writeInt(Protocol.FARMACEUTA_CREATE);
         os.writeObject(f);
         os.flush();
@@ -383,7 +383,7 @@ public class Service {
         }
     }
 
-    public void eliminarFarmaceuta(Farmaceuta f) throws Exception {
+    public synchronized void eliminarFarmaceuta(Farmaceuta f) throws Exception {
         os.writeInt(Protocol.FARMACEUTA_DELETE);
         os.writeObject(f);
         os.flush();
@@ -394,7 +394,7 @@ public class Service {
         }
     }
 
-    public List<Farmaceuta> getFarmaceutas() throws Exception {
+    public synchronized List<Farmaceuta> getFarmaceutas() throws Exception {
         os.writeInt(Protocol.FARMACEUTA_FIND_ALL);
         os.flush();
         if (is.readInt() == Protocol.ERROR_NO_ERROR) {
@@ -405,14 +405,14 @@ public class Service {
 
     // ==================== DESCONEXIÓN ====================
 
-    private void disconnect() throws Exception {
+    private synchronized void disconnect() throws Exception {
         os.writeInt(Protocol.DISCONNECT);
         os.flush();
         s.shutdownOutput();
         s.close();
     }
 
-    public void stop() {
+    public synchronized void stop() {
         try {
             disconnect();
         } catch (Exception e) {
