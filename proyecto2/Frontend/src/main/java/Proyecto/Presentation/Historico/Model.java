@@ -9,15 +9,17 @@ import java.util.List;
 
 public class Model extends AbstractModel {
     private Paciente current;
-
+    private List<Paciente> pacientes;
     private List<Receta> recetas;
 
     public static final String CURRENT = "current";
     public static final String RECETAS = "recetas";
+    public static final String PACIENTES = "pacientes";
 
     public Model() {
         current = new Paciente();
         recetas = new ArrayList<>();
+        pacientes = new ArrayList<Paciente>();
     }
 
     @Override
@@ -25,6 +27,7 @@ public class Model extends AbstractModel {
         super.addPropertyChangeListener(listener);
         firePropertyChange(CURRENT);
         firePropertyChange(RECETAS);
+        firePropertyChange(PACIENTES);
     }
 
     public Paciente getCurrent() {
@@ -34,6 +37,15 @@ public class Model extends AbstractModel {
     public void setCurrent(Paciente current) {
         this.current = current;
         firePropertyChange(CURRENT);
+    }
+
+    public List<Paciente> getPacientes() {
+        return pacientes;
+    }
+
+    public void setPacientes(List<Paciente> pacientes) {
+        this.pacientes = pacientes;
+        firePropertyChange(PACIENTES);
     }
 
     public List<Receta> getRecetas() {

@@ -83,10 +83,10 @@ public class Model extends AbstractModel {
         return medicamentos;
     }
 
-    public void setPacientes(List<Paciente> pacientes) {
-        this.pacientes = pacientes;
-        firePropertyChange(PACIENTES);
-    }
+        public void setPacientes(List<Paciente> pacientes) {
+            this.pacientes = pacientes;
+            firePropertyChange(PACIENTES);
+        }
 
     public Paciente getCurrentPaciente() {
         return currentPaciente;
@@ -126,19 +126,5 @@ public class Model extends AbstractModel {
     public void clearCurrentMedicamento() {
         this.currentMed = new Medicamento();
         firePropertyChange(CURRENTMED);
-    }
-
-    public void guardarRecetaAPaciente() {
-        if (currentPaciente != null && current != null) {
-            Receta nuevaReceta = new Receta();
-            nuevaReceta.setIdPaciente(currentPaciente.getId());
-            nuevaReceta.setFechaRetiro(current.getFechaRetiro());
-            nuevaReceta.setFechaCreacion(current.getFechaCreacion());
-            nuevaReceta.setMedicamentos(new ArrayList<>(current.getMedicamentos()));
-            currentPaciente.agregarReceta(nuevaReceta);
-            current = new Receta();
-            firePropertyChange(CURRENT);
-            firePropertyChange(PACIENTE);
-        }
     }
 }

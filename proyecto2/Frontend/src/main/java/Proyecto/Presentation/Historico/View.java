@@ -1,6 +1,5 @@
 package Proyecto.Presentation.Historico;
 
-import Proyecto.Presentation.Historico.TableModel;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,23 +14,20 @@ public class View implements PropertyChangeListener {
     private JButton buscarButton;
     private JButton limpiarButton;
     private JTable recetas;
+    private JButton seleccionarPacienteButton;
+    private JLabel recetasDe;
+    private JLabel nombrePaciente;
+    private Proyecto.Presentation.Historico.BuscarPaciente.View pacienteView;
 
     public View() {
-        limpiarButton.addActionListener(new ActionListener() {
+        recetasDe.setVisible(false);
+        seleccionarPacienteButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                controller.clear();
-            }
-        });
-        buscarButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    controller.encontrarRecetasPaciente(name2Fld.getText());
-                    JOptionPane.showMessageDialog(mainPanelHistorico, "Recetas encontradas");
-                }catch (Exception ex){
-                    JOptionPane.showMessageDialog(mainPanelHistorico, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-                }
+                pacienteView = new Proyecto.Presentation.Historico.BuscarPaciente.View();
+                pacienteView.setController(controller);
+                pacienteView.setModel(model);
+                pacienteView.setVisible(true);
             }
         });
     }
@@ -48,12 +44,17 @@ public class View implements PropertyChangeListener {
     public void propertyChange(PropertyChangeEvent evt) {
         switch (evt.getPropertyName()) {
             case Model.CURRENT:
-                name2Fld.setText(model.getCurrent().getNombre());
-                int[] cols = { TableModel.ID, TableModel.FECHARET, TableModel.MEDICAMENTOS, TableModel.ESTADO};
-                recetas.setModel(new TableModel(cols, model.getCurrent().getRecetas()));
+                if(!model.getCurrent().getNombre().isEmpty()){
+                    recetasDe.setVisible(true);
+                    nombrePaciente.setText(model.getCurrent().getNombre());
+                }
                 break;
             case Model.RECETAS:
-
+                int[] cols = {TableModel.ID, TableModel.FECHARET,
+                        TableModel.MEDICAMENTOS, TableModel.ESTADO};
+                recetas.setModel(new TableModel(cols, model.getRecetas()));
+                recetas.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+                break;
         }
     }
      public JPanel getMainPanelHistorico() {
