@@ -35,7 +35,6 @@ public class Model extends AbstractModel {
     public void setCurrent(Paciente current) {
         this.current = current;
         this.recetas = current.getRecetas();
-        this.recetas = null;
         firePropertyChange(CURRENT);
         firePropertyChange(RECETAS);
     }

@@ -4,6 +4,7 @@ import Proyecto.Presentation.ThreadListener;
 import Proyecto.Presentation.SocketListener;
 import javax.swing.SwingUtilities;
 import Proyecto.logic.*;
+import java.util.List;
 
 public class Controller implements ThreadListener {
     private SocketListener socketListener;
@@ -50,7 +51,6 @@ public class Controller implements ThreadListener {
     @Override
     public void deliver_message(String message) {
         SwingUtilities.invokeLater(() -> {
-            // Refrescar lista de recetas si hay un paciente actual
             if (model.getCurrent() != null && model.getCurrent().getId() != null) {
                 try {
                     buscarPaciente(model.getCurrent().getId());
@@ -73,9 +73,11 @@ public class Controller implements ThreadListener {
             throw new Exception("No hay receta seleccionada");
         }
         model.getReceta().setEstado(nuevoEstado);
-        Service.instance().actualizarReceta(getRecetaId(model.getReceta()), model.getReceta());
+        Service.instance().actualizarReceta(model.getReceta().getId(), model.getReceta());
         if (model.getCurrent() != null && model.getCurrent().getId() != null) {
-            buscarPaciente(model.getCurrent().getId());
+            String idPaciente = model.getCurrent().getId();
+            List<Receta> recetasActualizadas = Service.instance().buscarRecetasPorPaciente(idPaciente);
+            model.setRecetas(recetasActualizadas);
         }
     }
 
