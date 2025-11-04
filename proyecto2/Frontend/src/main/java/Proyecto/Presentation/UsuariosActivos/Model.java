@@ -31,6 +31,7 @@ public class Model extends AbstractModel {
     }
 
     public void addUser(Usuario usuario) {
+
         // Verificar que no exista ya
         boolean existe = activeUsers.stream()
                 .anyMatch(u -> u.getCedula().equals(usuario.getCedula()));
@@ -38,6 +39,8 @@ public class Model extends AbstractModel {
         if (!existe) {
             activeUsers.add(usuario);
             firePropertyChange(ACTIVE_USERS);
+        } else {
+            System.out.println("Usuario ya existe en la lista");
         }
     }
 

@@ -76,6 +76,7 @@ public class Server {
                 System.out.println("    ✅ Worker encontrado!");
                 w.setAs(as, aos, ais);
 
+                // ✅ ENVIAR LA LISTA COMPLETA DE USUARIOS ACTIVOS
                 System.out.println("    Enviando " + usuariosActivos.size() + " usuarios activos");
                 for(Usuario usuario : usuariosActivos.values()) {
                     String message = "USER_CONNECTED:" + usuario.getCedula() + ":" +
@@ -91,12 +92,19 @@ public class Server {
 
     public void addActiveUser(String sid, Usuario usuario) {
         usuariosActivos.put(sid, usuario);
-        System.out.println("   Usuario añadido: " + usuario.getNombre() + " (" + sid + ")");
-        System.out.println("   Total usuarios activos: " + usuariosActivos.size());
-        System.out.println("   Total workers: " + workers.size());
+        System.out.println("📝 Usuario añadido: " + usuario.getNombre() + " (" + sid + ")");
+        System.out.println("📊 Total usuarios activos: " + usuariosActivos.size());
+        System.out.println("🔧 Total workers: " + workers.size());
+
+        // Listar todos los usuarios activos
+        System.out.println("👥 Lista completa de usuarios activos:");
+        for (Map.Entry<String, Usuario> entry : usuariosActivos.entrySet()) {
+            System.out.println("  - " + entry.getValue().getNombre() + " (SID: " + entry.getKey() + ")");
+        }
+
+        // Notificar a TODOS los clientes (incluyendo el que acaba de conectarse)
         notifyUserConnected(usuario);
     }
-
     public void deliver_message(Worker from, String message){
         for(Worker w:workers){
             if (w!=from) w.deliver_message(message);

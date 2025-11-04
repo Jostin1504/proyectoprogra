@@ -296,7 +296,9 @@ public class Service {
         os.writeObject(u);
         os.flush();
         if (is.readInt() == Protocol.ERROR_NO_ERROR) {
-            return (Usuario) is.readObject();
+            Usuario usuario = (Usuario) is.readObject();
+            System.out.println("✅ Login exitoso: " + usuario.getNombre());
+            return usuario;
         }
         else {
             String errorMsg = (String) is.readObject();
@@ -305,18 +307,15 @@ public class Service {
     }
 
     public synchronized Usuario read(Usuario u) throws Exception {
-        System.out.println("Intentando leer usuario: " + u.getCedula());
         os.writeInt(Protocol.USUARIO_READ);
         os.writeObject(u);
         os.flush();
         if (is.readInt() == Protocol.ERROR_NO_ERROR) {
             Usuario usuario = (Usuario) is.readObject();
-            System.out.println("Usuario leído: " + usuario.getNombre());
             return usuario;
         }
         else {
             String errorMsg = (String) is.readObject();
-            System.out.println("Error al leer usuario: " + errorMsg);
             throw new Exception(errorMsg);
         }
     }

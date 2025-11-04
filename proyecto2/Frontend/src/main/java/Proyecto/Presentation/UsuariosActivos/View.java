@@ -30,10 +30,19 @@ public class View implements PropertyChangeListener {
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
+        System.out.println("👁️ View.propertyChange() - Property: " + evt.getPropertyName());
+
         switch (evt.getPropertyName()) {
             case Model.ACTIVE_USERS:
+                System.out.println("📊 Actualizando tabla con " + model.getActiveUsers().size() + " usuarios");
                 int[] cols = {TableModel.ID};
-                usuarios.setModel(new TableModel(cols, model.getActiveUsers()));
+                TableModel tableModel = new TableModel(cols, model.getActiveUsers());
+                usuarios.setModel(tableModel);
+
+                // Debug: imprimir usuarios en la tabla
+                for (int i = 0; i < tableModel.getRowCount(); i++) {
+                    System.out.println("  Fila " + i + ": " + tableModel.getValueAt(i, 0));
+                }
                 break;
         }
         this.mainPanel.revalidate();

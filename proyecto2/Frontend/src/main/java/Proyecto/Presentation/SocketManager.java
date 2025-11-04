@@ -33,7 +33,7 @@ public class SocketManager {
                     }
                 }
             }, Service.instance().getSid());
-            socketListener.start();
+            socketListener.start();  // ✅ AGREGAR ESTA LÍNEA
             System.out.println("✅ SocketListener único iniciado");
         }
     }

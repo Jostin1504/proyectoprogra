@@ -286,7 +286,11 @@ public class Worker {
                             if (resultado != null && resultado.getClave().equals(u.getClave())) {
                                 os.writeInt(Protocol.ERROR_NO_ERROR);
                                 os.writeObject(resultado);
+
+                                // ✅ AÑADIR USUARIO INMEDIATAMENTE DESPUÉS DEL LOGIN EXITOSO
                                 srv.addActiveUser(sid, resultado);
+                                System.out.println("✅ Usuario añadido a lista activa: " + resultado.getNombre());
+
                             } else {
                                 os.writeInt(Protocol.ERROR_ERROR);
                                 os.writeObject("Usuario o contraseña incorrectos");
@@ -430,15 +434,17 @@ public class Worker {
     public synchronized void deliver_message(String message) {
         if (as != null && aos != null) {
             try {
+                System.out.println("📤 Worker.deliver_message() - Enviando: " + message);
                 aos.writeInt(Protocol.DELIVER_MESSAGE);
                 aos.writeObject(message);
                 aos.flush();
-                System.out.println("Mensaje enviado a " + sid + ": " + message);
+                System.out.println("✅ Mensaje enviado a " + sid);
             } catch (Exception e) {
-                System.err.println("Error enviando mensaje a " + sid + ": " + e.getMessage());
+                System.err.println("❌ Error enviando mensaje a " + sid + ": " + e.getMessage());
+                e.printStackTrace();
             }
         } else {
-            System.out.println("Socket async no disponible para " + sid + ", mensaje: " + message);
+            System.out.println("⚠️ Socket async no disponible para " + sid);
         }
     }
 

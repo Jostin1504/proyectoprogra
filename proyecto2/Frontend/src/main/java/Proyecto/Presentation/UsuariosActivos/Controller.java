@@ -16,18 +16,28 @@ public class Controller implements ThreadListener {
         view.setController(this);
         view.setModel(model);
         model.addPropertyChangeListener(view);
-
-        // ✅ REGISTRARSE EN EL SOCKETMANAGER
         SocketManager.getInstance().addListener(this);
+        SwingUtilities.invokeLater(() -> {
+            try {
+                Thread.sleep(500);
+                cargarUsuariosActivos();
+            } catch (Exception e) {
+                System.err.println("Error al cargar usuarios activos: " + e.getMessage());
+            }
+        });
     }
 
     private void cargarUsuariosActivos() {
         try {
             List<Usuario> usuarios = Service.instance().getActiveUsers();
+
+            for (Usuario u : usuarios) {
+                System.out.println("  - " + u.getNombre() + " (" + u.getCedula() + ")");
+            }
+
             model.setActiveUsers(usuarios);
-            System.out.println("Usuarios activos cargados: " + usuarios.size());
         } catch (Exception e) {
-            System.err.println("Error al cargar usuarios activos: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 
