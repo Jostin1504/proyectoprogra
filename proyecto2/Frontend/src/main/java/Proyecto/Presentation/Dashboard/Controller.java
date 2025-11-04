@@ -9,7 +9,7 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.DefaultPieDataset;
-
+import Proyecto.Presentation.SocketManager;
 import javax.swing.*;
 import java.awt.*;
 import java.util.List;
@@ -20,7 +20,6 @@ public class Controller implements ThreadListener{
     private Model model;
     private ChartPanel chartPanelLinea;
     private ChartPanel chartPanelPastel;
-    private SocketListener socketListener;
 
     public Controller(View view, Model model) throws Exception {
         this.view = view;
@@ -32,12 +31,8 @@ public class Controller implements ThreadListener{
         configurarEventos();
         inicializarDatos();
 
-        try {
-            socketListener = new SocketListener(this, Service.instance().getSid());
-            socketListener.start();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        // ✅ REGISTRARSE EN EL SOCKETMANAGER
+        SocketManager.getInstance().addListener(this);
     }
 
     private void configurarEventos() {
@@ -100,10 +95,9 @@ public class Controller implements ThreadListener{
     }
 
     public void stop() {
-        if (socketListener != null) {
-            socketListener.stop();
-        }
+        SocketManager.getInstance().removeListener(this);
     }
+
     private void inicializarComboBoxMedicamentos() {
         DefaultComboBoxModel<String> comboModel = new DefaultComboBoxModel<>();
         for (Medicamento med : model.getMedicamentos()) {

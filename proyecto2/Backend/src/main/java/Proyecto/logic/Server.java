@@ -45,9 +45,12 @@ public class Server {
                         os.writeObject(sid); // send Session Id back
                         break;
                     case Protocol.ASYNC:
-                        sid=(String)is.readObject(); // recieves Session Id
-                        System.out.println("ASYNCH: "+sid);
-                        join(s,os,is,sid);
+                        sid=(String)is.readObject();
+                        System.out.println("=== ASYNC RECIBIDO ===");
+                        System.out.println("SID: " + sid);
+                        System.out.println("Buscando worker con ese SID...");
+                        join(s, os, is, sid);
+                        System.out.println("=== JOIN completado ===");
                         break;
                 }
                 os.flush();
@@ -63,17 +66,34 @@ public class Server {
         System.out.println("Quedan: " +workers.size());
     }
 
-    public void join(Socket as,ObjectOutputStream aos, ObjectInputStream ais, String sid){
-        for(Worker w:workers){
+    public void join(Socket as, ObjectOutputStream aos, ObjectInputStream ais, String sid){
+        System.out.println(">>> join() - Buscando worker con SID: " + sid);
+        System.out.println(">>> Total workers: " + workers.size());
+
+        for(Worker w : workers){
+            System.out.println("    Comparando con worker: " + w.sid);
             if(w.sid.equals(sid)){
-                w.setAs(as,aos,ais);
-                break;
+                System.out.println("    ✅ Worker encontrado!");
+                w.setAs(as, aos, ais);
+
+                System.out.println("    Enviando " + usuariosActivos.size() + " usuarios activos");
+                for(Usuario usuario : usuariosActivos.values()) {
+                    String message = "USER_CONNECTED:" + usuario.getCedula() + ":" +
+                            usuario.getNombre() + ":" + usuario.getRol();
+                    System.out.println("    Enviando: " + message);
+                    w.deliver_message(message);
+                }
+                return;
             }
         }
+        System.out.println("    ❌ Worker NO encontrado!");
     }
 
     public void addActiveUser(String sid, Usuario usuario) {
         usuariosActivos.put(sid, usuario);
+        System.out.println("   Usuario añadido: " + usuario.getNombre() + " (" + sid + ")");
+        System.out.println("   Total usuarios activos: " + usuariosActivos.size());
+        System.out.println("   Total workers: " + workers.size());
         notifyUserConnected(usuario);
     }
 
@@ -96,10 +116,17 @@ public class Server {
 
     private void notifyUserConnected(Usuario usuario) {
         String message = "USER_CONNECTED:" + usuario.getCedula() + ":" + usuario.getNombre() + ":" + usuario.getRol();
-        for(Worker w:workers){
-            w.deliver_message(message);
+        System.out.println("📢 Notificando conexión: " + message);
+        int notified = 0;
+        for(Worker w : workers){
+            if(w.as != null) {
+                w.deliver_message(message);
+                notified++;
+            } else {
+                System.out.println("   Worker " + w.sid + " no tiene socket async");
+            }
         }
-        System.out.println("Notificando conexión: " + message);
+        System.out.println("   Notificados: " + notified + " workers");
     }
 
     private void notifyUserDisconnected(Usuario usuario) {

@@ -428,13 +428,17 @@ public class Worker {
     }
 
     public synchronized void deliver_message(String message) {
-        if (as != null) {
+        if (as != null && aos != null) {
             try {
                 aos.writeInt(Protocol.DELIVER_MESSAGE);
                 aos.writeObject(message);
                 aos.flush();
+                System.out.println("Mensaje enviado a " + sid + ": " + message);
             } catch (Exception e) {
+                System.err.println("Error enviando mensaje a " + sid + ": " + e.getMessage());
             }
+        } else {
+            System.out.println("Socket async no disponible para " + sid + ", mensaje: " + message);
         }
     }
 

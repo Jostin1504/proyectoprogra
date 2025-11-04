@@ -4,11 +4,11 @@ import Proyecto.Presentation.*;
 import Proyecto.logic.*;
 import javax.swing.SwingUtilities;
 import java.util.List;
+import Proyecto.Presentation.SocketManager;
 
 public class Controller implements ThreadListener {
     private View view;
     private Model model;
-    private SocketListener socketListener;
 
     public Controller(View view, Model model) {
         this.view = view;
@@ -16,14 +16,9 @@ public class Controller implements ThreadListener {
         view.setController(this);
         view.setModel(model);
         model.addPropertyChangeListener(view);
-        cargarUsuariosActivos();
 
-        try {
-            socketListener = new SocketListener(this, Service.instance().getSid());
-            socketListener.start();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        // ✅ REGISTRARSE EN EL SOCKETMANAGER
+        SocketManager.getInstance().addListener(this);
     }
 
     private void cargarUsuariosActivos() {
@@ -66,8 +61,6 @@ public class Controller implements ThreadListener {
     }
 
     public void stop() {
-        if (socketListener != null) {
-            socketListener.stop();
-        }
+        SocketManager.getInstance().removeListener(this);
     }
 }

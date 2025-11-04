@@ -4,9 +4,9 @@ import Proyecto.Presentation.*;
 import javax.swing.SwingUtilities;
 import Proyecto.logic.*;
 import java.util.List;
+import Proyecto.Presentation.SocketManager;
 
 public class Controller implements ThreadListener {
-    private SocketListener socketListener;
     View view;
     Model model;
 
@@ -17,12 +17,9 @@ public class Controller implements ThreadListener {
         view.setModel(model);
         model.addPropertyChangeListener(view);
         model.setRecetas(model.getCurrent().getRecetas());
-        try {
-            socketListener = new SocketListener(this, Service.instance().getSid());
-            socketListener.start();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+
+        // ✅ REGISTRARSE EN EL SOCKETMANAGER
+        SocketManager.getInstance().addListener(this);
     }
 
     public void clear(){
@@ -64,9 +61,8 @@ public class Controller implements ThreadListener {
     }
 
     public void stop() {
-        if (socketListener != null) {
-            socketListener.stop();
-        }
+        // ✅ DESREGISTRARSE
+        SocketManager.getInstance().removeListener(this);
     }
 
     public void guardarEstado(String nuevoEstado) throws Exception {

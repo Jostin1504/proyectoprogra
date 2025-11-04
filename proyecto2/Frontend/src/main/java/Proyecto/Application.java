@@ -2,7 +2,7 @@ package Proyecto;
 
 import javax.swing.border.Border;
 
-import Proyecto.Presentation.UsuariosActivos.Controller;
+import Proyecto.Presentation.SocketManager;
 import Proyecto.logic.Service;
 import Proyecto.logic.*;
 import Proyecto.Presentation.Sesion;
@@ -68,6 +68,16 @@ public class Application {
     }
 
     private static void doRun() throws Exception {
+        System.out.println("=== INICIANDO doRun() ===");
+
+        // ✅ INICIALIZAR EL SOCKETLISTENER ÚNICO ANTES DE CREAR CUALQUIER CONTROLLER
+        try {
+            SocketManager.getInstance().initialize();
+        } catch (Exception e) {
+            System.err.println("Error inicializando SocketManager:");
+            e.printStackTrace();
+        }
+
         JFrame window = new JFrame("Recetas");
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -173,6 +183,7 @@ public class Application {
                     public void windowClosing(WindowEvent e) {
                         usuariosActivosController.stop();
                         dashboardControllerAdm.stop();
+                        SocketManager.getInstance().stop();  // ✅ CAMBIO AQUÍ
                         Service.instance().stop();
                     }
                 });
@@ -194,24 +205,20 @@ public class Application {
                 Proyecto.Presentation.UsuariosActivos.Model usuariosActivosModelSharedMed =
                         new Proyecto.Presentation.UsuariosActivos.Model();
 
-                // VISTA PARA HISTÓRICO
                 Proyecto.Presentation.UsuariosActivos.View usuariosActivosViewHistoricoMed =
                         new Proyecto.Presentation.UsuariosActivos.View();
                 usuariosActivosViewHistoricoMed.setModel(usuariosActivosModelSharedMed);
                 usuariosActivosModelSharedMed.addPropertyChangeListener(usuariosActivosViewHistoricoMed);
 
-                // VISTA PARA PRESCRIPCIÓN
                 Proyecto.Presentation.UsuariosActivos.View usuariosActivosViewPresMed =
                         new Proyecto.Presentation.UsuariosActivos.View();
                 usuariosActivosViewPresMed.setModel(usuariosActivosModelSharedMed);
                 usuariosActivosModelSharedMed.addPropertyChangeListener(usuariosActivosViewPresMed);
 
-                // UN SOLO CONTROLLER
                 Proyecto.Presentation.UsuariosActivos.Controller usuariosActivosControllerMed =
                         new Proyecto.Presentation.UsuariosActivos.Controller(
                                 usuariosActivosViewHistoricoMed, usuariosActivosModelSharedMed);
 
-                // Añadir paneles
                 JPanel historicoWithUsersMed = new JPanel(new BorderLayout());
                 historicoWithUsersMed.add(historicoViewMed.getMainPanelHistorico(), BorderLayout.CENTER);
                 historicoWithUsersMed.add(usuariosActivosViewHistoricoMed.getMainPanel(), BorderLayout.EAST);
@@ -230,11 +237,11 @@ public class Application {
                     public void windowClosing(WindowEvent e) {
                         usuariosActivosControllerMed.stop();
                         dashboardControllerMed.stop();
+                        SocketManager.getInstance().stop();  // ✅ CAMBIO AQUÍ
                         Service.instance().stop();
                     }
                 });
                 break;
-
 
             case "FAR":
                 Proyecto.Presentation.Despacho.Model despachoModel = new Proyecto.Presentation.Despacho.Model();
@@ -249,34 +256,28 @@ public class Application {
                 Proyecto.Presentation.Historico.View historicoViewFar = new Proyecto.Presentation.Historico.View();
                 Proyecto.Presentation.Historico.Controller historicoControllerFar = new Proyecto.Presentation.Historico.Controller(historicoViewFar, historicoModelFar);
 
-                // ✅ CREAR UN SOLO MODELO COMPARTIDO DE USUARIOS ACTIVOS
                 Proyecto.Presentation.UsuariosActivos.Model usuariosActivosModelSharedFar =
                         new Proyecto.Presentation.UsuariosActivos.Model();
 
-                // ✅ VISTA PARA HISTÓRICO
                 Proyecto.Presentation.UsuariosActivos.View usuariosActivosViewHistoricoFar =
                         new Proyecto.Presentation.UsuariosActivos.View();
                 usuariosActivosViewHistoricoFar.setModel(usuariosActivosModelSharedFar);
                 usuariosActivosModelSharedFar.addPropertyChangeListener(usuariosActivosViewHistoricoFar);
 
-                // ✅ VISTA PARA DESPACHO
                 Proyecto.Presentation.UsuariosActivos.View usuariosActivosViewDesFar =
                         new Proyecto.Presentation.UsuariosActivos.View();
                 usuariosActivosViewDesFar.setModel(usuariosActivosModelSharedFar);
                 usuariosActivosModelSharedFar.addPropertyChangeListener(usuariosActivosViewDesFar);
 
-                // ✅ VISTA PARA DASHBOARD (OPCIONAL)
                 Proyecto.Presentation.UsuariosActivos.View usuariosActivosViewDashFar =
                         new Proyecto.Presentation.UsuariosActivos.View();
                 usuariosActivosViewDashFar.setModel(usuariosActivosModelSharedFar);
                 usuariosActivosModelSharedFar.addPropertyChangeListener(usuariosActivosViewDashFar);
 
-                // ✅ UN SOLO CONTROLLER CON UN SOLO SOCKETLISTENER
                 Proyecto.Presentation.UsuariosActivos.Controller usuariosActivosControllerFar =
                         new Proyecto.Presentation.UsuariosActivos.Controller(
                                 usuariosActivosViewHistoricoFar, usuariosActivosModelSharedFar);
 
-                // CREAR PANELES COMBINADOS
                 JPanel historicoWithUsersFar = new JPanel(new BorderLayout());
                 historicoWithUsersFar.add(historicoViewFar.getMainPanelHistorico(), BorderLayout.CENTER);
                 historicoWithUsersFar.add(usuariosActivosViewHistoricoFar.getMainPanel(), BorderLayout.EAST);
@@ -289,7 +290,6 @@ public class Application {
                 DashWithUsersFar.add(dashboardViewFar.getMainPanelDashboard(), BorderLayout.CENTER);
                 DashWithUsersFar.add(usuariosActivosViewDashFar.getMainPanel(), BorderLayout.EAST);
 
-                // AÑADIR TABS
                 tabbedPane.addTab("Histórico", historicoWithUsersFar);
                 tabbedPane.addTab("Despacho", desWithUsersFar);
                 tabbedPane.addTab("Dashboard", DashWithUsersFar);
@@ -301,15 +301,12 @@ public class Application {
                         usuariosActivosControllerFar.stop();
                         despachoController.stop();
                         dashboardControllerFar.stop();
+                        SocketManager.getInstance().stop();  // ✅ CAMBIO AQUÍ
                         Service.instance().stop();
                     }
                 });
                 break;
-
-
         }
-
-
 
         window.setSize(1200, 600);
         window.setLocationRelativeTo(null);
