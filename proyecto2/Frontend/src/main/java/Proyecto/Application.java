@@ -149,7 +149,7 @@ public class Application {
 
                 JPanel FarWithUsers = new JPanel(new BorderLayout());
                 FarWithUsers.add(farmaceutaView.getMainPanelFarmaceuta(), BorderLayout.CENTER);
-                MedWithUsers.add(usuariosActivosViewFar.getMainPanel(), BorderLayout.EAST);
+                FarWithUsers.add(usuariosActivosViewFar.getMainPanel(), BorderLayout.EAST);
 
                 JPanel PacWithUsers = new JPanel(new BorderLayout());
                 PacWithUsers.add(pacienteView.getMainPanelPaciente(), BorderLayout.CENTER);

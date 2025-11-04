@@ -96,7 +96,9 @@ public class Server {
 
     private void notifyUserConnected(Usuario usuario) {
         String message = "USER_CONNECTED:" + usuario.getCedula() + ":" + usuario.getNombre() + ":" + usuario.getRol();
-        deliver_message(null, message);
+        for(Worker w:workers){
+            w.deliver_message(message);
+        }
         System.out.println("Notificando conexión: " + message);
     }
 
