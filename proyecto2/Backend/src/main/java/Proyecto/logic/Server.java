@@ -95,11 +95,15 @@ public class Server {
     }
 
     private void notifyUserConnected(Usuario usuario) {
-        deliver_message(null, "USER_CONNECTED:" + usuario.getCedula());
+        String message = "USER_CONNECTED:" + usuario.getCedula() + ":" + usuario.getNombre() + ":" + usuario.getRol();
+        deliver_message(null, message);
+        System.out.println("Notificando conexión: " + message);
     }
 
     private void notifyUserDisconnected(Usuario usuario) {
-        deliver_message(null, "USER_DISCONNECTED:" + usuario.getCedula());
+        String message = "USER_DISCONNECTED:" + usuario.getCedula() + ":" + usuario.getNombre();
+        deliver_message(null, message);
+        System.out.println("Notificando desconexión: " + message);
     }
 
 }
