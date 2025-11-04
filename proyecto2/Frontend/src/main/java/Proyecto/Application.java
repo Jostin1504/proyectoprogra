@@ -74,8 +74,6 @@ public class Application {
         JTabbedPane tabbedPane = new JTabbedPane();
         window.setContentPane(tabbedPane);
         window.setTitle("Recetas - " + Sesion.getUsuario().getCedula() + " (" + Sesion.getUsuario().getRol() + ")");
-
-        // Inicializar controladores según el rol
         Proyecto.Presentation.AcercaDe.View acercaDeView = new Proyecto.Presentation.AcercaDe.View();
 
         switch (Sesion.getUsuario().getRol()) {
@@ -104,40 +102,43 @@ public class Application {
                 Proyecto.Presentation.Historico.View historicoViewAdm = new Proyecto.Presentation.Historico.View();
                 Proyecto.Presentation.Historico.Controller historicoControllerAdm = new Proyecto.Presentation.Historico.Controller(historicoViewAdm, historicoModelAdm);
 
-                Proyecto.Presentation.UsuariosActivos.Model usuariosActivosModelAdm = new Proyecto.Presentation.UsuariosActivos.Model();
-                Proyecto.Presentation.UsuariosActivos.View usuariosActivosViewAdm = new Proyecto.Presentation.UsuariosActivos.View();
-                Proyecto.Presentation.UsuariosActivos.Controller usuariosActivosControllerAdm = new Proyecto.Presentation.UsuariosActivos.Controller(usuariosActivosViewAdm, usuariosActivosModelAdm);
+                Proyecto.Presentation.UsuariosActivos.Model usuariosActivosModelShared =
+                        new Proyecto.Presentation.UsuariosActivos.Model();
 
-                Proyecto.Presentation.UsuariosActivos.Model usuariosActivosModelHistorico = new Proyecto.Presentation.UsuariosActivos.Model();
-                Proyecto.Presentation.UsuariosActivos.View usuariosActivosViewHistorico = new Proyecto.Presentation.UsuariosActivos.View();
-                Proyecto.Presentation.UsuariosActivos.Controller usuariosActivosControllerHistorico = new Proyecto.Presentation.UsuariosActivos.Controller(usuariosActivosViewHistorico, usuariosActivosModelHistorico);
+                Proyecto.Presentation.UsuariosActivos.View usuariosActivosViewHistorico =
+                        new Proyecto.Presentation.UsuariosActivos.View();
+                usuariosActivosViewHistorico.setModel(usuariosActivosModelShared);
+                usuariosActivosModelShared.addPropertyChangeListener(usuariosActivosViewHistorico);
 
-                // Para Médicos
-                Proyecto.Presentation.UsuariosActivos.Model usuariosActivosModelMed = new Proyecto.Presentation.UsuariosActivos.Model();
-                Proyecto.Presentation.UsuariosActivos.View usuariosActivosViewMed = new Proyecto.Presentation.UsuariosActivos.View();
-                Proyecto.Presentation.UsuariosActivos.Controller usuariosActivosControllerMed = new Proyecto.Presentation.UsuariosActivos.Controller(usuariosActivosViewMed, usuariosActivosModelMed);
+                Proyecto.Presentation.UsuariosActivos.View usuariosActivosViewMed =
+                        new Proyecto.Presentation.UsuariosActivos.View();
+                usuariosActivosViewMed.setModel(usuariosActivosModelShared);
+                usuariosActivosModelShared.addPropertyChangeListener(usuariosActivosViewMed);
 
-                // Para Farmaceutas
-                Proyecto.Presentation.UsuariosActivos.Model usuariosActivosModelFar = new Proyecto.Presentation.UsuariosActivos.Model();
-                Proyecto.Presentation.UsuariosActivos.View usuariosActivosViewFar = new Proyecto.Presentation.UsuariosActivos.View();
-                Proyecto.Presentation.UsuariosActivos.Controller usuariosActivosControllerFar = new Proyecto.Presentation.UsuariosActivos.Controller(usuariosActivosViewFar, usuariosActivosModelFar);
+                Proyecto.Presentation.UsuariosActivos.View usuariosActivosViewFar =
+                        new Proyecto.Presentation.UsuariosActivos.View();
+                usuariosActivosViewFar.setModel(usuariosActivosModelShared);
+                usuariosActivosModelShared.addPropertyChangeListener(usuariosActivosViewFar);
 
-                // Para Pacientes
-                Proyecto.Presentation.UsuariosActivos.Model usuariosActivosModelPac = new Proyecto.Presentation.UsuariosActivos.Model();
-                Proyecto.Presentation.UsuariosActivos.View usuariosActivosViewPac = new Proyecto.Presentation.UsuariosActivos.View();
-                Proyecto.Presentation.UsuariosActivos.Controller usuariosActivosControllerPac = new Proyecto.Presentation.UsuariosActivos.Controller(usuariosActivosViewPac, usuariosActivosModelPac);
+                Proyecto.Presentation.UsuariosActivos.View usuariosActivosViewPac =
+                        new Proyecto.Presentation.UsuariosActivos.View();
+                usuariosActivosViewPac.setModel(usuariosActivosModelShared);
+                usuariosActivosModelShared.addPropertyChangeListener(usuariosActivosViewPac);
 
-                // Para Medicamentos
-                Proyecto.Presentation.UsuariosActivos.Model usuariosActivosModelMeds = new Proyecto.Presentation.UsuariosActivos.Model();
                 Proyecto.Presentation.UsuariosActivos.View usuariosActivosViewMeds = new Proyecto.Presentation.UsuariosActivos.View();
-                Proyecto.Presentation.UsuariosActivos.Controller usuariosActivosControllerMeds = new Proyecto.Presentation.UsuariosActivos.Controller(usuariosActivosViewMeds, usuariosActivosModelMeds);
+                usuariosActivosViewMeds.setModel(usuariosActivosModelShared);
+                usuariosActivosModelShared.addPropertyChangeListener(usuariosActivosViewMeds);
 
-                // Para Dashboard
-                Proyecto.Presentation.UsuariosActivos.Model usuariosActivosModelDash = new Proyecto.Presentation.UsuariosActivos.Model();
-                Proyecto.Presentation.UsuariosActivos.View usuariosActivosViewDash = new Proyecto.Presentation.UsuariosActivos.View();
-                Proyecto.Presentation.UsuariosActivos.Controller usuariosActivosControllerDash = new Proyecto.Presentation.UsuariosActivos.Controller(usuariosActivosViewDash, usuariosActivosModelDash);
+                Proyecto.Presentation.UsuariosActivos.View usuariosActivosViewDash =
+                        new Proyecto.Presentation.UsuariosActivos.View();
+                usuariosActivosViewDash.setModel(usuariosActivosModelShared);
+                usuariosActivosModelShared.addPropertyChangeListener(usuariosActivosViewDash);
 
-                // AÑADIR A TABS CON SUS RESPECTIVAS INSTANCIAS
+                Proyecto.Presentation.UsuariosActivos.Controller usuariosActivosController =
+                        new Proyecto.Presentation.UsuariosActivos.Controller(
+                                usuariosActivosViewHistorico, usuariosActivosModelShared);
+
+                // AÑADIR A TABS CON SUS RESPECTIVAS VISTAS
                 JPanel historicoWithUsers = new JPanel(new BorderLayout());
                 historicoWithUsers.add(historicoViewAdm.getMainPanelHistorico(), BorderLayout.CENTER);
                 historicoWithUsers.add(usuariosActivosViewHistorico.getMainPanel(), BorderLayout.EAST);
@@ -148,7 +149,7 @@ public class Application {
 
                 JPanel FarWithUsers = new JPanel(new BorderLayout());
                 FarWithUsers.add(farmaceutaView.getMainPanelFarmaceuta(), BorderLayout.CENTER);
-                FarWithUsers.add(usuariosActivosViewFar.getMainPanel(), BorderLayout.EAST);
+                MedWithUsers.add(usuariosActivosViewFar.getMainPanel(), BorderLayout.EAST);
 
                 JPanel PacWithUsers = new JPanel(new BorderLayout());
                 PacWithUsers.add(pacienteView.getMainPanelPaciente(), BorderLayout.CENTER);
@@ -157,7 +158,6 @@ public class Application {
                 JPanel MedsWithUsers = new JPanel(new BorderLayout());
                 MedsWithUsers.add(medicamentosView.getMainPanelMedicamento(), BorderLayout.CENTER);
                 MedsWithUsers.add(usuariosActivosViewMeds.getMainPanel(), BorderLayout.EAST);
-
 
                 // Añadir tabs
                 tabbedPane.addTab("Histórico", historicoWithUsers);
@@ -171,12 +171,7 @@ public class Application {
                 window.addWindowListener(new WindowAdapter() {
                     @Override
                     public void windowClosing(WindowEvent e) {
-                        usuariosActivosControllerHistorico.stop();
-                        usuariosActivosControllerMed.stop();
-                        usuariosActivosControllerFar.stop();
-                        usuariosActivosControllerPac.stop();
-                        usuariosActivosControllerMeds.stop();
-                        usuariosActivosControllerDash.stop();
+                        usuariosActivosController.stop();
                         dashboardControllerAdm.stop();
                         Service.instance().stop();
                     }
@@ -196,39 +191,50 @@ public class Application {
                 Proyecto.Presentation.Historico.View historicoViewMed = new Proyecto.Presentation.Historico.View();
                 Proyecto.Presentation.Historico.Controller historicoControllerMed = new Proyecto.Presentation.Historico.Controller(historicoViewMed, historicoModelMed);
 
-                Proyecto.Presentation.UsuariosActivos.Model usuariosActivosModelHistoricoMed = new Proyecto.Presentation.UsuariosActivos.Model();
-                Proyecto.Presentation.UsuariosActivos.View usuariosActivosViewHistoricoMed = new Proyecto.Presentation.UsuariosActivos.View();
-                Proyecto.Presentation.UsuariosActivos.Controller usuariosActivosControllerHistoricoMed = new Proyecto.Presentation.UsuariosActivos.Controller(usuariosActivosViewHistoricoMed, usuariosActivosModelHistoricoMed);
+                Proyecto.Presentation.UsuariosActivos.Model usuariosActivosModelSharedMed =
+                        new Proyecto.Presentation.UsuariosActivos.Model();
 
+                // VISTA PARA HISTÓRICO
+                Proyecto.Presentation.UsuariosActivos.View usuariosActivosViewHistoricoMed =
+                        new Proyecto.Presentation.UsuariosActivos.View();
+                usuariosActivosViewHistoricoMed.setModel(usuariosActivosModelSharedMed);
+                usuariosActivosModelSharedMed.addPropertyChangeListener(usuariosActivosViewHistoricoMed);
+
+                // VISTA PARA PRESCRIPCIÓN
+                Proyecto.Presentation.UsuariosActivos.View usuariosActivosViewPresMed =
+                        new Proyecto.Presentation.UsuariosActivos.View();
+                usuariosActivosViewPresMed.setModel(usuariosActivosModelSharedMed);
+                usuariosActivosModelSharedMed.addPropertyChangeListener(usuariosActivosViewPresMed);
+
+                // UN SOLO CONTROLLER
+                Proyecto.Presentation.UsuariosActivos.Controller usuariosActivosControllerMed =
+                        new Proyecto.Presentation.UsuariosActivos.Controller(
+                                usuariosActivosViewHistoricoMed, usuariosActivosModelSharedMed);
+
+                // Añadir paneles
                 JPanel historicoWithUsersMed = new JPanel(new BorderLayout());
                 historicoWithUsersMed.add(historicoViewMed.getMainPanelHistorico(), BorderLayout.CENTER);
                 historicoWithUsersMed.add(usuariosActivosViewHistoricoMed.getMainPanel(), BorderLayout.EAST);
-
-                tabbedPane.addTab("Histórico", historicoWithUsersMed);
-
-                Proyecto.Presentation.UsuariosActivos.Model usuariosActivosModelPresMed = new Proyecto.Presentation.UsuariosActivos.Model();
-                Proyecto.Presentation.UsuariosActivos.View usuariosActivosViewPresMed = new Proyecto.Presentation.UsuariosActivos.View();
-                Proyecto.Presentation.UsuariosActivos.Controller usuariosActivosControllerPresMed = new Proyecto.Presentation.UsuariosActivos.Controller(usuariosActivosViewPresMed, usuariosActivosModelPresMed);
 
                 JPanel presWithUsersMed = new JPanel(new BorderLayout());
                 presWithUsersMed.add(prescripcionView.getMainPanelPrescripcion(), BorderLayout.CENTER);
                 presWithUsersMed.add(usuariosActivosViewPresMed.getMainPanel(), BorderLayout.EAST);
 
+                tabbedPane.addTab("Histórico", historicoWithUsersMed);
                 tabbedPane.addTab("Prescribir", presWithUsersMed);
-
                 tabbedPane.addTab("Dashboard", dashboardViewMed.getMainPanelDashboard());
                 tabbedPane.addTab("Acerca de...", acercaDeView.getMainPanelAcercaDe());
 
                 window.addWindowListener(new WindowAdapter() {
                     @Override
                     public void windowClosing(WindowEvent e) {
-                        usuariosActivosControllerHistoricoMed.stop();
-                        usuariosActivosControllerPresMed.stop();
+                        usuariosActivosControllerMed.stop();
                         dashboardControllerMed.stop();
                         Service.instance().stop();
                     }
                 });
                 break;
+
 
             case "FAR":
                 Proyecto.Presentation.Despacho.Model despachoModel = new Proyecto.Presentation.Despacho.Model();
@@ -243,34 +249,57 @@ public class Application {
                 Proyecto.Presentation.Historico.View historicoViewFar = new Proyecto.Presentation.Historico.View();
                 Proyecto.Presentation.Historico.Controller historicoControllerFar = new Proyecto.Presentation.Historico.Controller(historicoViewFar, historicoModelFar);
 
-                Proyecto.Presentation.UsuariosActivos.Model usuariosActivosModelHistoricoFar = new Proyecto.Presentation.UsuariosActivos.Model();
-                Proyecto.Presentation.UsuariosActivos.View usuariosActivosViewHistoricoFar = new Proyecto.Presentation.UsuariosActivos.View();
-                Proyecto.Presentation.UsuariosActivos.Controller usuariosActivosControllerHistoricoFar = new Proyecto.Presentation.UsuariosActivos.Controller(usuariosActivosViewHistoricoFar, usuariosActivosModelHistoricoFar);
+                // ✅ CREAR UN SOLO MODELO COMPARTIDO DE USUARIOS ACTIVOS
+                Proyecto.Presentation.UsuariosActivos.Model usuariosActivosModelSharedFar =
+                        new Proyecto.Presentation.UsuariosActivos.Model();
 
+                // ✅ VISTA PARA HISTÓRICO
+                Proyecto.Presentation.UsuariosActivos.View usuariosActivosViewHistoricoFar =
+                        new Proyecto.Presentation.UsuariosActivos.View();
+                usuariosActivosViewHistoricoFar.setModel(usuariosActivosModelSharedFar);
+                usuariosActivosModelSharedFar.addPropertyChangeListener(usuariosActivosViewHistoricoFar);
+
+                // ✅ VISTA PARA DESPACHO
+                Proyecto.Presentation.UsuariosActivos.View usuariosActivosViewDesFar =
+                        new Proyecto.Presentation.UsuariosActivos.View();
+                usuariosActivosViewDesFar.setModel(usuariosActivosModelSharedFar);
+                usuariosActivosModelSharedFar.addPropertyChangeListener(usuariosActivosViewDesFar);
+
+                // ✅ VISTA PARA DASHBOARD (OPCIONAL)
+                Proyecto.Presentation.UsuariosActivos.View usuariosActivosViewDashFar =
+                        new Proyecto.Presentation.UsuariosActivos.View();
+                usuariosActivosViewDashFar.setModel(usuariosActivosModelSharedFar);
+                usuariosActivosModelSharedFar.addPropertyChangeListener(usuariosActivosViewDashFar);
+
+                // ✅ UN SOLO CONTROLLER CON UN SOLO SOCKETLISTENER
+                Proyecto.Presentation.UsuariosActivos.Controller usuariosActivosControllerFar =
+                        new Proyecto.Presentation.UsuariosActivos.Controller(
+                                usuariosActivosViewHistoricoFar, usuariosActivosModelSharedFar);
+
+                // CREAR PANELES COMBINADOS
                 JPanel historicoWithUsersFar = new JPanel(new BorderLayout());
                 historicoWithUsersFar.add(historicoViewFar.getMainPanelHistorico(), BorderLayout.CENTER);
                 historicoWithUsersFar.add(usuariosActivosViewHistoricoFar.getMainPanel(), BorderLayout.EAST);
-
-                tabbedPane.addTab("Histórico", historicoWithUsersFar);
-
-                Proyecto.Presentation.UsuariosActivos.Model usuariosActivosModelDesFar = new Proyecto.Presentation.UsuariosActivos.Model();
-                Proyecto.Presentation.UsuariosActivos.View usuariosActivosViewDesFar = new Proyecto.Presentation.UsuariosActivos.View();
-                Proyecto.Presentation.UsuariosActivos.Controller usuariosActivosControllerDesFar = new Proyecto.Presentation.UsuariosActivos.Controller(usuariosActivosViewDesFar, usuariosActivosModelDesFar);
 
                 JPanel desWithUsersFar = new JPanel(new BorderLayout());
                 desWithUsersFar.add(despachoView.getMainPanelDespacho(), BorderLayout.CENTER);
                 desWithUsersFar.add(usuariosActivosViewDesFar.getMainPanel(), BorderLayout.EAST);
 
-                tabbedPane.addTab("Despacho", desWithUsersFar);
+                JPanel DashWithUsersFar = new JPanel(new BorderLayout());
+                DashWithUsersFar.add(dashboardViewFar.getMainPanelDashboard(), BorderLayout.CENTER);
+                DashWithUsersFar.add(usuariosActivosViewDashFar.getMainPanel(), BorderLayout.EAST);
 
-                tabbedPane.addTab("Dashboard", dashboardViewFar.getMainPanelDashboard());
+                // AÑADIR TABS
+                tabbedPane.addTab("Histórico", historicoWithUsersFar);
+                tabbedPane.addTab("Despacho", desWithUsersFar);
+                tabbedPane.addTab("Dashboard", DashWithUsersFar);
                 tabbedPane.addTab("Acerca de...", acercaDeView.getMainPanelAcercaDe());
 
                 window.addWindowListener(new WindowAdapter() {
                     @Override
                     public void windowClosing(WindowEvent e) {
-                        usuariosActivosControllerHistoricoFar.stop();
-                        usuariosActivosControllerDesFar.stop();
+                        usuariosActivosControllerFar.stop();
+                        despachoController.stop();
                         dashboardControllerFar.stop();
                         Service.instance().stop();
                     }
