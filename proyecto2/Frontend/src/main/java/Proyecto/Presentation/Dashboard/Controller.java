@@ -41,16 +41,12 @@ public class Controller implements ThreadListener{
     }
 
     private void configurarEventos() {
-        // button1: Agregar medicamento seleccionado de comboBox5
         view.getButton1().addActionListener(e -> agregarMedicamentoSeleccionado());
 
-        // button2: Agregar todos los medicamentos
         view.getButton2().addActionListener(e -> agregarTodosMedicamentos());
 
-        // button3: Remover medicamento seleccionado de la tabla
         view.getButton3().addActionListener(e -> removerMedicamentoSeleccionado());
 
-        // button4: Actualizar gráficos
         view.getButton4().addActionListener(e -> actualizarGraficos());
     }
 
@@ -59,11 +55,8 @@ public class Controller implements ThreadListener{
         SwingWorker<Void, Void> worker = new SwingWorker<>() {
             @Override
             protected Void doInBackground() throws Exception {
-                // Cargar medicamentos
                 List<Medicamento> medicamentos = Service.instance().getMedicamentos();
                 model.setMedicamentos(medicamentos);
-
-                // Cargar recetas
                 List<Receta> recetas = Service.instance().buscarTodasRecetas();
                 model.setTodasLasRecetas(recetas);
 
@@ -75,7 +68,7 @@ public class Controller implements ThreadListener{
                 try {
                     get();
                     inicializarComboBoxMedicamentos();
-                    actualizarGraficos(); // Generar gráficos iniciales
+                    actualizarGraficos();
                 } catch (Exception e) {
                     JOptionPane.showMessageDialog(
                             view.getMainPanelDashboard(),
@@ -94,6 +87,9 @@ public class Controller implements ThreadListener{
     @Override
     public void deliver_message(String message) {
         SwingUtilities.invokeLater(() -> {
+            if (message.startsWith("USER_CONNECTED:") || message.startsWith("USER_DISCONNECTED:")) {
+                return;
+            }
             try {
                 inicializarDatos();
                 System.out.println("Dashboard actualizado: " + message);

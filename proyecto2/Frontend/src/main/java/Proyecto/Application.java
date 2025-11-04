@@ -1,6 +1,8 @@
 package Proyecto;
 
 import javax.swing.border.Border;
+
+import Proyecto.Presentation.UsuariosActivos.Controller;
 import Proyecto.logic.Service;
 import Proyecto.logic.*;
 import Proyecto.Presentation.Sesion;
@@ -14,7 +16,6 @@ public class Application {
     public static void main(String[] args) {
         System.out.println("Iniciando aplicación...");
 
-        // Ejecutar en el Event Dispatch Thread
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
@@ -54,7 +55,6 @@ public class Application {
         Proyecto.Presentation.Login.Model loginModel = new Proyecto.Presentation.Login.Model();
         Proyecto.Presentation.Login.Controller loginController = new Proyecto.Presentation.Login.Controller(loginView, loginModel);
 
-        // Agregar listener para cerrar la aplicación si se cierra el login sin autenticarse
         loginView.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
@@ -78,7 +78,7 @@ public class Application {
         // Inicializar controladores según el rol
         Proyecto.Presentation.AcercaDe.View acercaDeView = new Proyecto.Presentation.AcercaDe.View();
 
-        switch (Sesion.getUsuario().getRol()){
+        switch (Sesion.getUsuario().getRol()) {
             case "ADM":
                 Proyecto.Presentation.Medico.Model medicoModel = new Proyecto.Presentation.Medico.Model();
                 Proyecto.Presentation.Medico.View medicoView = new Proyecto.Presentation.Medico.View();
@@ -104,17 +104,58 @@ public class Application {
                 Proyecto.Presentation.Historico.View historicoViewAdm = new Proyecto.Presentation.Historico.View();
                 Proyecto.Presentation.Historico.Controller historicoControllerAdm = new Proyecto.Presentation.Historico.Controller(historicoViewAdm, historicoModelAdm);
 
-                tabbedPane.addTab("Histórico", historicoViewAdm.getMainPanelHistorico());
-                tabbedPane.addTab("Medicos", medicoView.getMainPanelMedico());
-                tabbedPane.addTab("Farmaceutas", farmaceutaView.getMainPanelFarmaceuta());
-                tabbedPane.addTab("Pacientes", pacienteView.getMainPanelPaciente());
-                tabbedPane.addTab("Medicamentos", medicamentosView.getMainPanelMedicamento());
-                tabbedPane.addTab("Dashboard", dashboardViewAdm.getMainPanelDashboard());
+                Proyecto.Presentation.UsuariosActivos.Model usuariosActivosModelAdm = new Proyecto.Presentation.UsuariosActivos.Model();
+                Proyecto.Presentation.UsuariosActivos.View usuariosActivosViewAdm = new Proyecto.Presentation.UsuariosActivos.View();
+                Proyecto.Presentation.UsuariosActivos.Controller usuariosActivosControllerAdm = new Proyecto.Presentation.UsuariosActivos.Controller(usuariosActivosViewAdm, usuariosActivosModelAdm);
+
+                JPanel historicoWithUsers = new JPanel(new BorderLayout());
+                historicoWithUsers.add(historicoViewAdm.getMainPanelHistorico(), BorderLayout.CENTER);
+                historicoWithUsers.add(usuariosActivosViewAdm.getMainPanel(), BorderLayout.EAST);
+
+                tabbedPane.addTab("Histórico", historicoWithUsers);
+
+                JPanel MedWithUsers = new JPanel(new BorderLayout());
+                MedWithUsers.add(medicoView.getMainPanelMedico(), BorderLayout.CENTER);
+                MedWithUsers.add(usuariosActivosViewAdm.getMainPanel(), BorderLayout.EAST);
+
+                tabbedPane.addTab("Medicos", MedWithUsers);
+
+                JPanel FarWithUsers = new JPanel(new BorderLayout());
+                FarWithUsers.add(farmaceutaView.getMainPanelFarmaceuta(), BorderLayout.CENTER);
+                FarWithUsers.add(usuariosActivosViewAdm.getMainPanel(), BorderLayout.EAST);
+
+                tabbedPane.addTab("Farmaceutas", FarWithUsers);
+
+                JPanel PacWithUsers = new JPanel(new BorderLayout());
+                PacWithUsers.add(pacienteView.getMainPanelPaciente(), BorderLayout.CENTER);
+                PacWithUsers.add(usuariosActivosViewAdm.getMainPanel(), BorderLayout.EAST);
+
+                tabbedPane.addTab("Pacientes", PacWithUsers);
+
+                JPanel MedsWithUsers = new JPanel(new BorderLayout());
+                MedsWithUsers.add(medicamentosView.getMainPanelMedicamento(), BorderLayout.CENTER);
+                MedsWithUsers.add(usuariosActivosViewAdm.getMainPanel(), BorderLayout.EAST);
+
+                tabbedPane.addTab("Medicamentos", MedsWithUsers);
+
+                JPanel DashWithUsers = new JPanel(new BorderLayout());
+                DashWithUsers.add(dashboardViewAdm.getMainPanelDashboard(), BorderLayout.CENTER);
+                DashWithUsers.add(usuariosActivosViewAdm.getMainPanel(), BorderLayout.EAST);
+
+                tabbedPane.addTab("Dashboard", DashWithUsers);
+
+                //tabbedPane.addTab("Histórico", historicoViewAdm.getMainPanelHistorico());
+                //tabbedPane.addTab("Medicos", medicoView.getMainPanelMedico());
+                //tabbedPane.addTab("Farmaceutas", farmaceutaView.getMainPanelFarmaceuta());
+                //tabbedPane.addTab("Pacientes", pacienteView.getMainPanelPaciente());
+                //tabbedPane.addTab("Medicamentos", medicamentosView.getMainPanelMedicamento());
+                //tabbedPane.addTab("Dashboard", dashboardViewAdm.getMainPanelDashboard());
                 tabbedPane.addTab("Acerca de...", acercaDeView.getMainPanelAcercaDe());
 
                 window.addWindowListener(new WindowAdapter() {
                     @Override
                     public void windowClosing(WindowEvent e) {
+                        usuariosActivosControllerAdm.stop();
                         dashboardControllerAdm.stop();
                         Service.instance().stop();
                     }
@@ -175,7 +216,11 @@ public class Application {
                     }
                 });
                 break;
+
+
         }
+
+
 
         window.setSize(1200, 600);
         window.setLocationRelativeTo(null);

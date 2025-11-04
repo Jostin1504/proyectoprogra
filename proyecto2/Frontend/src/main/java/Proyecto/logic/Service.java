@@ -87,6 +87,15 @@ public class Service {
         else throw new Exception("Error al actualizar receta");
     }
 
+    public synchronized List<Usuario> getActiveUsers() throws Exception {
+        os.writeInt(Protocol.GET_ACTIVE_USERS);
+        os.flush();
+        if (is.readInt() == Protocol.ERROR_NO_ERROR) {
+            return (List<Usuario>) is.readObject();
+        }
+        else throw new Exception("Error al obtener usuarios activos");
+    }
+
     public synchronized void eliminarReceta(int id) throws Exception {
         os.writeInt(Protocol.RECETA_DELETE);
         os.writeInt(id);

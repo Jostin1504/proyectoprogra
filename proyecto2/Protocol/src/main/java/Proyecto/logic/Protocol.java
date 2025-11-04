@@ -49,6 +49,11 @@ public class Protocol {
     public static final int FARMACEUTA_FIND_ALL = 411;
     public static final int FARMACEUTA_FIND_BY_NOMBRE = 412;
 
+    //Usuarios activos
+    public static final int GET_ACTIVE_USERS = 501;
+    public static final int NOTIFY_USER_CONNECTED = 502;
+    public static final int NOTIFY_USER_DISCONNECTED = 503;
+
     // Errores
     public static final int ERROR_NO_ERROR = 0;
     public static final int ERROR_ERROR = 1;

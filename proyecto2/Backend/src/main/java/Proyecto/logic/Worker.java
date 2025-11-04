@@ -50,6 +50,7 @@ public class Worker {
 
     public void stop() {
         continuar = false;
+        srv.removeActiveUser(sid);
         System.out.println("Conexion cerrada...");
     }
 
@@ -91,6 +92,15 @@ public class Worker {
                         } catch (Exception ex) {
                             System.err.println("Error al actualizar receta: " + ex.getMessage());
                             ex.printStackTrace();
+                            os.writeInt(Protocol.ERROR_ERROR);
+                        }
+                        break;
+                    case Protocol.GET_ACTIVE_USERS:
+                        try {
+                            List<Usuario> activeUsers = srv.getActiveUsers();
+                            os.writeInt(Protocol.ERROR_NO_ERROR);
+                            os.writeObject(activeUsers);
+                        } catch (Exception ex) {
                             os.writeInt(Protocol.ERROR_ERROR);
                         }
                         break;
@@ -276,6 +286,7 @@ public class Worker {
                             if (resultado != null && resultado.getClave().equals(u.getClave())) {
                                 os.writeInt(Protocol.ERROR_NO_ERROR);
                                 os.writeObject(resultado);
+                                srv.addActiveUser(sid, resultado);
                             } else {
                                 os.writeInt(Protocol.ERROR_ERROR);
                                 os.writeObject("Usuario o contraseña incorrectos");

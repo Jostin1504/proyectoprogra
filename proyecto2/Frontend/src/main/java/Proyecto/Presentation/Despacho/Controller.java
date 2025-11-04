@@ -1,7 +1,6 @@
 package Proyecto.Presentation.Despacho;
 
-import Proyecto.Presentation.ThreadListener;
-import Proyecto.Presentation.SocketListener;
+import Proyecto.Presentation.*;
 import javax.swing.SwingUtilities;
 import Proyecto.logic.*;
 import java.util.List;
@@ -51,10 +50,12 @@ public class Controller implements ThreadListener {
     @Override
     public void deliver_message(String message) {
         SwingUtilities.invokeLater(() -> {
+            if (message.startsWith("USER_CONNECTED:") || message.startsWith("USER_DISCONNECTED:")) {
+                return;
+            }
             if (model.getCurrent() != null && model.getCurrent().getId() != null) {
                 try {
                     buscarPaciente(model.getCurrent().getId());
-                    System.out.println("Despacho actualizado: " + message);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

@@ -6,14 +6,15 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class Server {
     ServerSocket ss;
     List<Worker> workers;
+    Map<String, Usuario> usuariosActivos;
+
     public Server() {
+        usuariosActivos = Collections.synchronizedMap(new HashMap<>());
         try {
             ss = new ServerSocket(Protocol.PORT);
             workers = Collections.synchronizedList(new ArrayList<Worker>());
@@ -70,10 +71,35 @@ public class Server {
             }
         }
     }
+
+    public void addActiveUser(String sid, Usuario usuario) {
+        usuariosActivos.put(sid, usuario);
+        notifyUserConnected(usuario);
+    }
+
     public void deliver_message(Worker from, String message){
         for(Worker w:workers){
             if (w!=from) w.deliver_message(message);
         }
+    }
+
+    public void removeActiveUser(String sid) {
+        Usuario usuario = usuariosActivos.remove(sid);
+        if (usuario != null) {
+            notifyUserDisconnected(usuario);
+        }
+    }
+
+    public List<Usuario> getActiveUsers() {
+        return new ArrayList<>(usuariosActivos.values());
+    }
+
+    private void notifyUserConnected(Usuario usuario) {
+        deliver_message(null, "USER_CONNECTED:" + usuario.getCedula());
+    }
+
+    private void notifyUserDisconnected(Usuario usuario) {
+        deliver_message(null, "USER_DISCONNECTED:" + usuario.getCedula());
     }
 
 }
